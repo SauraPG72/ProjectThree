@@ -13,7 +13,7 @@ CREATE TABLE families(
 CREATE TABLE parents(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255),
-	family_name INT REFERENCES families(id),
+	family_id INT REFERENCES families(id),
 	login_name VARCHAR(255),
 	password_hash VARCHAR(255)
 );
@@ -21,7 +21,7 @@ CREATE TABLE parents(
 CREATE TABLE kids(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255),
-	family_name INT REFERENCES families(id),
+	family_id INT REFERENCES families(id),
 	login_name VARCHAR(255),
 	password_hash VARCHAR(255),
 	total_points INT,
@@ -31,18 +31,20 @@ CREATE TABLE kids(
 CREATE TABLE tasks(
 	id SERIAL PRIMARY KEY,
 	description TEXT,
-	kid INT REFERENCES kids(id),
+	kid_id INT REFERENCES kids(id),
 	status VARCHAR(255),
-	points VARCHAR(255),
+	points INT,
+	cents INT,
 	expiry_date TIMESTAMP,
 	category VARCHAR(255)
 );
 
 CREATE TABLE goals(
 	id SERIAL PRIMARY KEY,
-	kid INT REFERENCES kids(id),
+	kid_id INT REFERENCES kids(id),
+	description TEXT,
 	cents INT,
 	points INT,
 	allocated_cents INT,
-	allocated_points INT,
+	allocated_points INT
 );
