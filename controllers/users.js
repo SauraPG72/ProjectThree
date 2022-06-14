@@ -9,7 +9,7 @@ function generateHash(password) {
 }
 
 
-router.post(`/api/parentsign`, (req, res) => {
+router.post(`/`, (req, res) => {
     console.log(req.body)
     let login = req.body.login
     let family = req.body.family

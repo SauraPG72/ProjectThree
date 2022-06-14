@@ -7,7 +7,7 @@ form.addEventListener('submit', event => {
         login: formData.get('login'),
         password: formData.get('password')
     }
-    axios.post('/api/session/parent', data).then((response) => {
+    axios.post('/api/session/', data).then((response) => {
         console.log(response);
         window.location = '/'
     }).catch((err) => {
@@ -32,7 +32,7 @@ signUpButton.addEventListener('submit', (event) => {
     }
     if (data.pw == data.pw2 && data.family && data.login && data.parent) {
     console.log(data)
-    axios.post('/api/parentsign', data).then((response) => {
+    axios.post('/api/users', data).then((response) => {
         console.log(response)
         if (response.status == 200) {
             let messageBox = document.getElementById('errors2'); 

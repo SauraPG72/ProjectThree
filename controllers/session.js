@@ -8,7 +8,7 @@ function isValidPassword(plainTextPassword, passwordHash) {
     return bcrypt.compareSync(plainTextPassword, passwordHash)
 }
 
-router.post('/api/session/parent', (req, res) => {
+router.post('/', (req, res) => {
     // get login and pw from the body of the request 
     const { login, password } = req.body
     //check the login and pw with the DB and set the session 
@@ -32,13 +32,13 @@ router.post('/api/session/parent', (req, res) => {
     console.log(password)
 })
 
-router.get('/api/session', (req, res) => {
+router.get('/', (req, res) => {
         res.json(req.session)
     }
 
 )
 
-router.delete('/api/session', (req, res) => {
+router.delete('/', (req, res) => {
     req.session.destroy()
     res.json({success: true})
 })

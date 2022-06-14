@@ -25,8 +25,8 @@ app.use(expressSession({
 const usersControls = require('./controllers/users')
 const sessionControls = require('./controllers/session')
 
-app.use('/', usersControls);
-app.use('/', sessionControls);
+app.use('/api/users', usersControls);
+app.use('/api/session', sessionControls);
 
 // 
 
