@@ -4,7 +4,7 @@ const port = 3000;
 const db = require("./db/db")
 const expressSession = require('express-session')
 const pgSession = require('connect-pg-simple')(expressSession);
-
+require('dotenv').config()
 app.use(express.static('client'))
 app.use(express.json())
 
@@ -22,7 +22,11 @@ app.use(expressSession({
 }))
 
 // Write code here
+const usersControls = require('./controllers/users')
+const sessionControls = require('./controllers/session')
 
+app.use('/', usersControls);
+app.use('/', sessionControls);
 
 // 
 

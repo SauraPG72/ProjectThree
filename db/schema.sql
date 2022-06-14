@@ -1,27 +1,20 @@
-DROP TABLE IF EXISTS families CASCADE;
-DROP TABLE IF EXISTS parents;
+DROP TABLE IF EXISTS parents CASCADE;
 DROP TABLE IF EXISTS kids CASCADE;
 DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS points;
 DROP TABLE IF EXISTS goals;
-
-CREATE TABLE families(
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(255)
-);
 
 CREATE TABLE parents(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255),
-	family_id INT REFERENCES families(id),
 	login_name VARCHAR(255),
-	password_hash VARCHAR(255)
+	password_hash VARCHAR(255),
+	family_name TEXT NOT NULL
 );
 
 CREATE TABLE kids(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255),
-	family_id INT REFERENCES families(id),
+	parent_id INT REFERENCES parents(id),
 	login_name VARCHAR(255),
 	password_hash VARCHAR(255),
 	total_points INT,

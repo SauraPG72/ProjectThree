@@ -18,5 +18,6 @@ $ psql -d divita < db/seed.sql
 ```
 $ npm install 
 $ npm start
+$ nom runthedb
 
 ```
