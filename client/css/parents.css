@@ -34,7 +34,7 @@
 
 .item {
   border-radius: 8px;
-  padding: 0 8px;
+  padding: 0 1em;
   display: flex;
   justify-content: space-between;
 }
@@ -43,4 +43,11 @@
   font-size: 30px;
 }
 
+.kidsName {
+  font-weight: bold;
+}
+
 /* =========== tally ============== */
+.tally {
+  background-color: #58d7ff;
+}

@@ -28,19 +28,19 @@ export function renderTally() {
 
           const money = createAnElement("p", {
             className: "money",
-            textContent: kid.total_cents,
+            textContent: `$ ${kid.total_cents / 10}`,
           });
 
           const points = createAnElement("p", {
             className: "points",
-            textContent: kid.total_points,
+            textContent: `${kid.total_points} pts`,
           });
           const tally = createAnElement(
             "div",
             {
               className: "tally item",
             },
-            [name, money, points]
+            [name, points, money]
           );
           tallyContainer.appendChild(tally);
         });
