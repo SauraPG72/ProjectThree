@@ -1,7 +1,7 @@
-const pg = require("pg");
+const pg = require('pg');
 
 const db = new pg.Pool({
-    database: 'divita'
-})
+  database: 'divita',
+});
 
-module.exports = db
+module.exports = db;
