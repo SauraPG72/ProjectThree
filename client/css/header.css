@@ -15,4 +15,5 @@
   border: none;
   background-color: #9d9d9d;
   cursor: pointer;
+  justify-content: space-around;
 }
