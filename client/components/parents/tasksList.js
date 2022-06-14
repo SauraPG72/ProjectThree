@@ -55,10 +55,20 @@ export function tasksList() {
         });
 
         // to show each kid's name above tasks container
-        const nameArea = createAnElement("p", {
+        const name = createAnElement("p", {
           className: "kids-name-for-tasklist",
           textContent: kidName,
         });
+        const addIcon = createAnElement("i", {
+          className: "fas fa-plus task-add-icon",
+        });
+        const nameArea = createAnElement(
+          "div",
+          {
+            className: "nameArea",
+          },
+          [name, addIcon]
+        );
         tasksWrapper.appendChild(nameArea);
 
         // create tasks elements for all the kids
