@@ -28,7 +28,7 @@ export function renderTally() {
 
           const money = createAnElement("p", {
             className: "money",
-            textContent: `$ ${kid.total_cents / 10}`,
+            textContent: `$ ${kid.total_cents / 100}`,
           });
 
           const points = createAnElement("p", {
