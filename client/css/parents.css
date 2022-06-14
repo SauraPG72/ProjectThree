@@ -1,0 +1,46 @@
+#parentsPageWrapper {
+  width: 95%;
+  margin: auto;
+  min-height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+#tally-wrapper {
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+
+#taskReport-wrapper {
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+
+#tasks-wrapper {
+  grid-row: 1/3;
+  grid-column: 2/3;
+}
+
+.wrapper {
+  padding: 0 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  border-radius: 8px;
+  padding: 0 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 30px;
+}
+
+/* =========== tally ============== */

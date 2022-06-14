@@ -1,5 +1,6 @@
 // import axios from "axios";
-import { renderHeader } from './components/header.js';
+import { renderHeader } from "./components/header.js";
+import { renderParentsPage } from "./components/parents/parentsPage.js";
 
 //axios.get('/api/session').then((response) => {
 //  // TODO: Set user data to the store
@@ -8,8 +9,12 @@ import { renderHeader } from './components/header.js';
 renderPage();
 //});
 
+const app = document.getElementById("app");
+
 function renderPage() {
   // TODO: add function to render header and other components
-  console.log('header rendered');
+  console.log("header rendered");
   renderHeader();
+  // for parents
+  renderParentsPage();
 }
