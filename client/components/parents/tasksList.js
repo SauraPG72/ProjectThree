@@ -1,5 +1,5 @@
-import { createAnElement } from "../../utils/elementCreator.js";
-import { store } from "../../utils/store.js";
+import { createAnElement } from '../../utils/elementCreator.js';
+import { store } from '../../utils/store.js';
 
 export function tasksList() {
   return new Promise((resolve, reject) => {
@@ -9,18 +9,18 @@ export function tasksList() {
     };
 
     // response : tasks data of all the kids related to that user id (array)
-    axios.post("/api/parents/taskslist", data).then((res) => {
+    axios.post('/api/parents/taskslist', data).then((res) => {
       const tasksList = res.data.tasksList;
 
       // task list area wrapper ( return this later )
-      const tasksWrapper = createAnElement("div", {
-        id: "tasks-wrapper",
-        className: "wrapper",
+      const tasksWrapper = createAnElement('div', {
+        id: 'tasks-wrapper',
+        className: 'wrapper',
       });
       // "TASKS THIS WEEK" title
-      const title = createAnElement("p", {
-        textContent: "TASKS THIS WEEK",
-        className: "title",
+      const title = createAnElement('p', {
+        textContent: 'TASKS THIS WEEK',
+        className: 'title',
       });
 
       tasksWrapper.appendChild(title);
@@ -50,22 +50,22 @@ export function tasksList() {
       // Loop over the "kids : [tasks]" object
       Object.keys(kidsTasksObj).forEach((kidName) => {
         // this container is to wrap task elements later
-        const tasksListContainer = createAnElement("div", {
-          className: "container",
+        const tasksListContainer = createAnElement('div', {
+          className: 'container',
         });
 
         // to show each kid's name above tasks container
-        const name = createAnElement("p", {
-          className: "kids-name-for-tasklist",
+        const name = createAnElement('p', {
+          className: 'kids-name-for-tasklist',
           textContent: kidName,
         });
-        const addIcon = createAnElement("i", {
-          className: "fas fa-plus task-add-icon",
+        const addIcon = createAnElement('i', {
+          className: 'fas fa-plus task-add-icon',
         });
         const nameArea = createAnElement(
-          "div",
+          'div',
           {
-            className: "nameArea",
+            className: 'nameArea',
           },
           [name, addIcon]
         );
@@ -88,18 +88,18 @@ export function tasksList() {
 
 function createTaskElement(task) {
   if (task.cents) {
-    const description = createAnElement("p", {
-      className: "taskDescription",
+    const description = createAnElement('p', {
+      className: 'taskDescription',
       textContent: task.description,
     });
-    const money = createAnElement("p", {
-      className: "money",
+    const money = createAnElement('p', {
+      className: 'money',
       textContent: `$ ${task.cents / 100}`,
     });
     const taskElement = createAnElement(
-      "div",
+      'div',
       {
-        className: "task item",
+        className: 'task item',
       },
       [description, money]
     );
@@ -107,18 +107,18 @@ function createTaskElement(task) {
   }
 
   if (task.points) {
-    const description = createAnElement("p", {
-      className: "taskDescription",
+    const description = createAnElement('p', {
+      className: 'taskDescription',
       textContent: task.description,
     });
-    const points = createAnElement("p", {
-      className: "points",
+    const points = createAnElement('p', {
+      className: 'points',
       textContent: `${task.points} pts`,
     });
     const taskElement = createAnElement(
-      "div",
+      'div',
       {
-        className: "task item",
+        className: 'task item',
       },
       [description, points]
     );

@@ -1,6 +1,6 @@
-const store = {
+export const store = {
   loggedIn: false,
-  familyId: null,
+  type: '',
   userId: null,
   name: '',
   family: '',
