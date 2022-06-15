@@ -38,6 +38,7 @@ export function createTaskPage(childInfoObj) {
     className: "form",
     type: "submit",
   });
+
   const kidIdHiddenInput = createAnElement("input", {
     name: "kid_id",
     value: childInfoObj["id"],
@@ -108,7 +109,6 @@ function postTask(form) {
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
-
     console.log(jsonForm);
   } else {
     const jsonForm = {
@@ -120,20 +120,32 @@ function postTask(form) {
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
-
     console.log(jsonForm);
   }
+
+  // post data to the server
+  axios.post("/api/parents/");
 }
 
 // ============= functions to create form tags =============
 
 function createInputTag(placeholder) {
-  const inputTag = createAnElement("input", {
-    placeholder: placeholder,
-    className: "input",
-    name: placeholder,
-  });
-  return inputTag;
+  if (placeholder === "Expiry Date") {
+    const inputTag = createAnElement("input", {
+      placeholder: placeholder,
+      className: "input",
+      name: placeholder,
+      type: "date",
+    });
+    return inputTag;
+  } else {
+    const inputTag = createAnElement("input", {
+      placeholder: placeholder,
+      className: "input",
+      name: placeholder,
+    });
+    return inputTag;
+  }
 }
 
 function createRewardTag(placeholder) {

@@ -1,61 +1,60 @@
-import { createAnElement } from '../../utils/elementCreator.js';
-import { store } from '../../utils/store.js';
+import { createAnElement } from "../../utils/elementCreator.js";
+import { store } from "../../utils/store.js";
 
 export function renderTally() {
   return new Promise((resolve, reject) => {
     // take user id out of Store and send it to the server
     // response : all the kids data related to that user id (array)
-    const data = {
-      user_id: store.userId,
-    };
+    const user_id = store.userId;
+
     axios
-      .post('/api/parents/tally', data)
+      .get(`/api/parents/tally/${user_id}`)
       .then((res) => {
         const kidsData = res.data.kidsData; // array
 
         // this container is for tally elements later
-        const tallyContainer = createAnElement('div', {
-          className: 'container',
+        const tallyContainer = createAnElement("div", {
+          className: "container",
         });
 
         // loop over all the kids and create tally elements for them
         // then add them in the container created above
         kidsData.forEach((kid) => {
-          const name = createAnElement('p', {
-            className: 'kidsName',
+          const name = createAnElement("p", {
+            className: "kidsName",
             textContent: kid.name,
           });
 
-          const money = createAnElement('p', {
-            className: 'money',
+          const money = createAnElement("p", {
+            className: "money",
             textContent: `$ ${kid.total_cents / 100}`,
           });
 
-          const points = createAnElement('p', {
-            className: 'points',
+          const points = createAnElement("p", {
+            className: "points",
             textContent: `${kid.total_points} pts`,
           });
           const tally = createAnElement(
-            'div',
+            "div",
             {
-              className: 'tally item',
+              className: "tally item",
             },
             [name, points, money]
           );
           tallyContainer.appendChild(tally);
         });
 
-        const title = createAnElement('p', {
-          textContent: 'TALLY',
-          className: 'title',
+        const title = createAnElement("p", {
+          textContent: "TALLY",
+          className: "title",
         });
 
         // tallyWrapper = title + tallyContainer (that contains all the tally elements)
         const tallyWrapper = createAnElement(
-          'div',
+          "div",
           {
-            id: 'tally-wrapper',
-            className: 'wrapper',
+            id: "tally-wrapper",
+            className: "wrapper",
           },
           [title, tallyContainer]
         );

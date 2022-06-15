@@ -5,12 +5,10 @@ import { createTaskPage } from "./createTask.js";
 export function tasksList() {
   return new Promise((resolve, reject) => {
     // take user id out of Store and send it to the server
-    const data = {
-      user_id: store.userId,
-    };
+    const user_id = store.userId;
 
     // response : tasks data of all the kids related to that user id (array)
-    axios.post("/api/parents/taskslist", data).then((res) => {
+    axios.get(`/api/parents/taskslist/${user_id}`).then((res) => {
       const tasksList = res.data.tasksList;
 
       // task list area wrapper ( return this later )
