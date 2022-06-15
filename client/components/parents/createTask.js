@@ -9,7 +9,13 @@ export function createTaskPage(childInfoObj) {
 
   const placeHolders = ["Description", "Category", "Reward", "Expiry Date"];
 
-  const selectBoxes = [];
+  const categoryOptions = [
+    "Reccuring",
+    "House Chores",
+    "Sports",
+    "Academic",
+    "Art",
+  ];
 
   // create html elements
   const kidsName = createAnElement("p", {
@@ -22,6 +28,7 @@ export function createTaskPage(childInfoObj) {
     textContent: "CREATE A TASK",
   });
 
+  // submit button has { kid_id : id } key pair value
   const button = createAnElement("button", {
     id: "addTaskBtn",
     textContent: "Add This Task",
@@ -35,11 +42,27 @@ export function createTaskPage(childInfoObj) {
 
   console.log(childInfoObj["name"]);
   // create input tags in the form
-  // if the placeholder == "For" or "Category", create a select tag
+  // if the placeholder == "Category", create a select tag
   placeHolders.forEach((placeholder) => {
-    // const selectTag = createAnElement("select");
+    const selectTag = createAnElement("select", {
+      className: "form-selectTag",
+    });
+
     if (placeholder === "Category") {
-      console.log("category");
+      const defaultOption = createAnElement("option", {
+        selected: true,
+        textContent: "Select a category",
+        id: "default-option",
+      });
+      selectTag.appendChild(defaultOption);
+      categoryOptions.forEach((category) => {
+        const option = createAnElement("option", {
+          value: category,
+          textContent: category,
+        });
+        selectTag.appendChild(option);
+      });
+      form.appendChild(selectTag);
     } else {
       const inputTag = createAnElement("input", {
         placeholder: placeholder,
