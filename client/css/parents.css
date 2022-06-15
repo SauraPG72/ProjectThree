@@ -143,3 +143,22 @@
 .input:focus {
   outline: none;
 }
+
+.form-selectTag {
+  width: 100%;
+  background-color: rgba(217, 217, 217, 0.4);
+  margin: 1em;
+  padding: 1em 2em;
+  border: none;
+  box-sizing: border-box;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-selectTag:focus {
+  outline: none;
+}
+
+#default-option {
+  font-weight: bold;
+}
