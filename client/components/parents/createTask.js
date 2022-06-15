@@ -4,11 +4,8 @@ import { createAnElement } from "../../utils/elementCreator.js";
 export function createTaskPage(childInfoObj) {
   app.innerHTML = "";
 
-  console.log(childInfoObj);
   // wrapper > form > inputs/ button
-
   const placeHolders = ["Description", "Category", "Reward", "Expiry Date"];
-
   const categoryOptions = [
     "Reccuring",
     "House Chores",
@@ -17,7 +14,8 @@ export function createTaskPage(childInfoObj) {
     "Art",
   ];
 
-  // create html elements
+  //============= create html elements =============
+
   const kidsName = createAnElement("p", {
     textContent: `for ${childInfoObj["name"]}`,
     id: "create-for",
@@ -28,26 +26,33 @@ export function createTaskPage(childInfoObj) {
     textContent: "CREATE A TASK",
   });
 
-  // submit button has { kid_id : id } key pair value
+  // submit button
   const button = createAnElement("button", {
     id: "addTaskBtn",
     textContent: "Add This Task",
-    name: "kid_id",
-    value: childInfoObj["id"],
   });
+
+  // create a form and input tags in it
   const form = createAnElement("form", {
     id: "createTaskForm",
     className: "form",
+    type: "submit",
   });
 
-  console.log(childInfoObj["name"]);
-  // create input tags in the form
-  // if the placeholder == "Category", create a select tag
   placeHolders.forEach((placeholder) => {
     const selectTag = createAnElement("select", {
       className: "form-selectTag",
+      name: "selectBox",
     });
+    const kidIdHiddenInput = createAnElement("input", {
+      name: "kid_id",
+      value: childInfoObj["id"],
+      display: "hidden",
+    });
+    selectTag.appendChild(kidIdHiddenInput);
 
+    // if the placeholder == "Category", create a select tag
+    // otherwise create input tags and add them in the form
     if (placeholder === "Category") {
       const defaultOption = createAnElement("option", {
         selected: true,
@@ -75,6 +80,7 @@ export function createTaskPage(childInfoObj) {
 
   form.appendChild(button);
 
+  // wrap everything in a wrapper and render it
   const formWrapper = createAnElement(
     "div",
     {
@@ -84,4 +90,26 @@ export function createTaskPage(childInfoObj) {
   );
 
   app.appendChild(formWrapper);
+
+  // ============= event listeners =============
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    postTask(form);
+  });
+}
+
+function postTask(form) {
+  console.log(form);
+  const formData = new FormData(form);
+
+  const jsonForm = {
+    description: formData.get("Description"),
+    kid_id: formData.get("kid_id"),
+    status: "incomplete",
+    // points:formData.get("selectBox"),
+    // cents:formData.get("selectBox"),
+    expiry_date: formData.get("selectBox"),
+    category: formData.get("selectBox"),
+  };
+  console.log(jsonForm);
 }
