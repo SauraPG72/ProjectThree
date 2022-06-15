@@ -1,6 +1,6 @@
 export const store = {
-  loggedIn: true,
-  type: 'parent',
+  loggedIn: false,
+  type: '',
   userId: 1,
   name: '',
   family: '',

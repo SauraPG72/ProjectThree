@@ -6,7 +6,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<title>Sign Up to Divida</title>
+	<link rel="stylesheet" href="./css/login-signup.css">
+
+	<title>Sign Up to Divita</title>
 </head>
 
 <body>
@@ -15,51 +17,55 @@
 		<section id="errors2"></section>
 		<fieldset>
 			<label for="">Family name:</label><br>
-			<input type="text" name="familysign">
+			<input type="text" name="family-name">
 		</fieldset>
 		<fieldset>
 			<label for="">First name:</label><br>
-			<input type="text" name="parentsign">
+			<input type="text" name="parent-first-name">
 		</fieldset>
 		<fieldset>
 			<label for="">Make a Login:</label><br>
-			<input type="text" name="loginsign">
+			<input type="text" name="username">
 		</fieldset>
 		<fieldset>
 			<label for="">Password: </label><br>
-			<input type="password" name="passwordsign">
+			<input type="password" name="password">
 		</fieldset>
 		<fieldset>
 			<label for="">Password: </label><br>
-			<input type="password" name="passwordsign2">
+			<input type="password" name="passwordcheck">
 		</fieldset>
 		<button>Sign Up</button>
 	</form>
+	<div id="message-box"></div>
 
 	<script>
 		// Sign up as a parent code
-		const signUpButton = document.getElementById('sign-in-form');
+		const signUpForm = document.getElementById('sign-up-form');
+		const messageBox = document.getElementById('message-box')
 
-		signUpButton.addEventListener('submit', (event) => {
+		signUpForm.addEventListener('submit', (event) => {
 			event.preventDefault();
-			const signFormData = new FormData(signUpButton);
+			const signUpFormData = new FormData(signUpForm);
 			const data = {
-				family: signFormData.get('familysign'),
-				parent: signFormData.get('parentsign'),
-				login: signFormData.get('loginsign'),
-				pw: signFormData.get('passwordsign'),
-				pw2: signFormData.get('passwordsign2'),
+				familyName: signUpFormData.get('family-name'),
+				parentFirstName: signUpFormData.get('parent-first-name'),
+				userName: signUpFormData.get('username'),
+				password: signUpFormData.get('password'),
+				passwordCheck: signUpFormData.get('passwordcheck'),
 			};
-			if (data.pw == data.pw2 && data.family && data.login && data.parent) {
+			console.log(data)
+			if (data.password === data.passwordCheck && data.familyName && data.userName && data.parentFirstName) {
 				console.log(data);
 				axios
 					.post('/api/users', data)
 					.then((response) => {
 						console.log(response);
-						if (response.status == 200) {
-							let messageBox = document.getElementById('errors2');
-							messageBox.textContent = 'Your account has been made';
-							window.location = '/login.html';
+						if (response.status === 200) {
+							messageBox.textContent = "Your account has been created! You are being redirected to the login page shortly!"
+							setTimeout(() => {
+								window.location.href = '/login.html';
+							}, 2000)
 						}
 					})
 					.catch((err) => {

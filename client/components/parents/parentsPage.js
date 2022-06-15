@@ -6,8 +6,7 @@ import { tasksList } from './tasksList.js';
 // This function is an async function
 // as it has to wait for all the components( using axios ) to come back
 export async function renderParentsPage() {
-  const app = document.getElementById('app');
-
+  //  const app = document.getElementById('app');
   // const tallySection = await renderTally();
   // const taskReportSection = await taskRepost();
   // const tasksSection = await tasksList();
