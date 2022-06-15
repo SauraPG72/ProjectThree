@@ -1,7 +1,7 @@
 export const store = {
   loggedIn: false,
   type: '',
-  userId: 1,
+  userId: null,
   name: '',
   family: '',
 };
