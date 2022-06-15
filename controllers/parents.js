@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get("/tally/:id", (req, res) => {
   const parent_id = req.params.id;
-  console.log(parent_id);
   if (req.session.loggedIn) {
     const sql = "SELECT * FROM kids WHERE parent_id = $1";
     db.query(sql, [parent_id])
@@ -24,7 +23,6 @@ router.get("/tally/:id", (req, res) => {
 
 router.get("/taskslist/:id", (req, res) => {
   const parent_id = req.params.id;
-  console.log(parent_id);
   if (req.session.loggedIn) {
     const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
@@ -34,7 +32,6 @@ router.get("/taskslist/:id", (req, res) => {
     WHERE parents.id = $1`;
     db.query(sql, [parent_id])
       .then((dbResult) => {
-        console.log("ok");
         console.log(dbResult.rows + "result");
         res.json({ tasksList: dbResult.rows });
       })

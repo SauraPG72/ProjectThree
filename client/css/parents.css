@@ -164,6 +164,7 @@
 
 .rewardInputArea {
   display: flex;
+  width: 100%;
 }
 
 .half-width-input {
