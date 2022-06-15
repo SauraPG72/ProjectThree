@@ -25,7 +25,7 @@ router.post("/taskslist", (req, res) => {
   const parent_id = req.body.user_id;
   console.log(parent_id);
   if (req.session.login) {
-    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name
+    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
     ON tasks.kid_id = kids.id
     INNER JOIN parents

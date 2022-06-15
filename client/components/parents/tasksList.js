@@ -1,5 +1,6 @@
 import { createAnElement } from "../../utils/elementCreator.js";
 import { store } from "../../utils/store.js";
+import { createTaskPage } from "./createTask.js";
 
 export function tasksList() {
   return new Promise((resolve, reject) => {
@@ -26,8 +27,13 @@ export function tasksList() {
       tasksWrapper.appendChild(title);
 
       // check how many kids there are in all the tasks
+      // this object holds kids IDs using for creating tasks
+      const kidsIdObj = {}; // {Laura: 1, Bob: 2}
       // this object holds 'kids name : [{ task1 }, { task2 }, ...]'
       const kidsTasksObj = {};
+
+      // loop over all tasks list array and create task elements one by one
+      // each element contains "description" + "points/cents"
       tasksList.forEach((task) => {
         if (task.name in kidsTasksObj) {
           const newTask = {
@@ -44,10 +50,12 @@ export function tasksList() {
               points: task.points,
             },
           ];
+          kidsIdObj[task.name] = task.id;
         }
       });
 
       // Loop over the "kids : [tasks]" object
+      //create a tasks container for each kid (and add tasks elements later)
       Object.keys(kidsTasksObj).forEach((kidName) => {
         // this container is to wrap task elements later
         const tasksListContainer = createAnElement("div", {
@@ -59,15 +67,42 @@ export function tasksList() {
           className: "kids-name-for-tasklist",
           textContent: kidName,
         });
-        const addIcon = createAnElement("i", {
+
+        // "add task button" (addIconBtn > icon)
+        const icon = createAnElement("i", {
           className: "fas fa-plus task-add-icon",
+          value: kidsIdObj[kidName],
+          id: kidName,
         });
+
+        const addIconBtn = createAnElement(
+          "button",
+          {
+            className: "addTaskBtnInList",
+            value: kidsIdObj[kidName], // kids id (pass it to create task form)
+            id: kidName,
+          },
+          [icon]
+        );
+
+        // event listener for button to go to "create a task form"
+        // kid's id
+        addIconBtn.addEventListener("click", (e) => {
+          const childInfoObj = {
+            id: e.target.value, // kid's id
+            name: e.target.id, // kid's name
+          };
+
+          createTaskPage(childInfoObj);
+        });
+
+        // nameArea = name + addTask button
         const nameArea = createAnElement(
           "div",
           {
             className: "nameArea",
           },
-          [name, addIcon]
+          [name, addIconBtn]
         );
         tasksWrapper.appendChild(nameArea);
 

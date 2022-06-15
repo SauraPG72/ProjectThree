@@ -78,3 +78,68 @@
 .task {
   background-color: #ff9a61;
 }
+
+.addTaskBtnInList {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* =========== create task page ============== */
+
+#createTaskTitle {
+  font-size: 70px;
+  font-weight: bold;
+  text-align: center;
+  margin: 1em 0 0 0;
+}
+
+#create-for {
+  font-size: 30px;
+  text-align: center;
+  margin: 0.5em 0;
+}
+
+#addTaskBtn {
+  background-color: #ff9a61;
+  color: #fff;
+  padding: 0.5em 0;
+  margin: 1em;
+  width: 100%;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+}
+
+#createTaskForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+}
+
+.input {
+  width: 100%;
+  background-color: rgba(217, 217, 217, 0.4);
+  margin: 1em;
+  padding: 1em 2em;
+  border: none;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  font-weight: bold;
+  color: black;
+}
+
+.input:focus {
+  outline: none;
+}
