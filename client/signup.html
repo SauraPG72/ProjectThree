@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<title>Sign Up to Divida</title>
+</head>
+
+<body>
+	<h1>Sign Up Form</h1>
+	<form id="sign-up-form">
+		<section id="errors2"></section>
+		<fieldset>
+			<label for="">Family name:</label><br>
+			<input type="text" name="familysign">
+		</fieldset>
+		<fieldset>
+			<label for="">First name:</label><br>
+			<input type="text" name="parentsign">
+		</fieldset>
+		<fieldset>
+			<label for="">Make a Login:</label><br>
+			<input type="text" name="loginsign">
+		</fieldset>
+		<fieldset>
+			<label for="">Password: </label><br>
+			<input type="password" name="passwordsign">
+		</fieldset>
+		<fieldset>
+			<label for="">Password: </label><br>
+			<input type="password" name="passwordsign2">
+		</fieldset>
+		<button>Sign Up</button>
+	</form>
+
+	<script>
+		// Sign up as a parent code
+		const signUpButton = document.getElementById('sign-in-form');
+
+		signUpButton.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const signFormData = new FormData(signUpButton);
+			const data = {
+				family: signFormData.get('familysign'),
+				parent: signFormData.get('parentsign'),
+				login: signFormData.get('loginsign'),
+				pw: signFormData.get('passwordsign'),
+				pw2: signFormData.get('passwordsign2'),
+			};
+			if (data.pw == data.pw2 && data.family && data.login && data.parent) {
+				console.log(data);
+				axios
+					.post('/api/users', data)
+					.then((response) => {
+						console.log(response);
+						if (response.status == 200) {
+							let messageBox = document.getElementById('errors2');
+							messageBox.textContent = 'Your account has been made';
+							window.location = '/login.html';
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+						let messageBox = document.getElementById('errors2');
+						messageBox.textContent = err.response.data.message;
+					});
+			}
+		});
+
+	</script>
+</body>
+
+</html>

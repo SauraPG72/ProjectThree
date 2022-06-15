@@ -1,20 +1,23 @@
 // import axios from "axios";
-import { renderHeader } from "./components/header.js";
-import { renderParentsPage } from "./components/parents/parentsPage.js";
+import { renderHeader } from './components/header.js';
+import { renderParentsPage } from './components/parents/parentsPage.js';
+import { store } from './utils/store.js';
 
-//axios.get('/api/session').then((response) => {
-//  // TODO: Set user data to the store
-//  console.log(response);
-// TODO: After login credentials have been confirmed, render the page
-renderPage();
-//});
+axios.get('/api/session').then((response) => {
+  const sessionData = response.data;
+  if (sessionData.type) store.type = sessionData.type;
+  if (sessionData.userId) store.userId = sessionData.userId;
+  if (sessionData.username) store.type = sessionData.username;
+  renderPage();
+});
 
-const app = document.getElementById("app");
+const app = document.getElementById('app');
 
 function renderPage() {
   // TODO: add function to render header and other components
-  console.log("header rendered");
+  console.log('header rendered');
   renderHeader();
   // for parents
   renderParentsPage();
+  console.log('parents page rendered');
 }

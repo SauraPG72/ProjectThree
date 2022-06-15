@@ -10,17 +10,23 @@ function isValidPassword(plainTextPassword, passwordHash) {
 
 router.post('/', (req, res) => {
   // get login and pw from the body of the request
-  const { login, password } = req.body;
+  console.log(req.body);
+  const { type, username, password } = req.body;
   //check the login and pw with the DB and set the session
-  console.log(login);
-  sql = `SELECT * from parents WHERE login_name = $1`;
-  db.query(sql, [login])
+  //  console.log(login);
+  let sql = '';
+  if (type === 'parent') sql = 'SELECT * from parents WHERE login_name = $1';
+  if (type === 'kid') sql = 'SELECT * from kids WHERE login_name = $1';
+
+  db.query(sql, [username])
     .then((dbResult) => {
-      console.log(dbResult.rows);
-      if (login == dbResult.rows[0].login_name) {
+      const user = dbResult.rows[0];
+
+      if (username == dbResult.rows[0].login_name) {
         if (isValidPassword(password, dbResult.rows[0].password_hash)) {
-          req.session.userId = 1;
-          req.session.login = req.body.login;
+          req.session.type = type;
+          req.session.userId = user.id;
+          req.session.username = username;
           res.json({ success: true });
         } else {
           res.status(400).json({ message: 'password is incorrect' });
@@ -30,7 +36,6 @@ router.post('/', (req, res) => {
     .catch((err) => {
       res.status(400).json({ message: 'login is incorrect' });
     });
-  console.log(password);
 });
 
 router.get('/', (req, res) => {
