@@ -38,43 +38,35 @@ export function createTaskPage(childInfoObj) {
     className: "form",
     type: "submit",
   });
+  const kidIdHiddenInput = createAnElement("input", {
+    name: "kid_id",
+    value: childInfoObj["id"],
+    type: "hidden",
+  });
+  form.appendChild(kidIdHiddenInput);
 
   placeHolders.forEach((placeholder) => {
-    const selectTag = createAnElement("select", {
-      className: "form-selectTag",
-      name: "selectBox",
-    });
-    const kidIdHiddenInput = createAnElement("input", {
-      name: "kid_id",
-      value: childInfoObj["id"],
-      display: "hidden",
-    });
-    selectTag.appendChild(kidIdHiddenInput);
-
     // if the placeholder == "Category", create a select tag
     // otherwise create input tags and add them in the form
     if (placeholder === "Category") {
-      const defaultOption = createAnElement("option", {
-        selected: true,
-        textContent: "Select a category",
-        id: "default-option",
-      });
-      selectTag.appendChild(defaultOption);
-      categoryOptions.forEach((category) => {
-        const option = createAnElement("option", {
-          value: category,
-          textContent: category,
-        });
-        selectTag.appendChild(option);
-      });
+      // createSelectTag() requires
+      // name of the select box
+      // placeholder for the default option
+      // an array that holds options (textContent/ value)
+      const selectTag = createSelectTag(
+        "Category",
+        "Select a category",
+        categoryOptions
+      );
       form.appendChild(selectTag);
     } else {
-      const inputTag = createAnElement("input", {
-        placeholder: placeholder,
-        className: "input",
-        name: placeholder,
-      });
-      form.appendChild(inputTag);
+      if (placeholder === "Reward") {
+        const inputTag = createRewardTag(placeholder);
+        form.appendChild(inputTag);
+      } else {
+        const inputTag = createInputTag(placeholder);
+        form.appendChild(inputTag);
+      }
     }
   });
 
@@ -98,18 +90,96 @@ export function createTaskPage(childInfoObj) {
   });
 }
 
+// ============= post task form data to the server =============
+
 function postTask(form) {
   console.log(form);
   const formData = new FormData(form);
+  const rewardType = formData.get("rewardType"); // "pts" or "cents"
+  console.log(rewardType);
+  // if POINT (pts) is selected in the form
+  if (rewardType === "pts") {
+    const jsonForm = {
+      description: formData.get("Description"),
+      kid_id: formData.get("kid_id"),
+      status: "incomplete",
+      points: formData.get("Reward"),
+      cents: "",
+      expiry_date: formData.get("Expiry Date"),
+      category: formData.get("Category"),
+    };
 
-  const jsonForm = {
-    description: formData.get("Description"),
-    kid_id: formData.get("kid_id"),
-    status: "incomplete",
-    // points:formData.get("selectBox"),
-    // cents:formData.get("selectBox"),
-    expiry_date: formData.get("selectBox"),
-    category: formData.get("selectBox"),
-  };
-  console.log(jsonForm);
+    console.log(jsonForm);
+  } else {
+    const jsonForm = {
+      description: formData.get("Description"),
+      kid_id: formData.get("kid_id"),
+      status: "incomplete",
+      points: "",
+      cents: formData.get("Reward"),
+      expiry_date: formData.get("Expiry Date"),
+      category: formData.get("Category"),
+    };
+
+    console.log(jsonForm);
+  }
+}
+
+// ============= functions to create form tags =============
+
+function createInputTag(placeholder) {
+  const inputTag = createAnElement("input", {
+    placeholder: placeholder,
+    className: "input",
+    name: placeholder,
+  });
+  return inputTag;
+}
+
+function createRewardTag(placeholder) {
+  const rewardOptions = ["pts", "cents"];
+
+  const inputTag = createAnElement("input", {
+    placeholder: placeholder,
+    className: "input half-width-input",
+    name: placeholder,
+  });
+  const selectTag = createSelectTag(
+    "rewardType",
+    "Select a Reward Type",
+    rewardOptions
+  );
+
+  const inputArea = createAnElement(
+    "div",
+    {
+      className: "rewardInputArea",
+    },
+    [inputTag, selectTag]
+  );
+
+  return inputArea;
+}
+
+// createSelectTag("selectBox","Select a category", categoryOptions)
+function createSelectTag(selectTagName, defaultOptionName, optionsArr) {
+  const selectTag = createAnElement("select", {
+    className: "form-selectTag",
+    name: selectTagName,
+  });
+  const defaultOption = createAnElement("option", {
+    selected: true,
+    textContent: defaultOptionName,
+    className: "default-options",
+  });
+  selectTag.appendChild(defaultOption);
+  optionsArr.forEach((option) => {
+    const newOption = createAnElement("option", {
+      value: option,
+      textContent: option,
+    });
+    selectTag.appendChild(newOption);
+  });
+
+  return selectTag;
 }
