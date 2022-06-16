@@ -1,4 +1,5 @@
 import { createAnElement } from "../../utils/elementCreator.js";
+import { renderParentsPage } from "./parentsPage.js";
 
 // childInfoObj = {id: child's id, name: child's name}
 export function createTaskPage(childInfoObj) {
@@ -41,7 +42,7 @@ export function createTaskPage(childInfoObj) {
 
   const kidIdHiddenInput = createAnElement("input", {
     name: "kid_id",
-    value: childInfoObj["id"],
+    value: Number(childInfoObj["id"]),
     type: "hidden",
   });
   form.appendChild(kidIdHiddenInput);
@@ -115,7 +116,7 @@ function postTask(form) {
       kid_id: formData.get("kid_id"),
       status: "approved",
       points: parseFloat(formData.get("Reward")),
-      cents: "",
+      cents: null,
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
@@ -125,12 +126,15 @@ function postTask(form) {
       description: formData.get("Description"),
       kid_id: Number(formData.get("kid_id")),
       status: "approved",
-      points: "",
+      points: null,
       cents: cents,
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
   }
+
+  // check if there's any blanks
+  // if so, pops up an error message on the screen
   const errorHandling = errorHandlingForCreatingTask(jsonForm);
   const errorMessage = document.getElementById("error-message");
   if (errorHandling !== true) {
@@ -139,14 +143,17 @@ function postTask(form) {
   } else {
     errorMessage.style.display = "none";
 
+    // if there's no error with the inputs,
     // post data to the server
-    axios.post("/api/parents/task").then((res) => {
+    axios.post("/api/parents/task", jsonForm).then((res) => {
       console.log(res);
+      renderParentsPage();
     });
   }
-  console.log(errorHandling);
 }
 
+// check if there's any blank inputs
+// if everything's fine, returns true
 function errorHandlingForCreatingTask(form) {
   const inputs = [
     form.description,
