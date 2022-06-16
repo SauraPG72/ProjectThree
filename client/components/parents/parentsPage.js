@@ -1,4 +1,5 @@
 import { createAnElement } from "../../utils/elementCreator.js";
+import { renderHeader } from "../header.js";
 import { renderTally } from "./tally.js";
 //import { taskReport } from "./taskReport.js";
 import { tasksList } from "./tasksList.js";
@@ -11,11 +12,7 @@ export async function renderParentsPage() {
   // const tallySection = await renderTally();
   // const taskReportSection = await taskRepost();
   // const tasksSection = await tasksList();
-  const [tallySection, tasksSection] = await Promise.all([
-    renderTally(),
-
-    tasksList(),
-  ]);
+  const [tallySection, tasksSection] = await Promise.all([renderTally(), tasksList()]);
 
   const parentsPageWrapper = createAnElement(
     "div",
