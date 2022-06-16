@@ -1,8 +1,8 @@
-const pg = require('pg');
-require('dotenv').config();
+const pg = require("pg");
+require("dotenv").config();
 
 const db = new pg.Pool({
-  database: 'divita',
+  database: "divita",
   port: process.env.DB_PORT || 5432,
 });
 

@@ -1,4 +1,11 @@
-@import 'colors.css';
-@import 'header.css';
-@import 'parents.css';
-@import 'login-signup.css';
+@import "colors.css";
+@import "header.css";
+@import "parents.css";
+@import "login-signup.css";
+
+body,
+button,
+input,
+select {
+  font-family: "Kdam Thmor Pro", sans-serif;
+}
