@@ -30,12 +30,12 @@ router.post('/', (req, res) => {
           req.session.loggedIn = true;
           res.json({ success: true });
         } else {
-          res.status(400).json({ message: 'password is incorrect' });
+          res.status(400).json({ message: 'Login failed' });
         }
       }
     })
     .catch((err) => {
-      res.status(400).json({ message: 'login is incorrect' });
+      res.status(400).json({ message: 'Login failed' });
     });
 });
 
