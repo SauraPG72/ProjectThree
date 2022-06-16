@@ -10,7 +10,19 @@ function generateHash(password) {
 
 router.post('/', (req, res) => {
   const { familyName, parentFirstName, userName, password, passwordCheck } = req.body;
-  console.log(req.body);
+
+  //Check if username exists
+  db.query('SELECT login_name FROM parents').then((dbResult) => {
+    const allUserNames = dbResult.rows.map((user) => user.login_name);
+    if (allUserNames.includes(userName)) {
+      res.status(400).json({
+        status: 'error',
+        message: 'Username Already Exists. Please Choose Another Username',
+      });
+      return;
+    }
+  });
+
   const hashedPassword = generateHash(password);
 
   if (!userName || userName.trim() == '') {
@@ -20,7 +32,7 @@ router.post('/', (req, res) => {
   } else {
     const sql = `INSERT into parents (name, login_name, password_hash, family_name) VALUES ($1, $2, $3, $4)`;
     db.query(sql, [parentFirstName, userName, hashedPassword, familyName]).then((dbResult) => {
-      res.json({ success: true });
+      res.json({ status: 'success' });
     });
   }
 });
