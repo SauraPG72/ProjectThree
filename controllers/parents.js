@@ -41,4 +41,8 @@ router.get("/taskslist/:id", (req, res) => {
   }
 });
 
+router.post("/task", (req, res) => {
+  res.json({ seccess: true });
+});
+
 module.exports = router;

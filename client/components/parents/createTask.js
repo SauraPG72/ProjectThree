@@ -102,13 +102,14 @@ function postTask(form) {
   const formData = new FormData(form);
   const rewardType = formData.get("rewardType"); // "pts" or "cents"
   let jsonForm = {};
+  console.log(rewardType);
   // if POINT (pts) is selected in the form
-  if (rewardType === "Select a Reward Type") {
+  if (rewardType == "Select a Reward Type") {
     const errorMessage = document.getElementById("error-message");
     errorMessage.textContent = "Select a Reward Type";
     errorMessage.style.display = "block";
-  }
-  if (rewardType === "pts") {
+    return;
+  } else if (rewardType === "pts") {
     jsonForm = {
       description: formData.get("Description"),
       kid_id: formData.get("kid_id"),
@@ -137,12 +138,13 @@ function postTask(form) {
     errorMessage.style.display = "block";
   } else {
     errorMessage.style.display = "none";
+
+    // post data to the server
+    axios.post("/api/parents/task").then((res) => {
+      console.log(res);
+    });
   }
   console.log(errorHandling);
-  // if (errorHandling){}
-
-  // post data to the server
-  // axios.post("/api/parents/");
 }
 
 function errorHandlingForCreatingTask(form) {
