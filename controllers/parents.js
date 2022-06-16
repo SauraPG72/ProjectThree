@@ -32,7 +32,6 @@ router.get("/taskslist/:id", (req, res) => {
     WHERE parents.id = $1`;
     db.query(sql, [parent_id])
       .then((dbResult) => {
-        console.log(dbResult.rows + "result");
         res.json({ tasksList: dbResult.rows });
       })
       .catch((err) => {

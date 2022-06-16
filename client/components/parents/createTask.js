@@ -71,6 +71,11 @@ export function createTaskPage(childInfoObj) {
     }
   });
 
+  const errorMessage = createAnElement("p", {
+    id: "error-message",
+    type: "hidden",
+  });
+  form.appendChild(errorMessage);
   form.appendChild(button);
 
   // wrap everything in a wrapper and render it
@@ -94,37 +99,76 @@ export function createTaskPage(childInfoObj) {
 // ============= post task form data to the server =============
 
 function postTask(form) {
-  console.log(form);
   const formData = new FormData(form);
   const rewardType = formData.get("rewardType"); // "pts" or "cents"
-  console.log(rewardType);
+  let jsonForm = {};
   // if POINT (pts) is selected in the form
+  if (rewardType === "Select a Reward Type") {
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.textContent = "Select a Reward Type";
+    errorMessage.style.display = "block";
+  }
   if (rewardType === "pts") {
-    const jsonForm = {
+    jsonForm = {
       description: formData.get("Description"),
       kid_id: formData.get("kid_id"),
       status: "incomplete",
-      points: formData.get("Reward"),
+      points: parseFloat(formData.get("Reward")),
       cents: "",
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
-    console.log(jsonForm);
   } else {
-    const jsonForm = {
+    const cents = parseFloat(formData.get("Reward") * 100);
+    jsonForm = {
       description: formData.get("Description"),
-      kid_id: formData.get("kid_id"),
+      kid_id: Number(formData.get("kid_id")),
       status: "incomplete",
       points: "",
-      cents: formData.get("Reward"),
+      cents: cents,
       expiry_date: formData.get("Expiry Date"),
       category: formData.get("Category"),
     };
-    console.log(jsonForm);
   }
+  const errorHandling = errorHandlingForCreatingTask(jsonForm);
+  const errorMessage = document.getElementById("error-message");
+  if (errorHandling !== true) {
+    errorMessage.textContent = errorHandling;
+    errorMessage.style.display = "block";
+  } else {
+    errorMessage.style.display = "none";
+  }
+  console.log(errorHandling);
+  // if (errorHandling){}
 
   // post data to the server
-  axios.post("/api/parents/");
+  // axios.post("/api/parents/");
+}
+
+function errorHandlingForCreatingTask(form) {
+  const inputs = [
+    form.description,
+    form.kid_id,
+    form.status,
+    form.points,
+    form.cents,
+    form.expiry_date,
+  ];
+
+  const filteredInputs = inputs.filter(Boolean);
+  console.log(filteredInputs);
+
+  if (form.points === "" && form.cents === "") {
+    return "Input Reward.";
+  } else if (form.points === NaN || form.cents === NaN) {
+    return "Input correct Reward.";
+  } else if (form.category == "Select a category") {
+    return "Select a category";
+  } else if (filteredInputs.length !== 5) {
+    return "Fill in all the blanks.";
+  } else {
+    return true;
+  }
 }
 
 // ============= functions to create form tags =============
@@ -149,7 +193,7 @@ function createInputTag(placeholder) {
 }
 
 function createRewardTag(placeholder) {
-  const rewardOptions = ["pts", "cents"];
+  const rewardOptions = ["pts", "dollars"];
 
   const inputTag = createAnElement("input", {
     placeholder: placeholder,

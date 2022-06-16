@@ -115,7 +115,6 @@ export function tasksList() {
         tasksWrapper.appendChild(tasksListContainer);
       });
 
-      // resolve(tasksWrapper);
       return tasksWrapper;
     })
     .catch((err) => {
