@@ -113,7 +113,7 @@ function postTask(form) {
     jsonForm = {
       description: formData.get("Description"),
       kid_id: formData.get("kid_id"),
-      status: "incomplete",
+      status: "approved",
       points: parseFloat(formData.get("Reward")),
       cents: "",
       expiry_date: formData.get("Expiry Date"),
@@ -124,7 +124,7 @@ function postTask(form) {
     jsonForm = {
       description: formData.get("Description"),
       kid_id: Number(formData.get("kid_id")),
-      status: "incomplete",
+      status: "approved",
       points: "",
       cents: cents,
       expiry_date: formData.get("Expiry Date"),
