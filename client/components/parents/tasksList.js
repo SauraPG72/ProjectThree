@@ -1,6 +1,6 @@
 import { createAnElement } from "../../utils/elementCreator.js";
 import { store } from "../../utils/store.js";
-import { createTaskPage } from "./createTask.js";
+import { createTaskPage } from "./createTask/createTask.js";
 
 export function tasksList() {
   // take user id out of Store and send it to the server
