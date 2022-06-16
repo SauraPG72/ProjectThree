@@ -77,7 +77,7 @@ export function tasksList() {
         const addIconBtn = createAnElement(
           "button",
           {
-            className: "addTaskBtnInList",
+            className: "addBtn",
             value: kidsIdObj[kidName], // kids id (pass it to create task form)
             id: kidName,
           },
