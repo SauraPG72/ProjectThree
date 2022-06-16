@@ -3,3 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }*/
+
+#log-in,
+#sign-up {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+#log-in fieldset,
+#sign-up fieldset {
+  border: none;
+}
