@@ -17,8 +17,7 @@ router.get("/tally/:id", (req, res) => {
         res.json({ success: false });
       });
   }
-  //  console.log(req.session);
-  //  console.log(req.body);
+
 });
 
 router.get("/taskslist/:id", (req, res) => {

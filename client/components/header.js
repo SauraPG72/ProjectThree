@@ -19,7 +19,7 @@ export function renderHeader() {
   //===================================
   logoutBtn.addEventListener('click', () => {
     axios.delete('api/session').then((res) => {
-      window.location.href = '/';
+      window.location.href = '/login.html';
     });
   });
 }

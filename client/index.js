@@ -1,10 +1,12 @@
 import { renderHeader } from './components/header.js';
 import { renderParentsPage } from './components/parents/parentsPage.js';
 import { store } from './utils/store.js';
+import { renderKidsPage } from './components/kids/kidsPage.js';
+
 
 axios.get('/api/session').then((response) => {
   const sessionData = response.data;
-  console.log(sessionData);
+  // console.log(sessionData);
   if (sessionData.type) store.type = sessionData.type;
   if (sessionData.userId) store.userId = sessionData.userId;
   if (sessionData.username) store.username = sessionData.username;
@@ -19,7 +21,7 @@ function renderPage() {
     renderParentsPage();
   }
   if (store.type === 'kid') {
-    renderKidsPage;
+    renderKidsPage();
   }
-  console.log(store);
+  // console.log(store);
 }

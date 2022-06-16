@@ -13,7 +13,7 @@ export async function renderParentsPage() {
   // const tasksSection = await tasksList();
   const [tallySection, tasksSection] = await Promise.all([
     renderTally(),
-    //taskReport(),
+
     tasksList(),
   ]);
 
