@@ -3,12 +3,13 @@ import { store } from "../../utils/store.js";
 import { createTaskPage } from "./createTask.js";
 
 export function tasksList() {
-  return new Promise((resolve, reject) => {
-    // take user id out of Store and send it to the server
-    const user_id = store.userId;
+  // take user id out of Store and send it to the server
+  const user_id = store.userId;
 
-    // response : tasks data of all the kids related to that user id (array)
-    axios.get(`/api/parents/taskslist/${user_id}`).then((res) => {
+  // response : tasks data of all the kids related to that user id (array)
+  return axios
+    .get(`/api/parents/taskslist/${user_id}`)
+    .then((res) => {
       const tasksList = res.data.tasksList;
 
       // task list area wrapper ( return this later )
@@ -114,9 +115,13 @@ export function tasksList() {
         tasksWrapper.appendChild(tasksListContainer);
       });
 
-      resolve(tasksWrapper);
+      // resolve(tasksWrapper);
+      return tasksWrapper;
+    })
+    .catch((err) => {
+      console.log(err);
+      return "Couldn't load the data";
     });
-  });
 }
 
 function createTaskElement(task) {
