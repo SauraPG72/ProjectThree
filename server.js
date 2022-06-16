@@ -27,11 +27,12 @@ app.use(
 const usersControls = require('./controllers/users');
 const sessionControls = require('./controllers/session');
 const parentsControls = require('./controllers/parents');
+const kidControls = require('./controllers/kids')
 
 app.use('/api/users', usersControls);
 app.use('/api/session', sessionControls);
 app.use('/api/parents', parentsControls);
-
+app.use('/api/kids', kidControls)
 //
 
 app.listen(port, () => {

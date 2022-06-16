@@ -1,33 +1,38 @@
-import { createAnElement } from '../../utils/elementCreator.js';
-import { store } from '../../utils/store.js';
+import { createAnElement } from "../../utils/elementCreator.js";
+import { store } from "../../utils/store.js";
+import { createTaskPage } from "./createTask.js";
 
 export function tasksList() {
-  return new Promise((resolve, reject) => {
-    // take user id out of Store and send it to the server
-    const data = {
-      user_id: store.userId,
-    };
+  // take user id out of Store and send it to the server
+  const user_id = store.userId;
 
-    // response : tasks data of all the kids related to that user id (array)
-    axios.post('/api/parents/taskslist', data).then((res) => {
+  // response : tasks data of all the kids related to that user id (array)
+  return axios
+    .get(`/api/parents/taskslist/${user_id}`)
+    .then((res) => {
       const tasksList = res.data.tasksList;
 
       // task list area wrapper ( return this later )
-      const tasksWrapper = createAnElement('div', {
-        id: 'tasks-wrapper',
-        className: 'wrapper',
+      const tasksWrapper = createAnElement("div", {
+        id: "tasks-wrapper",
+        className: "wrapper",
       });
       // "TASKS THIS WEEK" title
-      const title = createAnElement('p', {
-        textContent: 'TASKS THIS WEEK',
-        className: 'title',
+      const title = createAnElement("p", {
+        textContent: "TASKS THIS WEEK",
+        className: "title",
       });
 
       tasksWrapper.appendChild(title);
 
       // check how many kids there are in all the tasks
+      // this object holds kids IDs using for creating tasks
+      const kidsIdObj = {}; // {Laura: 1, Bob: 2}
       // this object holds 'kids name : [{ task1 }, { task2 }, ...]'
       const kidsTasksObj = {};
+
+      // loop over all tasks list array and create task elements one by one
+      // each element contains "description" + "points/cents"
       tasksList.forEach((task) => {
         if (task.name in kidsTasksObj) {
           const newTask = {
@@ -44,30 +49,59 @@ export function tasksList() {
               points: task.points,
             },
           ];
+          kidsIdObj[task.name] = task.id;
         }
       });
 
       // Loop over the "kids : [tasks]" object
+      //create a tasks container for each kid (and add tasks elements later)
       Object.keys(kidsTasksObj).forEach((kidName) => {
         // this container is to wrap task elements later
-        const tasksListContainer = createAnElement('div', {
-          className: 'container',
+        const tasksListContainer = createAnElement("div", {
+          className: "container",
         });
 
         // to show each kid's name above tasks container
-        const name = createAnElement('p', {
-          className: 'kids-name-for-tasklist',
+        const name = createAnElement("p", {
+          className: "kids-name-for-tasklist",
           textContent: kidName,
         });
-        const addIcon = createAnElement('i', {
-          className: 'fas fa-plus task-add-icon',
+
+        // "add task button" (addIconBtn > icon)
+        const icon = createAnElement("i", {
+          className: "fas fa-plus task-add-icon",
+          value: kidsIdObj[kidName],
+          id: kidName,
         });
-        const nameArea = createAnElement(
-          'div',
+
+        const addIconBtn = createAnElement(
+          "button",
           {
-            className: 'nameArea',
+            className: "addTaskBtnInList",
+            value: kidsIdObj[kidName], // kids id (pass it to create task form)
+            id: kidName,
           },
-          [name, addIcon]
+          [icon]
+        );
+
+        // event listener for button to go to "create a task form"
+        // kid's id
+        addIconBtn.addEventListener("click", (e) => {
+          const childInfoObj = {
+            id: e.target.value, // kid's id
+            name: e.target.id, // kid's name
+          };
+
+          createTaskPage(childInfoObj);
+        });
+
+        // nameArea = name + addTask button
+        const nameArea = createAnElement(
+          "div",
+          {
+            className: "nameArea",
+          },
+          [name, addIconBtn]
         );
         tasksWrapper.appendChild(nameArea);
 
@@ -81,25 +115,28 @@ export function tasksList() {
         tasksWrapper.appendChild(tasksListContainer);
       });
 
-      resolve(tasksWrapper);
+      return tasksWrapper;
+    })
+    .catch((err) => {
+      console.log(err);
+      return "Couldn't load the data";
     });
-  });
 }
 
 function createTaskElement(task) {
   if (task.cents) {
-    const description = createAnElement('p', {
-      className: 'taskDescription',
+    const description = createAnElement("p", {
+      className: "taskDescription",
       textContent: task.description,
     });
-    const money = createAnElement('p', {
-      className: 'money',
+    const money = createAnElement("p", {
+      className: "money",
       textContent: `$ ${task.cents / 100}`,
     });
     const taskElement = createAnElement(
-      'div',
+      "div",
       {
-        className: 'task item',
+        className: "task item",
       },
       [description, money]
     );
@@ -107,18 +144,18 @@ function createTaskElement(task) {
   }
 
   if (task.points) {
-    const description = createAnElement('p', {
-      className: 'taskDescription',
+    const description = createAnElement("p", {
+      className: "taskDescription",
       textContent: task.description,
     });
-    const points = createAnElement('p', {
-      className: 'points',
+    const points = createAnElement("p", {
+      className: "points",
       textContent: `${task.points} pts`,
     });
     const taskElement = createAnElement(
-      'div',
+      "div",
       {
-        className: 'task item',
+        className: "task item",
       },
       [description, points]
     );
