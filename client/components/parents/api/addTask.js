@@ -68,7 +68,6 @@ function errorHandlingForCreatingTask(form) {
   ];
 
   const filteredInputs = inputs.filter(Boolean);
-  console.log(filteredInputs);
 
   if (form.points === "" && form.cents === "") {
     return "Input Reward.";
