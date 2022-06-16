@@ -18,8 +18,7 @@ router.post('/tally', (req, res) => {
         res.json({ success: false });
       });
   }
-  //  console.log(req.session);
-  //  console.log(req.body);
+
 });
 
 router.post('/taskslist', (req, res) => {
