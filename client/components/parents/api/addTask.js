@@ -6,7 +6,7 @@ export function postTask(form) {
   const formData = new FormData(form);
   const rewardType = formData.get("rewardType"); // "pts" or "cents"
   let jsonForm = {};
-  console.log(rewardType);
+
   // if POINT (pts) is selected in the form
   if (rewardType == "Select a Reward Type") {
     const errorMessage = document.getElementById("error-message");
