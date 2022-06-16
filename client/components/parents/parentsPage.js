@@ -1,11 +1,12 @@
-import { createAnElement } from '../../utils/elementCreator.js';
-import { renderTally } from './tally.js';
+import { createAnElement } from "../../utils/elementCreator.js";
+import { renderTally } from "./tally.js";
 //import { taskReport } from "./taskReport.js";
-import { tasksList } from './tasksList.js';
+import { tasksList } from "./tasksList.js";
 
 // This function is an async function
 // as it has to wait for all the components( using axios ) to come back
 export async function renderParentsPage() {
+  app.innerHTML = "";
   //  const app = document.getElementById('app');
   // const tallySection = await renderTally();
   // const taskReportSection = await taskRepost();
@@ -17,9 +18,9 @@ export async function renderParentsPage() {
   ]);
 
   const parentsPageWrapper = createAnElement(
-    'div',
+    "div",
     {
-      id: 'parentsPageWrapper',
+      id: "parentsPageWrapper",
     },
     [tallySection, tasksSection]
   );

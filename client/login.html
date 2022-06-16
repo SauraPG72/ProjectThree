@@ -1,64 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./css/login-signup.css" />
+    <title>Log in to Divida</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" href="./css/login-signup.css">
-	<title>Log in to Divida</title>
-</head>
+  <body>
+    <section class="log-in">
+      <h1>Log in Parent:</h1>
+      <form id="log-in-form">
+        <section id="errors1"></section>
+        <div>
+          <input type="radio" id="parent" name="type" value="parent" checked />
+          <label for="parent">Parent</label>
+        </div>
+        <div>
+          <input type="radio" id="kid" name="type" value="kid" />
+          <label for="kid">Kid</label>
+        </div>
+        <fieldset>
+          <label for="">Username:</label><br />
+          <input type="text" name="username" />
+        </fieldset>
+        <fieldset>
+          <label for="">Password: </label><br />
+          <input type="password" name="password" />
+        </fieldset>
+        <button>Log in</button>
+      </form>
+    </section>
 
-<body>
-	<section class="log-in">
-		<h1>Log in Parent:</h1>
-		<form id="log-in-form">
-			<section id="errors1"></section>
-			<div>
-				<input type="radio" id="parent" name="type" value="parent" checked>
-				<label for="parent">Parent</label>
-			</div>
-			<div>
-				<input type="radio" id="kid" name="type" value="kid">
-				<label for="kid">Kid</label>
-			</div>
-			<fieldset>
-				<label for="">Username:</label><br>
-				<input type="text" name="username">
-			</fieldset>
-			<fieldset>
-				<label for="">Password: </label><br>
-				<input type="password" name="password">
-			</fieldset>
-			<button>Log in</button>
-		</form>
-
-	</section>
-
-	<script>
-		let form = document.getElementById('log-in-form');
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			const formData = new FormData(form);
-			const data = {
-				type: formData.get('type'),
-				username: formData.get('username'),
-				password: formData.get('password'),
-			};
-			console.log(data);
-			axios
-				.post('/api/session', data)
-				.then((response) => {
-					window.location.href = '/';
-				})
-				.catch((err) => {
-					console.log(err);
-					let messageBox = document.getElementById('errors1');
-					messageBox.textContent = err.response.data.message;
-				});
-		});
-	</script>
-</body>
-
+    <script>
+      let form = document.getElementById("log-in-form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const data = {
+          type: formData.get("type"),
+          username: formData.get("username"),
+          password: formData.get("password"),
+        };
+        console.log(data);
+        axios
+          .post("/api/session", data)
+          .then((response) => {
+            window.location.href = "/";
+          })
+          .catch((err) => {
+            console.log(err);
+            let messageBox = document.getElementById("errors1");
+            messageBox.textContent = err.response.data.message;
+          });
+      });
+    </script>
+  </body>
 </html>

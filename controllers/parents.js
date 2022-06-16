@@ -1,13 +1,12 @@
-const db = require('../db/db');
-const express = require('express');
+const db = require("../db/db");
+const express = require("express");
 
 const router = express.Router();
 
-router.post('/tally', (req, res) => {
-  const parent_id = req.body.user_id;
-  console.log(parent_id);
+router.get("/tally/:id", (req, res) => {
+  const parent_id = req.params.id;
   if (req.session.loggedIn) {
-    const sql = 'SELECT * FROM kids WHERE parent_id = $1';
+    const sql = "SELECT * FROM kids WHERE parent_id = $1";
     db.query(sql, [parent_id])
       .then((dbResult) => {
         console.log(dbResult.rows);
@@ -21,11 +20,10 @@ router.post('/tally', (req, res) => {
 
 });
 
-router.post('/taskslist', (req, res) => {
-  const parent_id = req.body.user_id;
-  console.log(parent_id);
+router.get("/taskslist/:id", (req, res) => {
+  const parent_id = req.params.id;
   if (req.session.loggedIn) {
-    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name
+    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
     ON tasks.kid_id = kids.id
     INNER JOIN parents
@@ -33,7 +31,6 @@ router.post('/taskslist', (req, res) => {
     WHERE parents.id = $1`;
     db.query(sql, [parent_id])
       .then((dbResult) => {
-        console.log(dbResult.rows);
         res.json({ tasksList: dbResult.rows });
       })
       .catch((err) => {
@@ -41,6 +38,10 @@ router.post('/taskslist', (req, res) => {
         res.json({ success: false });
       });
   }
+});
+
+router.post("/task", (req, res) => {
+  res.json({ seccess: true });
 });
 
 module.exports = router;
