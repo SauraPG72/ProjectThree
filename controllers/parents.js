@@ -47,10 +47,10 @@ router.get("/taskslist/:id", (req, res) => {
 });
 
 // to get all the tasks done by the kids
-router.get("/tasksReport/:id", (req, res) => {
+router.get("/tasksreport/:id", (req, res) => {
   const parent_id = req.params.id;
   if (req.session.loggedIn) {
-    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
+    const sql = `SELECT tasks.id as t_id,tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
     ON tasks.kid_id = kids.id
     INNER JOIN parents

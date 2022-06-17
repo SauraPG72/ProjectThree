@@ -1,6 +1,5 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
-import { createTaskPage } from "../createTask/createTask.js";
 
 export function tasksReports() {
   // take user id out of Store and send it to the server
@@ -8,7 +7,7 @@ export function tasksReports() {
 
   // response : tasks data of all the kids related to that user id (array)
   return axios
-    .get(`/api/parents/tasksReport/${user_id}`)
+    .get(`/api/parents/tasksreport/${user_id}`)
     .then((res) => {
       const tasksList = res.data.tasksList;
 
@@ -22,11 +21,8 @@ export function tasksReports() {
         textContent: "TASKS REPORTS",
         className: "title",
       });
-
       taskReportsWrapper.appendChild(title);
 
-      // check how many kids there are in all the task reports
-      const kidsIdObj = {}; // {Laura: 1, Bob: 2}
       // this object holds 'kids name : [{ task1 }, { task2 }, ...]'
       const kidsTasksObj = {};
 
@@ -34,21 +30,22 @@ export function tasksReports() {
       // each element contains "description" + "points/cents"
       tasksList.forEach((task) => {
         if (task.name in kidsTasksObj) {
-          const newTask = {
+          const requestedTask = {
+            task_id: task.t_id,
             description: task.description,
             cents: task.cents,
             points: task.points,
           };
-          kidsTasksObj[task.name].push(newTask);
+          kidsTasksObj[task.name].push(requestedTask);
         } else {
           kidsTasksObj[task.name] = [
             {
+              task_id: task.t_id,
               description: task.description,
               cents: task.cents,
               points: task.points,
             },
           ];
-          kidsIdObj[task.name] = task.id;
         }
       });
 
@@ -65,50 +62,55 @@ export function tasksReports() {
           className: "kids-name-for-tasklist",
           textContent: kidName,
         });
+        taskReportsWrapper.appendChild(name);
 
-        // "add task button" (addIconBtn > icon)
-        const icon = createAnElement("i", {
-          className: "fas fa-plus task-add-icon",
-          value: kidsIdObj[kidName],
-          id: kidName,
-        });
-
-        const addIconBtn = createAnElement(
-          "button",
-          {
-            className: "addBtn",
-            value: kidsIdObj[kidName], // kids id (pass it to create task form)
-            id: kidName,
-          },
-          [icon]
-        );
-
-        // event listener for button to go to "create a task form"
-        // kid's id
-        addIconBtn.addEventListener("click", (e) => {
-          const childInfoObj = {
-            id: e.target.value, // kid's id
-            name: e.target.id, // kid's name
-          };
-
-          createTaskPage(childInfoObj);
-        });
-
-        // nameArea = name + addTask button
-        const nameArea = createAnElement(
-          "div",
-          {
-            className: "nameArea",
-          },
-          [name, addIconBtn]
-        );
-        taskReportsWrapper.appendChild(nameArea);
+        // ============================================================
 
         // create tasks elements for all the kids
         kidsTasksObj[kidName].forEach((task) => {
+          // container > taskElement > "task = taslElement + buttons container: (ApproveBtn + rejectBtn)"
+          const taskWrapper = createAnElement("div", {
+            className: "taskItem",
+          });
+
+          // taskElement contains description, points/cents
           const taskElement = createTaskElement(task);
-          tasksListContainer.appendChild(taskElement);
+          taskWrapper.appendChild(taskElement);
+
+          const approveBtn = createAnElement("button", {
+            textContent: "Approve",
+            className: "approve-reject",
+            value: task.task_id, // task id
+          });
+          const rejectBtn = createAnElement("button", {
+            textContent: "Reject",
+            className: "approve-reject",
+            value: task.task_id, // task id
+          });
+
+          const btnsContainer = createAnElement(
+            "div",
+            {
+              className: "approve-reject-wrapper",
+            },
+            [approveBtn, rejectBtn]
+          );
+          taskWrapper.appendChild(btnsContainer);
+
+          tasksListContainer.appendChild(taskWrapper);
+
+          //========== event listener for approve/reject buttons ===========
+          approveBtn.addEventListener("click", (e) => {
+            const targetedTaskId = e.target.value;
+            console.log(targetedTaskId);
+          });
+
+          rejectBtn.addEventListener("click", (e) => {
+            const targetedTaskId = e.target.value;
+            console.log(targetedTaskId);
+          });
         });
+        // ============================================================
 
         // append everything in the wrapper and return
         taskReportsWrapper.appendChild(tasksListContainer);
@@ -122,6 +124,7 @@ export function tasksReports() {
     });
 }
 
+// returns "description + points" or "description + cents"
 function createTaskElement(task) {
   if (task.cents) {
     const description = createAnElement("p", {
