@@ -1,35 +1,26 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { createInputTag } from "../createTask/createInputTags.js";
+import { signUpKid } from "../api/SignupKid.js";
 
 export function addKidPage() {
   app.innerHTML = "";
-  console.log("add kid page");
 
-  /**
-   * memo
-	name VARCHAR(255),
-	parent_id INT REFERENCES parents(id),
-	login_name VARCHAR(255),
-	password_hash VARCHAR(255),
-	total_points INT,
-	total_cents INT
-   */
   const user_id = store.userId;
   console.log(user_id);
 
   // wrapper > form > inputs/ button
-  const placeHolders = ["Name", "Login Name", "Password"];
+  const placeHolders = [
+    "Name",
+    { name: "Password", type: "password" },
+    { name: "Confirm Password", type: "password" },
+    "Starting Reward Points",
+    "Starting Reward Dollars",
+  ];
 
   const title = createAnElement("h1", {
     id: "createTaskTitle",
-    textContent: "ADD A CHILD",
-  });
-
-  // submit button
-  const button = createAnElement("button", {
-    id: "addTaskBtn",
-    textContent: "Add This Child",
+    textContent: "SIGN UP YOUR CHILD",
   });
 
   // create a form and input tags in it
@@ -56,6 +47,13 @@ export function addKidPage() {
     id: "error-message",
     type: "hidden",
   });
+
+  // submit button
+  const button = createAnElement("button", {
+    id: "addTaskBtn",
+    textContent: "Confirm",
+  });
+
   form.appendChild(errorMessage);
   form.appendChild(button);
 
@@ -69,4 +67,9 @@ export function addKidPage() {
   );
 
   app.appendChild(formWrapper);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    signUpKid(form);
+  });
 }
