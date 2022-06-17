@@ -1,5 +1,6 @@
 import { createAnElement } from "../../utils/elementCreator.js";
 import { store } from "../../utils/store.js";
+import { addKidPage } from "./Addkid/addKid.js";
 
 export function renderTally() {
   // take user id out of Store and send it to the server
@@ -33,6 +34,8 @@ export function renderTally() {
           className: "points",
           textContent: `${kid.total_points} pts`,
         });
+
+        // tall contains kids name, points, money for each kid
         const tally = createAnElement(
           "div",
           {
@@ -43,10 +46,44 @@ export function renderTally() {
         tallyContainer.appendChild(tally);
       });
 
+      // =========== title part for TALLY ( TALLY + add kid button ) ===========
+
       const title = createAnElement("p", {
         textContent: "TALLY",
         className: "title",
       });
+
+      // "add kids button" (addKidBtn > icon)
+      const icon = createAnElement("i", {
+        className: "fas fa-plus task-add-icon",
+        // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+        // id: "parent_id",
+      });
+
+      const addKidButton = createAnElement(
+        "button",
+        {
+          className: "addBtn",
+          // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+          // id: "parent_id",
+        },
+        [icon]
+      );
+
+      const titleContainer = createAnElement(
+        "div",
+        {
+          className: "titleContainer",
+        },
+        [title, addKidButton]
+      );
+
+      // event listener to render Add kid Form
+      addKidButton.addEventListener("click", () => {
+        addKidPage();
+      });
+
+      // ========================================================
 
       // tallyWrapper = title + tallyContainer (that contains all the tally elements)
       const tallyWrapper = createAnElement(
@@ -55,7 +92,7 @@ export function renderTally() {
           id: "tally-wrapper",
           className: "wrapper",
         },
-        [title, tallyContainer]
+        [titleContainer, tallyContainer]
       );
 
       return tallyWrapper;

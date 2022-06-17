@@ -54,6 +54,12 @@
   background-color: #58d7ff;
 }
 
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em 0 0;
+}
+
 /* =========== tasks list ============== */
 
 .nameArea {
@@ -79,7 +85,7 @@
   background-color: #ff9a61;
 }
 
-.addTaskBtnInList {
+.addBtn {
   background-color: #fff;
   border: none;
   cursor: pointer;
@@ -157,10 +163,6 @@
 .form-selectTag:focus {
   outline: none;
 }
-
-/* .default-options {
-  font-weight: bold;
-} */
 
 .rewardInputArea {
   display: flex;
