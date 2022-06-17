@@ -1,10 +1,9 @@
 #app-header {
-  background-color: var(--primary);
-  padding: 0 1em;
+  background-color: var(--divita-light-grey);
 }
 
 #header-container {
-  width: 80%;
+  width: 80vw;
   margin: auto;
   display: flex;
   align-items: center;
@@ -16,14 +15,16 @@
   text-decoration: none;
   font-family: "Pacifico", cursive;
   font-size: 40px;
+  color: var(--divita-teal);
 }
 
 #header-links > button {
+  all: unset;
   font-family: "Righteous", cursive;
   font-size: 20px;
-  color: #fff;
+  color: #000;
   border: none;
-  background-color: #9d9d9d;
+  background-color: none;
   cursor: pointer;
   justify-content: space-around;
 }
@@ -33,7 +34,6 @@
   font-size: 20px;
   color: #fff;
   border: none;
-  background-color: #9d9d9d;
   cursor: pointer;
   justify-content: space-around;
 }

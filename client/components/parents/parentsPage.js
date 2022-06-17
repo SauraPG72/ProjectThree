@@ -8,13 +8,7 @@ import { tasksList } from "./tasksList.js";
 export async function renderParentsPage() {
   app.innerHTML = "";
   //  const app = document.getElementById('app');
-  // const tallySection = await renderTally();
-  // const taskReportSection = await taskRepost();
-  // const tasksSection = await tasksList();
-  const [tallySection, tasksSection] = await Promise.all([
-    renderTally(),
-    tasksList(),
-  ]);
+  const [tallySection, tasksSection] = await Promise.all([renderTally(), tasksList()]);
 
   const parentsPageWrapper = createAnElement(
     "div",
@@ -24,5 +18,9 @@ export async function renderParentsPage() {
     [tallySection, tasksSection]
   );
 
-  app.appendChild(parentsPageWrapper);
+  const mainContainer = createAnElement("main", { className: "main-container" }, [
+    parentsPageWrapper,
+  ]);
+
+  app.appendChild(mainContainer);
 }

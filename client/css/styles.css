@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Pacifico&family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&family=Righteous&display=swap");
 @import "reset.css";
 @import "colors.css";
 @import "header.css";
@@ -9,5 +9,5 @@ body,
 button,
 input,
 select {
-  font-family: "Dosis", sans-serif;
+  font-family: "Quicksand", sans-serif;
 }

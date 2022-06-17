@@ -1,10 +1,9 @@
-import { renderHeader } from './components/header.js';
-import { renderParentsPage } from './components/parents/parentsPage.js';
-import { store } from './utils/store.js';
-import { renderKidsPage } from './components/kids/kidsPage.js';
+import { renderHeader } from "./components/header.js";
+import { store } from "./utils/store.js";
+import { renderParentsPage } from "./components/parents/parentsPage.js";
+import { renderKidsPage } from "./components/kids/kidsPage.js";
 
-
-axios.get('/api/session').then((response) => {
+axios.get("/api/session").then((response) => {
   const sessionData = response.data;
   // console.log(sessionData);
   if (sessionData.type) store.type = sessionData.type;
@@ -16,12 +15,10 @@ axios.get('/api/session').then((response) => {
 
 function renderPage() {
   renderHeader();
-  // for parents
-  if (store.type === 'parent') {
+  if (store.type === "parent") {
     renderParentsPage();
   }
-  if (store.type === 'kid') {
+  if (store.type === "kid") {
     renderKidsPage();
   }
-  // console.log(store);
 }
