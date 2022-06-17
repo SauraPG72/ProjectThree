@@ -82,11 +82,13 @@ export function tasksReports() {
             textContent: "Approve",
             className: "approve-reject",
             value: task.task_id, // task id
+            id: task.description,
           });
           const rejectBtn = createAnElement("button", {
             textContent: "Reject",
             className: "approve-reject",
             value: task.task_id, // task id
+            id: task.description,
           });
 
           const btnsContainer = createAnElement(
@@ -102,13 +104,19 @@ export function tasksReports() {
 
           //========== event listener for approve/reject buttons ===========
           approveBtn.addEventListener("click", (e) => {
-            const targetedTaskId = e.target.value;
-            approverejectConfirm("approve", targetedTaskId);
+            const targetedTask = {
+              task_id: e.target.value,
+              task_description: e.target.id,
+            };
+            approverejectConfirm("approve", targetedTask);
           });
 
           rejectBtn.addEventListener("click", (e) => {
-            const targetedTaskId = e.target.value;
-            approverejectConfirm("reject", targetedTaskId);
+            const targetedTask = {
+              task_id: e.target.value,
+              task_description: e.target.id,
+            };
+            approverejectConfirm("reject", targetedTask);
           });
         });
         // ============================================================

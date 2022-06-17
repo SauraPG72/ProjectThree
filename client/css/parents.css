@@ -107,7 +107,7 @@
   margin: 0.5em 0;
 }
 
-#addTaskBtn {
+.formBtn {
   background-color: #ff9a61;
   color: #fff;
   padding: 0.5em 0;
@@ -198,4 +198,13 @@
   background-color: #fff;
   border: 2px solid black;
   cursor: pointer;
+}
+
+/* approve/reject confirmation page */
+.confirmationFormWrapper {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
