@@ -11,7 +11,16 @@ export function createInputTag(placeholder) {
       type: "date",
     });
     return inputTag;
-  } else {
+  } else if (placeholder["type"] == "password") {
+    const inputTag = createAnElement("input", {
+      placeholder: placeholder.name,
+      className: "input",
+      name: placeholder.name,
+      type: "password",
+    });
+    return inputTag;
+  }
+  {
     const inputTag = createAnElement("input", {
       placeholder: placeholder,
       className: "input",
