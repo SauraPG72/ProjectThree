@@ -5,6 +5,8 @@ app.use(express.json());
 
 const router = express.Router();
 
+// ======================= TALLY =======================
+
 router.get("/tally/:id", (req, res) => {
   const parent_id = req.params.id;
   if (req.session.loggedIn) {
@@ -20,6 +22,10 @@ router.get("/tally/:id", (req, res) => {
   }
 });
 
+// ======================= TASKS =======================
+
+// for parents page to get all the tasks assigned for all the kids of the parent
+// :id in the url is parent's id
 router.get("/taskslist/:id", (req, res) => {
   const parent_id = req.params.id;
   if (req.session.loggedIn) {
@@ -40,6 +46,28 @@ router.get("/taskslist/:id", (req, res) => {
   }
 });
 
+// to get all the tasks done by the kids
+router.get("/tasksReport/:id", (req, res) => {
+  const parent_id = req.params.id;
+  if (req.session.loggedIn) {
+    const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
+    FROM tasks INNER JOIN kids
+    ON tasks.kid_id = kids.id
+    INNER JOIN parents
+    ON kids.parent_id = parents.id
+    WHERE parents.id = $1`;
+    db.query(sql, [parent_id])
+      .then((dbResult) => {
+        res.json({ tasksList: dbResult.rows });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({ success: false });
+      });
+  }
+});
+
+// for parents to add tasks for kids
 router.post("/task", (req, res) => {
   const sql = `INSERT INTO tasks (description, kid_id, status, points, cents, expiry_date, category)
   VALUES ($1, $2, $3, $4, $5, $6, $7)`;

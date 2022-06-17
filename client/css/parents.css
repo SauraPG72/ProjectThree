@@ -4,7 +4,6 @@
   min-height: 95vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   gap: 2em;
 }
 
@@ -13,7 +12,7 @@
   grid-column: 1/2;
 }
 
-#taskReport-wrapper {
+#taskReports-wrapper {
   grid-row: 2/3;
   grid-column: 1/2;
 }
