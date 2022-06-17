@@ -48,9 +48,9 @@ export function renderTally() {
 
       // =========== title part for TALLY ( TALLY + add kid button ) ===========
 
-      const title = createAnElement("p", {
-        textContent: "TALLY",
-        className: "title",
+      const title = createAnElement("h2", {
+        textContent: "Tally",
+        className: "components-title",
       });
 
       // "add kids button" (addKidBtn > icon)
@@ -73,7 +73,7 @@ export function renderTally() {
       const titleContainer = createAnElement(
         "div",
         {
-          className: "titleContainer",
+          className: "title-container",
         },
         [title, addKidButton]
       );

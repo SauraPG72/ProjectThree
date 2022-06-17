@@ -1,13 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&family=Righteous&display=swap");
-@import "reset.css";
+@import "base.css";
 @import "colors.css";
 @import "header.css";
 @import "parents.css";
 @import "login-signup.css";
-
-body,
-button,
-input,
-select {
-  font-family: "Quicksand", sans-serif;
-}

@@ -18,12 +18,20 @@ export function tasksList() {
         className: "wrapper",
       });
       // "TASKS THIS WEEK" title
-      const title = createAnElement("p", {
-        textContent: "TASKS THIS WEEK",
-        className: "title",
+      const title = createAnElement("h2", {
+        textContent: "Tasks This Week",
+        className: "components-title",
       });
 
-      tasksWrapper.appendChild(title);
+      const titleContainer = createAnElement(
+        "div",
+        {
+          className: "title-container",
+        },
+        [title]
+      );
+
+      tasksWrapper.appendChild(titleContainer);
 
       // check how many kids there are in all the tasks
       // this object holds kids IDs using for creating tasks

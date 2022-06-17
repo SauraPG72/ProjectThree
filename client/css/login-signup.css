@@ -1,18 +1,48 @@
-/** {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}*/
+@import "base.css";
+
+#logo {
+  font-family: "Pacifico", cursive;
+  font-size: 48px;
+  color: var(--divita-teal);
+}
 
 #log-in,
 #sign-up {
   width: 80%;
   margin: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
+}
+
+input[type="radio"].type {
+  display: none;
+}
+
+input[type="radio"].type + label {
+  padding: 10px;
+  width: 100px;
+  background-color: var(--divita-light-grey);
+}
+
+input[type="radio"].type:checked + label {
+  padding: 10px;
+  width: 100px;
+  background-color: var(--divita-teal);
+  color: teal;
 }
 
 #log-in fieldset,
 #sign-up fieldset {
   border: none;
+}
+
+input {
+  width: 500px;
+  height: 40px;
+  border: none;
+  background-color: var(--divita-light-grey);
+  margin-bottom: 0.5em;
+  font-size: 28px;
+  font-weight: bold;
 }
