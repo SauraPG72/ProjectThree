@@ -7,7 +7,6 @@ export function addKidPage() {
   app.innerHTML = "";
 
   const user_id = store.userId;
-  console.log(user_id);
 
   // wrapper > form > inputs/ button
   const placeHolders = [
