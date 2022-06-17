@@ -1,3 +1,5 @@
+import { renderParentsPage } from "../parentsPage.js";
+
 export function signUpKid(form) {
   const formData = new FormData(form);
   let jsonForm = {};
@@ -6,12 +8,11 @@ export function signUpKid(form) {
     name: formData.get("Name"),
     parent_id: formData.get("parent_id"),
     total_points: parseFloat(formData.get("Starting Reward Points")),
-    total_cents: parseFloat(formData.get("Starting Reward Dollars")),
+    total_cents: parseFloat(formData.get("Starting Reward Dollars") * 100),
     password: formData.get("Password"),
     confirm_password: formData.get("Confirm Password"),
   };
 
-  console.log(jsonForm);
   // check if there's any blanks or other errors
   // if so, pops up an error message on the screen
   const errorHandling = errorHandlingForCreatingTask(jsonForm);
@@ -20,15 +21,13 @@ export function signUpKid(form) {
     errorMessage.textContent = errorHandling;
     errorMessage.style.display = "block";
   } else {
-    console.log(errorHandling);
     errorMessage.style.display = "none";
 
     // if there's no error with the inputs,
     // post data to the server
-    // axios.post("/api/users", jsonForm).then((res) => {
-    //   console.log(res);
-    //   renderParentsPage();
-    // });
+    axios.post("/api/users/kids", jsonForm).then((res) => {
+      renderParentsPage();
+    });
   }
 }
 
