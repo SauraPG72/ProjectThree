@@ -1,5 +1,6 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
+import { approverejectConfirm } from "./approveRejectConfirm.js";
 
 export function tasksReports() {
   // take user id out of Store and send it to the server
@@ -102,12 +103,12 @@ export function tasksReports() {
           //========== event listener for approve/reject buttons ===========
           approveBtn.addEventListener("click", (e) => {
             const targetedTaskId = e.target.value;
-            console.log(targetedTaskId);
+            approverejectConfirm("approve", targetedTaskId);
           });
 
           rejectBtn.addEventListener("click", (e) => {
             const targetedTaskId = e.target.value;
-            console.log(targetedTaskId);
+            approverejectConfirm("reject", targetedTaskId);
           });
         });
         // ============================================================
