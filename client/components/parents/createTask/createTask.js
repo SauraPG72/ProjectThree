@@ -34,7 +34,7 @@ export function createTaskPage(childInfoObj) {
 
   // submit button
   const button = createAnElement("button", {
-    id: "addTaskBtn",
+    className: "formBtn",
     textContent: "Add This Task",
   });
 

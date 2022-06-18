@@ -4,7 +4,6 @@
   min-height: 95vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   gap: 2em;
 }
 
@@ -13,7 +12,7 @@
   grid-column: 1/2;
 }
 
-#taskReport-wrapper {
+#taskReports-wrapper {
   grid-row: 2/3;
   grid-column: 1/2;
 }
@@ -83,6 +82,8 @@
 
 .task {
   background-color: #ff9a61;
+  width: 100%;
+  margin: 0 0.3em;
 }
 
 .addBtn {
@@ -106,7 +107,7 @@
   margin: 0.5em 0;
 }
 
-#addTaskBtn {
+.formBtn {
   background-color: #ff9a61;
   color: #fff;
   padding: 0.5em 0;
@@ -177,4 +178,33 @@
 .rewardInputArea > select {
   width: 70%;
   margin: 0.3em;
+}
+
+/* =========== task report section ============== */
+
+/* task element + approve/reject buttons */
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.approve-reject-wrapper {
+  display: flex;
+  gap: 0.3em;
+}
+
+.approve-reject {
+  background-color: #fff;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+/* approve/reject confirmation page */
+.confirmationFormWrapper {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

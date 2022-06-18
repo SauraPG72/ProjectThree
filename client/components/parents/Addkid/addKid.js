@@ -49,7 +49,7 @@ export function addKidPage() {
 
   // submit button
   const button = createAnElement("button", {
-    id: "addTaskBtn",
+    className: "formBtn",
     textContent: "Confirm",
   });
 

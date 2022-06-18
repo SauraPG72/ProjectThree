@@ -60,6 +60,7 @@ router.post('/goals', (req, res ) => {
 router.post('/task', (req, res) => {
   const kidId = req.session.userId;
 
+
   let { description, points, cents, expiry, category } = req.body
   if (!points) {
     points = 0
