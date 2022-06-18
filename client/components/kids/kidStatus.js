@@ -6,16 +6,23 @@ export function kidData() {
         const currentKid = response.data.kidsData;
         console.log(currentKid)
         const kidName = createAnElement('div', {
-            textContent: currentKid.name,
             id: 'kidsName'
         })
-        const kidHeaderData = createAnElement('p', {
+        const kidHeaderDataOne = createAnElement('p', {
+            id: 'leftData',
+            textContent: currentKid.name
+        })
+        const kidHeaderDataTwo = createAnElement('p', {
             id: 'rightData', 
-            textContent: `${currentKid.total_cents} ${currentKid.total_points}`
+            textContent: `$${currentKid.total_cents} ${currentKid.total_points}`
         })
 
-        kidName.appendChild(kidHeaderData)
+        kidName.appendChild(kidHeaderDataOne)
+        kidName.appendChild(kidHeaderDataTwo)
 
         return kidName
     })
 }
+
+
+

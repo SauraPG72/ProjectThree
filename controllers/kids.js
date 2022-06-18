@@ -60,9 +60,9 @@ router.post('/goals', (req, res ) => {
 router.post('/task', (req, res) => {
   const kidId = req.session.userId;
   const tasksObj = req.body;
-  const sql = `INSERT INTO tasks (kid_id, status, points, cents, expiry_date, category) VALUES ($1, $2, $3, $4, $5, $6)`
+  const sql = `INSERT INTO tasks (description, kid_id, status, points, cents, expiry_date, category) VALUES ($1, $2, $3, $4, $5, $6, $7)`
   const kidStatus = 'pending'
-  db.query(sql, [kidId, kidStatus, tasksObj.points, tasksObj.cents, tasksObj.expiry, tasksObj.category]).then(() => {
+  db.query(sql, [tasksObj.description ,kidId, kidStatus, tasksObj.points, tasksObj.cents, tasksObj.expiry, tasksObj.category]).then(() => {
     res.json({success: true})
   })
 
