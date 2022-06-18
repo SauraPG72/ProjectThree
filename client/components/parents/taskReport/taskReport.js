@@ -79,26 +79,40 @@ export function tasksReports() {
           const taskElement = createTaskElement(task);
           taskWrapper.appendChild(taskElement);
 
-          const approveBtn = createAnElement("button", {
-            textContent: "Approve",
-            className: "approve-reject",
-            value: task.task_id, // task id
-            id: task.description,
+          const btnsContainer = createAnElement("div", {
+            className: "approve-reject-wrapper",
           });
+
+          let rewardType = "";
+          let approveBtn;
+
+          if (task.cents) {
+            approveBtn = createAnElement("button", {
+              textContent: "Approve",
+              className: "approve-reject",
+              value: task.task_id, // task id
+              id: `${task.description}:${task.cents}`,
+            });
+            rewardType = "cents";
+            btnsContainer.appendChild(approveBtn);
+          } else {
+            approveBtn = createAnElement("button", {
+              textContent: "Approve",
+              className: "approve-reject",
+              value: task.task_id, // task id
+              id: `${task.description}:${task.points}`,
+            });
+            rewardType = "points";
+            btnsContainer.appendChild(approveBtn);
+          }
+
           const rejectBtn = createAnElement("button", {
             textContent: "Reject",
             className: "approve-reject",
             value: task.task_id, // task id
             id: task.description,
           });
-
-          const btnsContainer = createAnElement(
-            "div",
-            {
-              className: "approve-reject-wrapper",
-            },
-            [approveBtn, rejectBtn]
-          );
+          btnsContainer.appendChild(rejectBtn);
           taskWrapper.appendChild(btnsContainer);
 
           tasksListContainer.appendChild(taskWrapper);
@@ -109,7 +123,11 @@ export function tasksReports() {
               task_id: e.target.value,
               task_description: e.target.id,
             };
-            approverejectConfirm("approve", targetedTask);
+            if (rewardType === "cents") {
+              approverejectConfirm("approve", targetedTask, "cents");
+            } else {
+              approverejectConfirm("approve", targetedTask, "points");
+            }
           });
 
           rejectBtn.addEventListener("click", (e) => {
