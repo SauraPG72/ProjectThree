@@ -3,6 +3,9 @@
 @import "parents.css";
 @import "login-signup.css";
 
+/* saura's additions with the Kids Page */
+@import "kidHeader.css";
+
 body,
 button,
 input,
