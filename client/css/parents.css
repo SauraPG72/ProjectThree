@@ -22,6 +22,10 @@
   grid-column: 2/3;
 }
 
+.empty-content {
+  text-align: center;
+}
+
 .wrapper {
   padding: 0 1em;
 }

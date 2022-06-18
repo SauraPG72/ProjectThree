@@ -12,6 +12,7 @@ export function tasksReports() {
     .get(`/api/parents/tasksreport/${user_id}`)
     .then((res) => {
       const tasksList = res.data.tasksList;
+      console.log(tasksList);
 
       // task list area wrapper ( return this later )
       const taskReportsWrapper = createAnElement("div", {
@@ -24,6 +25,17 @@ export function tasksReports() {
         className: "title",
       });
       taskReportsWrapper.appendChild(title);
+
+      if (tasksList.length === 0) {
+        console.log("empty");
+        console.log(taskReportsWrapper);
+        const emptyMessage = createAnElement("p", {
+          className: "empty-content",
+          textContent: "No Tasks Reports",
+        });
+        taskReportsWrapper.appendChild(emptyMessage);
+        return taskReportsWrapper;
+      }
 
       // this object holds 'kids name : [{ task1 }, { task2 }, ...]'
       const kidsTasksObj = {};
