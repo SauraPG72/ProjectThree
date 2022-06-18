@@ -25,9 +25,17 @@ export function signUpKid(form) {
 
     // if there's no error with the inputs,
     // post data to the server
-    axios.post("/api/users/kids", jsonForm).then((res) => {
-      renderParentsPage();
-    });
+    axios
+      .post("/api/users/kids", jsonForm)
+      .then((res) => {
+        renderParentsPage();
+      })
+      .catch((err) => {
+        console.log(err);
+        errorMessage.textContent =
+          "There was a server error. Please try again.";
+        errorMessage.style.display = "block";
+      });
   }
 }
 

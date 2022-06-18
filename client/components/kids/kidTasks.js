@@ -3,30 +3,101 @@ import { createAnElement } from "../../utils/elementCreator.js";
 export function kidTasks() {
   return axios.get("/api/kids/tasks").then((response) => {
     const kidTasks = response.data;
-    const tasksBox = createAnElement("ul", {
-      id: "kidTasks",
-    });
-    const taskHeader = createAnElement("h1", {
-      textContent: "Tasks List",
-    });
-    tasksBox.appendChild(taskHeader);
+
+
+    const tasksBoxFinal = createAnElement("div", {
+      id: "tasksList", 
+      innerHTML: `
+      <div id="tasksHeader">
+      <h1>Tasks List: </h1>
+      <h1 id='addTasks'> + </h1>
+      </div>
+      `
+    })
+
+    // ADDTASKS BUTTON.  
+    let taskAddbutt = tasksBoxFinal.querySelector('#addTasks')
+    console.log(taskAddbutt)
+    taskAddbutt.addEventListener('click', (e) => {
+      let kidPage = document.getElementById('kidssPageWrapper')
+      let taskForm = createAnElement("div", {
+        id: "taskForm",
+        innerHTML: `
+        <h1> Request a task: </h1>
+    
+        <form id="addTaskForm">
+        <input type="text" name="description" placeholder="Description:">
+        <input type="number" name="points" placeholder="Requested points:">
+        <input type="number" name="cents" placeholder="Requested dollars:">
+        <label for="expiry-date">Expiry Date:</label>
+        <input type="date" name="expiry-date">
+        <label for="category">Choose a category:</label>
+        <select name="category" id="category">
+        <option value="Reccuring">Reccuring</option>
+        <option value="House Chores">House Chores</option>
+        <option value="Academic">Academic</option>
+        <option value="Art">Art</option>
+        </select>
+    
+        <input type="submit">
+    
+    
+        </form>
+        `
+        
+        
+      })
+      const addTaskForm = taskForm.querySelector('#addTaskForm');
+      addTaskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(addTaskForm);
+        console.log(formData.get('expiry-date'))
+        const data = {
+          description: formData.get('description'),
+          points: formData.get('points'),
+          cents: formData.get('cents'),
+          expiry: formData.get('expiry-date'),
+          category: formData.get('category')
+        }
+        
+        axios.post('/api/kids/task', data).then((response) => {
+          console.log(response)
+          location.reload()
+        })
+      })
+
+      kidPage.innerHTML = ''
+      kidPage.appendChild(taskForm)
+    })
+
+    // tasksBox.appendChild(taskHeader);
     for (const task of kidTasks) {
       if ((task.status = "approved" && task.cents)) {
         const newTask = createAnElement("div", {
           id: "eachTask",
-          textContent: `${task.description}  $${task.cents * 0.1}`,
+          
+          innerHTML: `
+          <p>${task.description}<p>
+          <p>$${task.cents * 0.01}</p>
+          `
+        
         });
 
-        tasksBox.appendChild(newTask);
+        tasksBoxFinal.appendChild(newTask);
       } else if ((task.status = "approved" && task.points)) {
         const newTask = createAnElement("div", {
           id: "eachTask",
-          textContent: `${task.description}  ${task.points} points`,
+          textContent: `${task.description}  ${task.points} pts`,
+          innerHTML: `
+          <p>${task.description}<p>
+          <p>${task.points} pts</p>
+          `
         });
 
-        tasksBox.appendChild(newTask);
+        tasksBoxFinal.appendChild(newTask);
       }
     }
-    return tasksBox;
+    return tasksBoxFinal;
   });
 }
+

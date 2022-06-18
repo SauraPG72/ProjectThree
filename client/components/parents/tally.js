@@ -12,6 +12,55 @@ export function renderTally() {
     .then((res) => {
       const kidsData = res.data.kidsData; // array
 
+      // tallyWrapper = title + tallyContainer (that contains all the tally elements)
+      const tallyWrapper = createAnElement("div", {
+        id: "tally-wrapper",
+        className: "wrapper",
+      });
+
+      // =========== title part for TALLY ( TALLY + add kid button ) ===========
+
+      // "add kids button" (addKidBtn > icon)
+      const icon = createAnElement("i", {
+        className: "fas fa-plus task-add-icon",
+        // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+        // id: "parent_id",
+      });
+
+      const addKidButton = createAnElement(
+        "button",
+        {
+          className: "addBtn",
+          // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+          // id: "parent_id",
+        },
+        [icon]
+      );
+
+      const title = createAnElement("h2", {
+        textContent: "Tally",
+        className: "components-title",
+      });
+
+      const titleContainer = createAnElement(
+        "div",
+        {
+          className: "title-container",
+        },
+        [title, addKidButton]
+      );
+
+      tallyWrapper.appendChild(titleContainer);
+
+      if (kidsData.length === 0) {
+        const emptyMessage = createAnElement("p", {
+          className: "empty-content",
+          textContent: "Sign Up A Child",
+        });
+        tallyWrapper.appendChild(emptyMessage);
+        return tallyWrapper;
+      }
+
       // this container is for tally elements later
       const tallyContainer = createAnElement("div", {
         className: "container",
@@ -44,39 +93,8 @@ export function renderTally() {
           [name, points, money]
         );
         tallyContainer.appendChild(tally);
+        tallyWrapper.appendChild(tallyContainer);
       });
-
-      // =========== title part for TALLY ( TALLY + add kid button ) ===========
-
-      const title = createAnElement("h2", {
-        textContent: "Tally",
-        className: "components-title",
-      });
-
-      // "add kids button" (addKidBtn > icon)
-      const icon = createAnElement("i", {
-        className: "fas fa-plus task-add-icon",
-        // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
-        // id: "parent_id",
-      });
-
-      const addKidButton = createAnElement(
-        "button",
-        {
-          className: "addBtn",
-          // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
-          // id: "parent_id",
-        },
-        [icon]
-      );
-
-      const titleContainer = createAnElement(
-        "div",
-        {
-          className: "title-container",
-        },
-        [title, addKidButton]
-      );
 
       // event listener to render Add kid Form
       addKidButton.addEventListener("click", () => {
@@ -84,16 +102,6 @@ export function renderTally() {
       });
 
       // ========================================================
-
-      // tallyWrapper = title + tallyContainer (that contains all the tally elements)
-      const tallyWrapper = createAnElement(
-        "div",
-        {
-          id: "tally-wrapper",
-          className: "wrapper",
-        },
-        [titleContainer, tallyContainer]
-      );
 
       return tallyWrapper;
     })

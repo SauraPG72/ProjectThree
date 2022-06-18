@@ -3,32 +3,41 @@ import { createAnElement } from "../../utils/elementCreator.js";
 export function kidGoals() {
   return axios.get("/api/kids/goals").then((response) => {
     const kidGoals = response.data;
-    const goalsBox = createAnElement("ul", {
-      id: "kidGoals",
+
+    const goalsBoxFinal = createAnElement("div", {
+      innerHTML: `
+            <div id="goalsHeader">
+            <h1> Goals List:</h1>
+            <h1 onClick = addGoals()> + </h1>
+            </div>
+            `,
     });
-    const goalsHeader = createAnElement("h1", {
-      textContent: "Goals List",
-    });
-    goalsBox.appendChild(goalsHeader);
 
     for (const goal of kidGoals) {
       if (goal.cents) {
         const newGoal = createAnElement("div", {
           id: "eachGoal",
-          textContent: `${goal.description}  $${goal.cents * 0.1}`,
+
+          innerHTML: `
+                <p>${goal.description}</p>
+                <p>$${goal.cents * 0.1}</p>
+                `,
         });
 
-        goalsBox.appendChild(newGoal);
-        return goalsBox;
+        goalsBoxFinal.appendChild(newGoal);
       } else if (goal.points) {
         const newGoal = createAnElement("div", {
           id: "eachGoal",
-          textContent: `${goal.description}  ${goal.points} points`,
+
+          innerHTML: `
+                <p>${goal.description}</p>
+                <p>${goal.points} points</p>
+                `,
         });
 
-        goalsBox.appendChild(newGoal);
-        return goalsBox;
+        goalsBoxFinal.appendChild(newGoal);
       }
     }
+    return goalsBoxFinal;
   });
 }
