@@ -16,8 +16,8 @@ export function kidTasks() {
     })
 
     // ADDTASKS BUTTON.  
-    let taskAddbutt = document.getElementById('addTasks')
-    console.log(taskAddButt)
+    let taskAddbutt = tasksBoxFinal.querySelector('#addTasks')
+    console.log(taskAddbutt)
     taskAddbutt.addEventListener('click', (e) => {
       let kidPage = document.getElementById('kidssPageWrapper')
       let taskForm = createAnElement("div", {
@@ -25,13 +25,12 @@ export function kidTasks() {
         innerHTML: `
         <h1> Request a task: </h1>
     
-        <form>
+        <form id="addTaskForm">
         <input type="text" name="description" placeholder="Description:">
         <input type="number" name="points" placeholder="Requested points:">
         <input type="number" name="cents" placeholder="Requested dollars:">
         <label for="expiry-date">Expiry Date:</label>
         <input type="date" name="expiry-date">
-        
         <label for="category">Choose a category:</label>
         <select name="category" id="category">
         <option value="Reccuring">Reccuring</option>
@@ -45,7 +44,26 @@ export function kidTasks() {
     
         </form>
         `
-      
+        
+        
+      })
+      const addTaskForm = taskForm.querySelector('#addTaskForm');
+      addTaskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(addTaskForm);
+        console.log(formData.get('expiry-date'))
+        const data = {
+          description: formData.get('description'),
+          points: formData.get('points'),
+          cents: formData.get('cents'),
+          expiry: formData.get('expiry-date'),
+          category: formData.get('category')
+        }
+        
+        axios.post('/api/kids/task', data).then((response) => {
+          console.log(response)
+          location.reload()
+        })
       })
 
       kidPage.innerHTML = ''
@@ -60,7 +78,7 @@ export function kidTasks() {
           
           innerHTML: `
           <p>${task.description}<p>
-          <p>$${task.cents * 0.1}</p>
+          <p>$${task.cents * 0.01}</p>
           `
         
         });
