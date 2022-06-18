@@ -55,7 +55,7 @@ router.get("/tasksreport/:id", (req, res) => {
     ON tasks.kid_id = kids.id
     INNER JOIN parents
     ON kids.parent_id = parents.id
-    WHERE parents.id = $1`;
+    WHERE parents.id = $1 AND tasks.status='completed'`;
     db.query(sql, [parent_id])
       .then((dbResult) => {
         res.json({ tasksList: dbResult.rows });
@@ -91,6 +91,24 @@ router.post("/task", (req, res) => {
         error: err,
       });
     });
+});
+
+// to change the status completed task (when parents approve kids' task completion request)
+router.patch("/task/:id", (req, res) => {
+  const taskId = req.params.id;
+
+  if (!taskId) {
+    res.status(400).json({ success: false, message: "Missing valid task id" });
+  } else {
+    const sql = `UPDATE tasks SET status='redeemed' WHERE id=${taskId}`;
+    db.query(sql)
+      .then(() => {
+        res.json({ seccess: true });
+      })
+      .catch((err) => {
+        res.status(500).json({ seccess: "fail", error: err });
+      });
+  }
 });
 
 module.exports = router;

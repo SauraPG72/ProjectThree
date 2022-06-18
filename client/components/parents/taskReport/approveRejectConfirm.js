@@ -1,6 +1,7 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { postApproveReject } from "../api/postApproveReject.js";
 
+// next => postApproveReject (api to send request to the server)
 export function approverejectConfirm(status, task) {
   app.innerHTML = "";
 
@@ -19,11 +20,16 @@ export function approverejectConfirm(status, task) {
 
   // task id (hidden input tag)
   const taskIdHiddenInput = createAnElement("input", {
-    name: "parent_id",
+    name: "task_id",
     value: Number(task.task_id),
     type: "hidden",
   });
   form.appendChild(taskIdHiddenInput);
+
+  const errorMessage = createAnElement("p", {
+    id: "error-message",
+    type: "hidden",
+  });
 
   // ======================================================================
 
@@ -44,6 +50,8 @@ export function approverejectConfirm(status, task) {
     });
     form.appendChild(button);
 
+    form.appendChild(errorMessage);
+
     // wrap everything in a wrapper and render it
     const formWrapper = createAnElement(
       "div",
@@ -56,6 +64,7 @@ export function approverejectConfirm(status, task) {
     app.appendChild(formWrapper);
 
     // ============= event listeners =============
+    // for approval
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       postApproveReject(form, "approve");
@@ -88,6 +97,7 @@ export function approverejectConfirm(status, task) {
     app.appendChild(formWrapper);
 
     // ============= event listeners =============
+    // for rejection
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       postApproveReject(form, "reject");

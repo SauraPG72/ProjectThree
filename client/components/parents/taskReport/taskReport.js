@@ -2,6 +2,7 @@ import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { approverejectConfirm } from "./approveRejectConfirm.js";
 
+// next => approverejectConfirm (form page to confirm of parents want to approve/reject requests)
 export function tasksReports() {
   // take user id out of Store and send it to the server
   const user_id = store.userId;
@@ -129,7 +130,7 @@ export function tasksReports() {
     })
     .catch((err) => {
       console.log(err);
-      return "Couldn't load the data";
+      return "Couldn't load the data of Task Reports";
     });
 }
 
