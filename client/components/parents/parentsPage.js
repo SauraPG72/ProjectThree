@@ -23,5 +23,9 @@ export async function renderParentsPage() {
     [tallySection, tasksSection, tasksReportsSection]
   );
 
-  app.appendChild(parentsPageWrapper);
+  const mainContainer = createAnElement("main", { className: "main-container" }, [
+    parentsPageWrapper,
+  ]);
+
+  app.appendChild(mainContainer);
 }

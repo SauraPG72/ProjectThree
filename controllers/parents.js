@@ -94,8 +94,10 @@ router.post("/task", (req, res) => {
 });
 
 // to change the status completed task (when parents approve kids' task completion request)
+// and then redeem points/money of that task
 router.patch("/task/:id", (req, res) => {
   const taskId = req.params.id;
+  console.log(req.body);
 
   if (!taskId) {
     res.status(400).json({ success: false, message: "Missing valid task id" });
@@ -103,7 +105,24 @@ router.patch("/task/:id", (req, res) => {
     const sql = `UPDATE tasks SET status='redeemed' WHERE id=${taskId}`;
     db.query(sql)
       .then(() => {
-        res.json({ seccess: true });
+        if (req.body.cents) {
+          console.log("cents route");
+          const redeemSql = `UPDATE kids
+          SET total_cents = total_cents + ${req.body.cents}
+          FROM tasks  WHERE tasks.id = ${taskId} AND tasks.kid_id=kids.id;`;
+          db.query(redeemSql).then(() => {
+            res.json({ seccess: "Successfully redeemed money!" });
+          });
+        } else if (req.body.points) {
+          console.log("points route");
+          console.log("cents route");
+          const redeemSql = `UPDATE kids
+          SET total_points = total_points + ${req.body.points}
+          FROM tasks  WHERE tasks.id = ${taskId} AND tasks.kid_id=kids.id;`;
+          db.query(redeemSql).then(() => {
+            res.json({ seccess: "Successfully redeemed points!" });
+          });
+        }
       })
       .catch((err) => {
         res.status(500).json({ seccess: "fail", error: err });

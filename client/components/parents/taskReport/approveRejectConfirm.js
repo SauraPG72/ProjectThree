@@ -2,8 +2,25 @@ import { createAnElement } from "../../../utils/elementCreator.js";
 import { postApproveReject } from "../api/postApproveReject.js";
 
 // next => postApproveReject (api to send request to the server)
-export function approverejectConfirm(status, task) {
+export function approverejectConfirm(status, task, rewardType) {
   app.innerHTML = "";
+
+  console.log(task.task_description);
+  let taskInfoArr = task.task_description.split(":"); // [task description, task reward]
+  let data;
+  if (rewardType === "cents") {
+    data = {
+      description: taskInfoArr[0],
+      cents: parseFloat(taskInfoArr[1]),
+    };
+  } else {
+    data = {
+      description: taskInfoArr[0],
+      points: parseFloat(taskInfoArr[1]),
+    };
+  }
+
+  console.log(data);
 
   // ==================== common items for both approval/rejection ========================
 
@@ -15,7 +32,7 @@ export function approverejectConfirm(status, task) {
 
   // description of the task
   const description = createAnElement("h1", {
-    textContent: task.task_description,
+    textContent: taskInfoArr[0],
   });
 
   // task id (hidden input tag)
@@ -67,7 +84,7 @@ export function approverejectConfirm(status, task) {
     // for approval
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      postApproveReject(form, "approve");
+      postApproveReject(form, "approve", data);
     });
   } else {
     const confirmation = createAnElement("p", {

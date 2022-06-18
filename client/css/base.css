@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&family=Righteous&display=swap");
+
+/*font-family: 'Pacifico', cursive;*/
+/*font-family: 'Quicksand', sans-serif;*/
+/*font-family: 'Righteous', cursive;*/
+
+:root {
+  --divita-salmon: #f98770;
+  --divita-teal: #0fa3b1;
+  --divita-blue: #b5e2fa;
+  --divita-cream: #f9f7f3;
+  --divita-light-grey: #e6e6e6;
+  --divita-dark-grey: #8b8b8b;
+  --container-width: 80vw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  width: var(--container-width);
+  margin: auto;
+  margin-top: 2em;
+}
+
+body,
+button,
+input,
+select {
+  font-family: "Quicksand", sans-serif;
+}

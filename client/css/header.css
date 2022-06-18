@@ -1,19 +1,43 @@
-#header {
-  background-color: var(--primary);
+#app-header {
+  background-color: var(--divita-light-grey);
+}
+
+#header-container {
+  width: 80vw;
+  margin: auto;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 0 2em;
 }
 
-#app-name {
-  font-size: 30px;
+#app-header-logo {
+  text-decoration: none;
+  font-family: "Pacifico", cursive;
+  font-size: 40px;
+  color: var(--divita-teal);
 }
 
-#logout-btn {
+#app-header-logo:hover {
+  color: #ffffff;
+  transition: color 0.2s ease-in-out;
+}
+
+#header-links > button {
+  all: unset;
+  font-family: "Righteous", cursive;
+  font-size: 20px;
+  color: #000;
+  border: none;
+  background-color: none;
+  cursor: pointer;
+  justify-content: space-around;
+}
+
+#header-links > button:hover {
+  font-family: "Righteous", cursive;
   font-size: 20px;
   color: #fff;
   border: none;
-  background-color: #9d9d9d;
   cursor: pointer;
   justify-content: space-around;
 }
