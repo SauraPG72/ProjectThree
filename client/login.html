@@ -6,22 +6,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" href="./css/login-signup.css" />
+	<link rel="stylesheet" href="./css/login-signup.css">
 	<title>Log in to Divida</title>
 </head>
 
 <body>
-	<section class="log-in">
-		<h1>Log in Parent:</h1>
+	<div id="log-in">
+		<div id="logo">
+			<h1>Divida</h1>
+		</div>
+		<h1>Log In</h1>
 		<form id="log-in-form">
 			<section id="errors1"></section>
-			<div>
-				<input type="radio" id="parent" name="type" value="parent" checked />
+			<div id="login-type">
 				<label for="parent">Parent</label>
-			</div>
-			<div>
-				<input type="radio" id="kid" name="type" value="kid" />
+				<input type="radio" id="parent" name="type" value="parent" class="type" checked />
+
 				<label for="kid">Kid</label>
+				<input type="radio" id="kid" name="type" value="kid" class="type" />
 			</div>
 			<fieldset>
 				<label for="">Username:</label><br />
@@ -33,7 +35,7 @@
 			</fieldset>
 			<button>Log in</button>
 		</form>
-	</section>
+	</div>
 
 	<script>
 		let form = document.getElementById("log-in-form");

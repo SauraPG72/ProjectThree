@@ -18,12 +18,39 @@ export function renderTally() {
         className: "wrapper",
       });
 
-      const title = createAnElement("p", {
-        textContent: "TALLY",
-        className: "title",
+      // =========== title part for TALLY ( TALLY + add kid button ) ===========
+
+      // "add kids button" (addKidBtn > icon)
+      const icon = createAnElement("i", {
+        className: "fas fa-plus task-add-icon",
+        // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+        // id: "parent_id",
       });
 
-      tallyWrapper.appendChild(title);
+      const addKidButton = createAnElement(
+        "button",
+        {
+          className: "addBtn",
+          // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
+          // id: "parent_id",
+        },
+        [icon]
+      );
+
+      const title = createAnElement("h2", {
+        textContent: "Tally",
+        className: "components-title",
+      });
+
+      const titleContainer = createAnElement(
+        "div",
+        {
+          className: "title-container",
+        },
+        [title, addKidButton]
+      );
+
+      tallyWrapper.appendChild(titleContainer);
 
       if (kidsData.length === 0) {
         const emptyMessage = createAnElement("p", {
@@ -68,33 +95,6 @@ export function renderTally() {
         tallyContainer.appendChild(tally);
         tallyWrapper.appendChild(tallyContainer);
       });
-
-      // =========== title part for TALLY ( TALLY + add kid button ) ===========
-
-      // "add kids button" (addKidBtn > icon)
-      const icon = createAnElement("i", {
-        className: "fas fa-plus task-add-icon",
-        // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
-        // id: "parent_id",
-      });
-
-      const addKidButton = createAnElement(
-        "button",
-        {
-          className: "addBtn",
-          // value: user_id, // parent id (pass it to Add Kid form (as e.target.value))
-          // id: "parent_id",
-        },
-        [icon]
-      );
-
-      const titleContainer = createAnElement(
-        "div",
-        {
-          className: "titleContainer",
-        },
-        [title, addKidButton]
-      );
 
       // event listener to render Add kid Form
       addKidButton.addEventListener("click", () => {

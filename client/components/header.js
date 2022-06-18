@@ -1,23 +1,48 @@
 import { createAnElement } from "../utils/elementCreator.js";
+import { store } from "../utils/store.js";
 
 export function renderHeader() {
   const appHeader = document.getElementById("app-header");
 
-  const headerTitle = createAnElement("h1", {
-    textContent: "DIVITA",
-    id: "app-name",
+  const headerTitle = createAnElement("a", {
+    textContent: "divita",
+    id: "app-header-logo",
+    href: "/",
   });
 
   const logoutBtn = createAnElement("button", {
-    textContent: "Log out",
+    textContent: "Log Out",
     id: "logout-btn",
   });
 
-  const header = createAnElement("div", { id: "header" }, [headerTitle, logoutBtn]);
-  appHeader.appendChild(header);
+  const loginBtn = createAnElement("button", {
+    textContent: "Log In",
+    id: "login-btn",
+  });
+
+  const headerLinks = createAnElement("div", { id: "header-links" });
+
+  if (store.loggedIn) {
+    headerLinks.append(logoutBtn);
+  } else {
+    headerLinks.append(loginBtn);
+  }
+
+  const headerContainer = createAnElement("div", { id: "header-container" }, [
+    headerTitle,
+    headerLinks,
+  ]);
+
+  appHeader.appendChild(headerContainer);
 
   //===================================
   logoutBtn.addEventListener("click", () => {
+    axios.delete("api/session").then((res) => {
+      window.location.href = "/";
+    });
+  });
+
+  loginBtn.addEventListener("click", () => {
     axios.delete("api/session").then((res) => {
       window.location.href = "/login.html";
     });
