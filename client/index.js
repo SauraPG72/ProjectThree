@@ -17,9 +17,9 @@ axios.get("/api/session").then((response) => {
 
 async function renderPage() {
   renderHeader();
-  const kidsArray = await getKidsByParent(store.userId);
 
-  if (kidsArray.length === 0) {
+  if (store.loggedIn && kidsArray.length === 0) {
+    const kidsArray = await getKidsByParent(store.userId);
     renderAddKidPrompt();
     return;
   }
