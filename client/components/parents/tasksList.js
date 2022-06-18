@@ -25,6 +25,15 @@ export function tasksList() {
 
       tasksWrapper.appendChild(title);
 
+      if (tasksList.length === 0) {
+        const emptyMessage = createAnElement("p", {
+          className: "empty-content",
+          textContent: "No Tasks",
+        });
+        tasksWrapper.appendChild(emptyMessage);
+        return tasksWrapper;
+      }
+
       // check how many kids there are in all the tasks
       // this object holds kids IDs using for creating tasks
       const kidsIdObj = {}; // {Laura: 1, Bob: 2}

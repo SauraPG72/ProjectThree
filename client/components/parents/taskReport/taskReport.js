@@ -27,8 +27,6 @@ export function tasksReports() {
       taskReportsWrapper.appendChild(title);
 
       if (tasksList.length === 0) {
-        console.log("empty");
-        console.log(taskReportsWrapper);
         const emptyMessage = createAnElement("p", {
           className: "empty-content",
           textContent: "No Tasks Reports",
