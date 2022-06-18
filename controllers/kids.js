@@ -42,18 +42,30 @@ router.get('/goals', (req, res) => {
 
 router.post('/goals', (req, res ) => {
   const kidId = req.session.userId;
-  const goalsObj = req.body;
-  if (req.body.money) {
-    const sql = 'INSERT INTO goals (kid_id, description, cents) VALUES ($1, $2, $3)'
-    db.query(sql, [kidId, req.body.description, req.body.cents]).then(() => {
+  let { description, cents, points, allPoints, allCents } = req.body;
+  
+  if (cents) {
+    if (!allCents) {
+    allCents = 0
+    }
+    const sql = 'INSERT INTO goals (kid_id, description, cents, allocated_cents) VALUES ($1, $2, $3, $4)'
+    db.query(sql, [kidId, description, +cents, +allCents]).then(() => {
       res.json({success: true})
+      console.log(req.body)
     })
+    
+    
   }
   else if (req.body.points) {
-    const sql = 'INSERT INTO goals (kid_id, description, points) VALUES ($1, $2, $3)'
-    db.query(sql, [kidId, req.body.description, req.body.points]).then(() => {
-      res.json({success: true})
+    if (!allPoints) {
+      allPoints = 0;
+    }
+      const sql = 'INSERT INTO goals (kid_id, description, points) VALUES ($1, $2, $3, $4)'
+      db.query(sql, [kidId, description, +points, +allPoints]).then(() => {
+        res.json({success: true})
     })
+    
+    
   }
 })
 
