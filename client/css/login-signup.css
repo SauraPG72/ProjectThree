@@ -36,13 +36,3 @@ input[type="radio"].type:checked + label {
 #sign-up fieldset {
   border: none;
 }
-
-input {
-  width: 500px;
-  height: 40px;
-  border: none;
-  background-color: var(--divita-light-grey);
-  margin-bottom: 0.5em;
-  font-size: 28px;
-  font-weight: bold;
-}
