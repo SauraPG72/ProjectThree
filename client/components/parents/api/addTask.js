@@ -1,4 +1,5 @@
 import { renderParentsPage } from "../parentsPage.js";
+import { renderPage } from "../../../index.js";
 
 // ============= post task form data to the server =============
 
@@ -50,7 +51,8 @@ export function postTask(form) {
     // post data to the server
     axios.post("/api/parents/task", jsonForm).then((res) => {
       console.log(res);
-      renderParentsPage();
+      // renderParentsPage();
+      renderPage();
     });
   }
 }

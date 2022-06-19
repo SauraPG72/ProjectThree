@@ -1,7 +1,8 @@
 export const store = {
   loggedIn: false,
-  type: '',
+  type: "",
   userId: null,
-  name: '',
-  family: '',
+  name: "",
+  family: "",
+  kids: [],
 };

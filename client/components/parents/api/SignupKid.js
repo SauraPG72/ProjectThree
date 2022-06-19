@@ -1,4 +1,4 @@
-import { renderParentsPage } from "../parentsPage.js";
+import { renderPage } from "../../../index.js";
 
 export function signUpKid(form) {
   const formData = new FormData(form);
@@ -28,7 +28,7 @@ export function signUpKid(form) {
     axios
       .post("/api/users/kids", jsonForm)
       .then((res) => {
-        renderParentsPage();
+        renderPage();
       })
       .catch((err) => {
         console.log(err);

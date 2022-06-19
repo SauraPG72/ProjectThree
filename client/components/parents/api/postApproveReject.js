@@ -1,4 +1,4 @@
-import { renderParentsPage } from "../parentsPage.js";
+import { renderPage } from "../../../index.js";
 
 // appvoroOrReject : String
 // if approve, send a request to delete the targeted task
@@ -12,7 +12,7 @@ export function postApproveReject(form, appvoroOrReject, data) {
     axios
       .patch(`/api/parents/task/${taskId}`, jsonData)
       .then(() => {
-        renderParentsPage();
+        renderPage();
       })
       .catch((err) => {
         console.log(err);

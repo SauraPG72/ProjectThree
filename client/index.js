@@ -3,6 +3,7 @@ import { store } from "./utils/store.js";
 import { renderParentsPage } from "./components/parents/parentsPage.js";
 import { renderAddKidPrompt } from "./components/main/addKidPrompt.js";
 import { renderKidsPage } from "./components/kids/kidsPage.js";
+import { setKidsInStore } from "./components/parents/setKidInStore.js";
 
 axios.get("/api/session").then((response) => {
   const sessionData = response.data;
@@ -15,7 +16,7 @@ axios.get("/api/session").then((response) => {
   renderPage();
 });
 
-async function renderPage() {
+export async function renderPage() {
   renderHeader();
 
   const kidsArray = await getKidsByParent(store.userId);
@@ -24,6 +25,7 @@ async function renderPage() {
     return;
   }
   if (store.type === "parent") {
+    setKidsInStore(kidsArray);
     renderParentsPage();
   }
   if (store.type === "kid") {
@@ -32,7 +34,7 @@ async function renderPage() {
 }
 
 function getKidsByParent(id) {
-  return axios.get(`/api/users//kids-by-parent-id/${id}`).then((res) => {
+  return axios.get(`/api/users/kids-by-parent-id/${id}`).then((res) => {
     return res.data;
   });
 }
