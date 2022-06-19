@@ -1,6 +1,7 @@
-import { createAnElement } from "../../utils/elementCreator.js";
-import { store } from "../../utils/store.js";
-import { addKidPage } from "./Addkid/addKid.js";
+import { createAnElement } from "../../../utils/elementCreator.js";
+import { store } from "../../../utils/store.js";
+import { addKidPage } from "../Addkid/addKid.js";
+import { createTitle } from "../../title.js";
 
 export function renderTally() {
   // take user id out of Store and send it to the server
@@ -37,18 +38,8 @@ export function renderTally() {
         [icon]
       );
 
-      const title = createAnElement("h2", {
-        textContent: "Tally",
-        className: "components-title",
-      });
-
-      const titleContainer = createAnElement(
-        "div",
-        {
-          className: "title-container",
-        },
-        [title, addKidButton]
-      );
+      const titleContainer = createTitle("Tally");
+      titleContainer.appendChild(addKidButton);
 
       tallyWrapper.appendChild(titleContainer);
 

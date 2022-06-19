@@ -3,6 +3,7 @@ import { store } from "../utils/store.js";
 
 export function renderHeader() {
   const appHeader = document.getElementById("app-header");
+  appHeader.innerHTML = "";
 
   const headerTitle = createAnElement("a", {
     textContent: "divita",

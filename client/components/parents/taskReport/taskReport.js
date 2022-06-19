@@ -1,6 +1,7 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { approverejectConfirm } from "./approveRejectConfirm.js";
+import { createTitle } from "../../title.js";
 
 // next => approverejectConfirm (form page to confirm of parents want to approve/reject requests)
 export function tasksReports() {
@@ -12,7 +13,6 @@ export function tasksReports() {
     .get(`/api/parents/tasksreport/${user_id}`)
     .then((res) => {
       const tasksList = res.data.tasksList;
-      console.log(tasksList);
 
       // task list area wrapper ( return this later )
       const taskReportsWrapper = createAnElement("div", {
@@ -20,10 +20,7 @@ export function tasksReports() {
         className: "wrapper",
       });
       // "TASKS THIS WEEK" title
-      const title = createAnElement("p", {
-        textContent: "TASKS REPORTS",
-        className: "title",
-      });
+      const title = createTitle("Task Reports");
       taskReportsWrapper.appendChild(title);
 
       if (tasksList.length === 0) {

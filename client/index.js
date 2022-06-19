@@ -3,22 +3,23 @@ import { store } from "./utils/store.js";
 import { renderParentsPage } from "./components/parents/parentsPage.js";
 import { renderAddKidPrompt } from "./components/main/addKidPrompt.js";
 import { renderKidsPage } from "./components/kids/kidsPage.js";
+import { setKidsInStore } from "./components/parents/setKidInStore.js";
 
 renderPage();
 
-async function renderPage() {
+export async function renderPage() {
   await getSessionData();
 
   renderHeader();
 
   console.log(store.userId);
   const kidsArray = await getKidsByParent(store.userId);
-  console.log(kidsArray);
   if (store.loggedIn && kidsArray.length === 0) {
     renderAddKidPrompt();
     return;
   }
   if (store.type === "parent") {
+    setKidsInStore(kidsArray);
     renderParentsPage();
   }
   if (store.type === "kid") {
