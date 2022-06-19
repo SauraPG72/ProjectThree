@@ -9,15 +9,26 @@ function generateHash(password) {
 }
 
 router.get("/kids-by-parent-id/:id", (req, res) => {
-  console.log("test");
   db.query("SELECT * FROM kids WHERE parent_id = $1", [req.params.id])
     .then((dbResult) => {
+      console.log(dbResult.rows);
       res.json(dbResult.rows);
     })
     .catch((err) => {
       res.status(400).json(err);
     });
 });
+
+//router.get("/:type/:id", (req, res) => {
+//  let sql = "";
+//  const userId = req.params.id;
+//  if (req.params.type == "parent") sql = "SELECT * FROM parents WHERE id = $1";
+//  if (req.params.type == "kid") sql = "SELECT * FROM kids WHERE id = $1";
+
+//  db.query(sql, [userId]).then((dbResult) => {
+//    res.json(dbResult.rows);
+//  });
+//});
 
 router.post("/", (req, res) => {
   const { familyName, parentFirstName, userName, password, passwordCheck } = req.body;

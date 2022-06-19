@@ -28,15 +28,6 @@ router.get("/tasks", (req, res) => {
   });
 });
 
-router.get("/tasks", (req, res) => {
-  const kidId = req.session.userId;
-  const sql = "SELECT * FROM tasks WHERE kid_id = $1";
-  db.query(sql, [kidId]).then((dbResult) => {
-    const taskRows = dbResult.rows;
-    res.json(taskRows);
-  });
-});
-
 router.get("/goals", (req, res) => {
   const kidId = req.session.userId;
   const sql = "SELECT * FROM goals WHERE kid_id = $1";
@@ -49,29 +40,25 @@ router.get("/goals", (req, res) => {
 router.post("/goals", (req, res) => {
   const kidId = req.session.userId;
   let { description, cents, points, allPoints, allCents } = req.body;
-  
+
   if (cents) {
     if (!allCents) {
-    allCents = 0
+      allCents = 0;
     }
-    const sql = 'INSERT INTO goals (kid_id, description, cents, allocated_cents) VALUES ($1, $2, $3, $4)'
+    const sql =
+      "INSERT INTO goals (kid_id, description, cents, allocated_cents) VALUES ($1, $2, $3, $4)";
     db.query(sql, [kidId, description, +cents, +allCents]).then(() => {
-      res.json({success: true})
-      console.log(req.body)
-    })
-    
-    
-  }
-  else if (req.body.points) {
+      res.json({ success: true });
+      console.log(req.body);
+    });
+  } else if (req.body.points) {
     if (!allPoints) {
       allPoints = 0;
     }
-      const sql = 'INSERT INTO goals (kid_id, description, points) VALUES ($1, $2, $3, $4)'
-      db.query(sql, [kidId, description, +points, +allPoints]).then(() => {
-        res.json({success: true})
-    })
-    
-    
+    const sql = "INSERT INTO goals (kid_id, description, points) VALUES ($1, $2, $3, $4)";
+    db.query(sql, [kidId, description, +points, +allPoints]).then(() => {
+      res.json({ success: true });
+    });
   }
 });
 

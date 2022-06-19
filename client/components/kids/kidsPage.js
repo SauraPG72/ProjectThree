@@ -6,17 +6,19 @@ import { kidTasks } from "./kidTasks.js";
 export async function renderKidsPage() {
   const [kidDataSection, kidTasksSection, kidGoalsSection] = await Promise.all([
     kidData(),
-
     kidTasks(),
-
-    kidGoals()
+    kidGoals(),
   ]);
+
   const kidsPageWrapper = createAnElement(
-    'div',
+    "div",
     {
-      id: 'kidssPageWrapper',
+      id: "kidsPageWrapper",
     },
     [kidDataSection, kidTasksSection, kidGoalsSection]
   );
-  app.appendChild(kidsPageWrapper)
+
+  const mainContainer = createAnElement("main", { className: "main-container" }, [kidsPageWrapper]);
+
+  app.appendChild(mainContainer);
 }

@@ -1,5 +1,6 @@
 @import "base.css";
 @import "header.css";
+@import "splash.css";
 @import "parents.css";
+@import "kids.css";
 @import "login-signup.css";
-@import "kidHeader.css";

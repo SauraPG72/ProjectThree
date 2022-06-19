@@ -1,0 +1,35 @@
+#add-kid-prompt-container {
+  width: 100%;
+  display: flex;
+}
+
+#add-kid-prompt-image {
+  width: 50%;
+}
+
+#add-kid-prompt-header-container {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-kid-prompt-header {
+  font-family: "Quicksand", cursive;
+  text-align: center;
+  font-size: 48px;
+}
+
+#add-kid-prompt-paragraph {
+  margin-top: 20px;
+}
+
+#add-kid-btn {
+  all: unset;
+  padding: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: var(--divita-blue);
+  font-weight: bold;
+}
