@@ -67,6 +67,12 @@ router.get("/tasksreport/:id", (req, res) => {
   }
 });
 
+router.get("/pendingTasks/:id", (req, res) => {
+  const parent_id = req.params.id;
+  console.log(parent_id);
+  res.json({ tasksList: true });
+});
+
 // for parents to add tasks for kids
 router.post("/task", (req, res) => {
   const sql = `INSERT INTO tasks (description, kid_id, status, points, cents, expiry_date, category)
