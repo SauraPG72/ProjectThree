@@ -6,14 +6,13 @@ export function kidGoals() {
 
     const goalsBoxFinal = createAnElement("div", {
       innerHTML: `
-            <div id="goalsHeader">
+            <div id="goalsHeader" class="title-container">
             <h1> Goals List:</h1>
             <h1 id="add-goals"> + </h1>
             </div>
             `,
     });
     let goalsButt = goalsBoxFinal.querySelector("#add-goals");
-    console.log(goalsButt);
     goalsButt.addEventListener("click", (event) => {
       let kidPage = document.getElementById("kidsPageWrapper");
       console.log(event);
@@ -54,8 +53,7 @@ export function kidGoals() {
     for (const goal of kidGoals) {
       if (goal.cents) {
         const newGoal = createAnElement("div", {
-          id: "eachGoal",
-
+          className: "goal item",
           innerHTML: `
                 <p>${goal.description}</p>
                 <p>$${goal.cents * 0.1}</p>
@@ -65,8 +63,7 @@ export function kidGoals() {
         goalsBoxFinal.appendChild(newGoal);
       } else if (goal.points) {
         const newGoal = createAnElement("div", {
-          id: "eachGoal",
-
+          className: "goal item",
           innerHTML: `
                 <p>${goal.description}</p>
                 <p>${goal.points} points</p>

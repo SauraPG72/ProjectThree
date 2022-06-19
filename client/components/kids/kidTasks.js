@@ -6,8 +6,9 @@ export function kidTasks() {
 
     const tasksBoxFinal = createAnElement("div", {
       id: "tasksList",
+      className: "wrapper",
       innerHTML: `
-      <div id="tasksHeader">
+      <div id="tasksHeader" class="title-container">
       <h1>Tasks List: </h1>
       <h1 id='addTasks'> + </h1>
       </div>
@@ -71,8 +72,7 @@ export function kidTasks() {
     for (const task of kidTasks) {
       if ((task.status = "approved" && task.cents)) {
         const newTask = createAnElement("div", {
-          id: "eachTask",
-
+          className: "task item",
           innerHTML: `
           <p>${task.description}<p>
           <p>$${task.cents * 0.01}</p>
@@ -82,7 +82,7 @@ export function kidTasks() {
         tasksBoxFinal.appendChild(newTask);
       } else if ((task.status = "approved" && task.points)) {
         const newTask = createAnElement("div", {
-          id: "eachTask",
+          className: "task item",
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
           <p>${task.description}<p>

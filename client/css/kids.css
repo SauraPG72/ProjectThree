@@ -18,6 +18,16 @@
   height: 50px;
 }
 
+#tasksList {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.goal {
+  background-color: var(--divita-teal);
+}
+
 /*#tasksList {
   grid-row: 1/2;
   grid-column: 2/3;
