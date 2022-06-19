@@ -70,7 +70,22 @@ router.get("/tasksreport/:id", (req, res) => {
 router.get("/pendingTasks/:id", (req, res) => {
   const parent_id = req.params.id;
   console.log(parent_id);
-  res.json({ tasksList: true });
+  if (req.session.loggedIn) {
+    const sql = `SELECT tasks.id as t_id,tasks.description, tasks.points, tasks.cents, kids.name, kids.id
+    FROM tasks INNER JOIN kids
+    ON tasks.kid_id = kids.id
+    INNER JOIN parents
+    ON kids.parent_id = parents.id
+    WHERE parents.id = $1 AND tasks.status='pending'`;
+    db.query(sql, [parent_id])
+      .then((dbResult) => {
+        res.json({ tasksList: dbResult.rows });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({ success: false });
+      });
+  }
 });
 
 // for parents to add tasks for kids
@@ -103,7 +118,6 @@ router.post("/task", (req, res) => {
 // and then redeem points/money of that task
 router.patch("/task/:id", (req, res) => {
   const taskId = req.params.id;
-  console.log(req.body);
 
   if (!taskId) {
     res.status(400).json({ success: false, message: "Missing valid task id" });
