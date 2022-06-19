@@ -14,7 +14,6 @@ export async function renderPage() {
 
   console.log(store.userId);
   const kidsArray = await getKidsByParent(store.userId);
-  console.log(kidsArray);
   if (store.loggedIn && kidsArray.length === 0) {
     renderAddKidPrompt();
     return;

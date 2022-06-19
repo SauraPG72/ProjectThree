@@ -1,5 +1,5 @@
 import { createAnElement } from "../../utils/elementCreator.js";
-import { renderTally } from "./tally.js";
+import { renderTally } from "./Tally/tally.js";
 import { tasksReports } from "./taskReport/taskReport.js";
 import { tasksList } from "./TasksList/tasksList.js";
 
