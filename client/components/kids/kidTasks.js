@@ -17,7 +17,6 @@ export function kidTasks() {
 
     // ADDTASKS BUTTON.
     let taskAddbutt = tasksBoxFinal.querySelector("#addTasks");
-    console.log(taskAddbutt);
     taskAddbutt.addEventListener("click", (e) => {
       let kidPage = document.getElementById("kidsPageWrapper");
       let taskForm = createAnElement("div", {
@@ -26,18 +25,29 @@ export function kidTasks() {
         <h1> Request a task: </h1>
     
         <form id="addTaskForm">
-        <input type="text" name="description" placeholder="Description:">
-        <input type="number" name="points" placeholder="Requested points:">
-        <input type="number" name="cents" placeholder="Requested dollars:">
-        <label for="expiry-date">Expiry Date:</label>
-        <input type="date" name="expiry-date">
-        <label for="category">Choose a category:</label>
-        <select name="category" id="category">
-        <option value="Reccuring">Reccuring</option>
-        <option value="House Chores">House Chores</option>
-        <option value="Academic">Academic</option>
-        <option value="Art">Art</option>
+			<div>
+        		<input type="text" name="description" placeholder="Description:">
+			</div>
+			<div>
+        		<input type="number" name="amount" placeholder="Amount">
+        	<select name="type">
+				<option value="cents">Dollars</option>
+				<option value="points">Points</option>
+			</select>
+		</div>
+		<div>
+			<label for="expiry-date">Expiry Date:</label>
+			<input type="date" name="expiry-date">
+		</div>
+		<div>
+			<label for="category">Choose a category:</label>
+			<select name="category" id="category">
+			<option value="Reccuring">Reccuring</option>
+			<option value="House Chores">House Chores</option>
+			<option value="Academic">Academic</option>
+			<option value="Art">Art</option>
         </select>
+		</div>
     
         <input type="submit">
     
@@ -52,8 +62,8 @@ export function kidTasks() {
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points: formData.get("points"),
-          cents: formData.get("cents"),
+          points: formData.get("type") === "points" ? formData.get("amount") : null,
+          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };
@@ -64,8 +74,8 @@ export function kidTasks() {
         });
       });
 
-      kidPage.innerHTML = "";
-      kidPage.appendChild(taskForm);
+      app.innerHTML = "";
+      app.appendChild(taskForm);
     });
 
     const tasksListContainer = createAnElement("div", {
