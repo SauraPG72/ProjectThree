@@ -4,22 +4,21 @@ export function kidTasks() {
   return axios.get("/api/kids/tasks").then((response) => {
     const kidTasks = response.data;
 
-
     const tasksBoxFinal = createAnElement("div", {
-      id: "tasksList", 
+      id: "tasksList",
       innerHTML: `
       <div id="tasksHeader">
       <h1>Tasks List: </h1>
       <h1 id='addTasks'> + </h1>
       </div>
-      `
-    })
+      `,
+    });
 
-    // ADDTASKS BUTTON.  
-    let taskAddbutt = tasksBoxFinal.querySelector('#addTasks')
-    console.log(taskAddbutt)
-    taskAddbutt.addEventListener('click', (e) => {
-      let kidPage = document.getElementById('kidssPageWrapper')
+    // ADDTASKS BUTTON.
+    let taskAddbutt = tasksBoxFinal.querySelector("#addTasks");
+    console.log(taskAddbutt);
+    taskAddbutt.addEventListener("click", (e) => {
+      let kidPage = document.getElementById("kidsPageWrapper");
       let taskForm = createAnElement("div", {
         id: "taskForm",
         innerHTML: `
@@ -43,44 +42,41 @@ export function kidTasks() {
     
     
         </form>
-        `
-        
-        
-      })
-      const addTaskForm = taskForm.querySelector('#addTaskForm');
-      addTaskForm.addEventListener('submit', (e) => {
+        `,
+      });
+      const addTaskForm = taskForm.querySelector("#addTaskForm");
+      addTaskForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(addTaskForm);
-        console.log(formData.get('expiry-date'))
+        console.log(formData.get("expiry-date"));
         const data = {
-          description: formData.get('description'),
-          points: formData.get('points'),
-          cents: formData.get('cents'),
-          expiry: formData.get('expiry-date'),
-          category: formData.get('category')
-        }
-        
-        axios.post('/api/kids/task', data).then((response) => {
-          console.log(response)
-          location.reload()
-        })
-      })
+          description: formData.get("description"),
+          points: formData.get("points"),
+          cents: formData.get("cents"),
+          expiry: formData.get("expiry-date"),
+          category: formData.get("category"),
+        };
 
-      kidPage.innerHTML = ''
-      kidPage.appendChild(taskForm)
-    })
+        axios.post("/api/kids/task", data).then((response) => {
+          console.log(response);
+          location.reload();
+        });
+      });
+
+      kidPage.innerHTML = "";
+      kidPage.appendChild(taskForm);
+    });
 
     // tasksBox.appendChild(taskHeader);
     for (const task of kidTasks) {
       if ((task.status = "approved" && task.cents)) {
         const newTask = createAnElement("div", {
           id: "eachTask",
-          
+
           innerHTML: `
           <p>${task.description}<p>
           <p>$${task.cents * 0.01}</p>
-          `
-        
+          `,
         });
 
         tasksBoxFinal.appendChild(newTask);
@@ -91,7 +87,7 @@ export function kidTasks() {
           innerHTML: `
           <p>${task.description}<p>
           <p>${task.points} pts</p>
-          `
+          `,
         });
 
         tasksBoxFinal.appendChild(newTask);
@@ -100,4 +96,3 @@ export function kidTasks() {
     return tasksBoxFinal;
   });
 }
-
