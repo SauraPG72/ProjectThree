@@ -68,6 +68,10 @@ export function kidTasks() {
       kidPage.appendChild(taskForm);
     });
 
+    const tasksListContainer = createAnElement("div", {
+      className: "container",
+    });
+
     // tasksBox.appendChild(taskHeader);
     for (const task of kidTasks) {
       if ((task.status = "approved" && task.cents)) {
@@ -79,7 +83,7 @@ export function kidTasks() {
           `,
         });
 
-        tasksBoxFinal.appendChild(newTask);
+        tasksListContainer.appendChild(newTask);
       } else if ((task.status = "approved" && task.points)) {
         const newTask = createAnElement("div", {
           className: "task item",
@@ -90,9 +94,11 @@ export function kidTasks() {
           `,
         });
 
-        tasksBoxFinal.appendChild(newTask);
+        tasksListContainer.appendChild(newTask);
       }
     }
+    tasksBoxFinal.append(tasksListContainer);
+
     return tasksBoxFinal;
   });
 }

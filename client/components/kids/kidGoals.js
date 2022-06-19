@@ -50,6 +50,10 @@ export function kidGoals() {
       kidPage.appendChild(addGoals);
     });
 
+    const goalsListContainer = createAnElement("div", {
+      className: "container",
+    });
+
     for (const goal of kidGoals) {
       if (goal.cents) {
         const newGoal = createAnElement("div", {
@@ -60,7 +64,7 @@ export function kidGoals() {
                 `,
         });
 
-        goalsBoxFinal.appendChild(newGoal);
+        goalsListContainer.appendChild(newGoal);
       } else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
@@ -70,9 +74,11 @@ export function kidGoals() {
                 `,
         });
 
-        goalsBoxFinal.appendChild(newGoal);
+        goalsListContainer.appendChild(newGoal);
       }
     }
+    goalsBoxFinal.append(goalsListContainer);
+
     return goalsBoxFinal;
   });
 }

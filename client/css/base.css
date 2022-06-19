@@ -26,6 +26,19 @@
   margin-top: 2em;
 }
 
+.item {
+  width: 100%;
+  min-height: 2em;
+  height: auto;
+  border-radius: 6px;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 24px;
+}
+
 body,
 button,
 input,

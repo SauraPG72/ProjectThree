@@ -3,7 +3,7 @@
   margin: auto;
   min-height: 95vh;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 3fr 2fr;
   grid-template-rows: auto 1fr;
   gap: 2em;
 }
@@ -15,12 +15,23 @@
   font-size: 48px;
   display: flex;
   justify-content: space-between;
-  height: 50px;
+  min-height: 70px;
+  height: auto;
+  background-color: var(--divita-blue);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+#header-total-tally {
+  display: flex;
+}
+#header-total-tally > * {
+  margin-left: 1em;
 }
 
 #tasksList {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
