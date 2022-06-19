@@ -11,7 +11,7 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
     if (appvoroOrReject === "approve") {
       // send a delete request to the server
       axios
-        .patch(`/api/parents/task/${taskId}`, jsonData)
+        .patch(`/api/parents/taskcomplete/${taskId}`, jsonData)
         .then(() => {
           renderPage();
         })
@@ -25,6 +25,23 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
       console.log("reject confirmed");
     }
   } else if (requestType === "pending") {
-    console.log("pending");
+    console.log(data);
+    console.log(taskId);
+    if (appvoroOrReject === "approve") {
+      // send a delete request to the server
+      axios
+        .patch(`/api/parents/approvetask/${taskId}`, jsonData)
+        .then((res) => {
+          renderPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMessage.textContent =
+            "There was a server error. Please try again.";
+          errorMessage.style.display = "block";
+        });
+    } else {
+      console.log("reject confirmed");
+    }
   }
 }

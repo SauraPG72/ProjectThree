@@ -40,7 +40,6 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
   // if rewardType is 'cents', the form shows 'Task Name for $ XX'
   // if rewardType is 'points', the form shows 'Task Name for XX points'
   if (rewardType == "cents") {
-    console.log("yes");
     description = createAnElement("h1", {
       textContent: `${taskInfoArr[0]} for $ ${taskInfoArr[1] / 100}`,
     });

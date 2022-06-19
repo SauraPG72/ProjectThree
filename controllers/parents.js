@@ -116,7 +116,7 @@ router.post("/task", (req, res) => {
 
 // to change the status completed task (when parents approve kids' task completion request)
 // and then redeem points/money of that task
-router.patch("/task/:id", (req, res) => {
+router.patch("/taskcomplete/:id", (req, res) => {
   const taskId = req.params.id;
 
   if (!taskId) {
@@ -143,6 +143,26 @@ router.patch("/task/:id", (req, res) => {
             res.json({ seccess: "Successfully redeemed points!" });
           });
         }
+      })
+      .catch((err) => {
+        res.status(500).json({ seccess: "fail", error: err });
+      });
+  }
+});
+
+// route tochange the status of a task from 'pending' to 'approved'
+router.patch("/approvetask/:taskId", (req, res) => {
+  const taskId = req.params.taskId;
+  console.log(taskId);
+  console.log(req.body);
+
+  if (!taskId) {
+    res.status(400).json({ success: false, message: "Missing valid task id" });
+  } else {
+    const sql = `UPDATE tasks SET status='approved' WHERE id=${taskId}`;
+    db.query(sql)
+      .then(() => {
+        res.json({ seccess: "Successfully changed the status of the task!" });
       })
       .catch((err) => {
         res.status(500).json({ seccess: "fail", error: err });
