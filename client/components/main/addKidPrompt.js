@@ -9,7 +9,7 @@ export function renderAddKidPrompt() {
 
   const addKidPromptHeader = createAnElement("h1", {
     id: "add-kid-prompt-header",
-    textContent: "You are one step closer to teaching your kids financial responsibility!",
+    textContent: "Welcome, You are one step closer to teaching your kids financial responsibility!",
   });
   const addKidPromptParagraph = createAnElement("h3", {
     id: "add-kid-prompt-paragraph",
