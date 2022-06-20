@@ -62,8 +62,12 @@ export function kidTasks() {
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points: formData.get("type") === "points" ? formData.get("amount") : null,
-          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
+          points:
+            formData.get("type") === "points" ? formData.get("amount") : null,
+          cents:
+            formData.get("type") === "cents"
+              ? formData.get("amount") * 100
+              : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };

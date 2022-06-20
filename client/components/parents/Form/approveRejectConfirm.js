@@ -1,11 +1,16 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { postApproveReject } from "../api/postApproveReject.js";
 
+// This function is to create a form for approving/ rejecting a request from kids
 // next => postApproveReject (api to send request to the server)
-export function approverejectConfirm(status, task, rewardType) {
+// rewardType = "cents"/ "points"
+// requestType = "completed"/ "pending"
+// completed : approve completed task and redeem it
+// pending : approve a task request and change status from 'pending' to 'approved'
+export function approverejectConfirm(status, task, rewardType, requestType) {
   app.innerHTML = "";
 
-  console.log(task.task_description);
+  console.log(requestType);
   let taskInfoArr = task.task_description.split(":"); // [task description, task reward]
   let data;
   if (rewardType === "cents") {
@@ -31,9 +36,18 @@ export function approverejectConfirm(status, task, rewardType) {
   });
 
   // description of the task
-  const description = createAnElement("h1", {
-    textContent: taskInfoArr[0],
-  });
+  let description;
+  // if rewardType is 'cents', the form shows 'Task Name for $ XX'
+  // if rewardType is 'points', the form shows 'Task Name for XX points'
+  if (rewardType == "cents") {
+    description = createAnElement("h1", {
+      textContent: `${taskInfoArr[0]} for $ ${taskInfoArr[1] / 100}`,
+    });
+  } else {
+    description = createAnElement("h1", {
+      textContent: `${taskInfoArr[0]} for ${taskInfoArr[1]} pts`,
+    });
+  }
 
   // task id (hidden input tag)
   const taskIdHiddenInput = createAnElement("input", {
@@ -84,7 +98,7 @@ export function approverejectConfirm(status, task, rewardType) {
     // for approval
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      postApproveReject(form, "approve", data);
+      postApproveReject(form, "approve", data, requestType);
     });
   } else {
     const confirmation = createAnElement("p", {
@@ -117,7 +131,7 @@ export function approverejectConfirm(status, task, rewardType) {
     // for rejection
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      postApproveReject(form, "reject");
+      postApproveReject(form, "reject", requestType);
     });
   }
 }

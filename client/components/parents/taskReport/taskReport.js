@@ -1,6 +1,6 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
-import { approverejectConfirm } from "./approveRejectConfirm.js";
+import { approverejectConfirm } from "../Form/approveRejectConfirm.js";
 import { createTitle } from "../../title.js";
 
 // next => approverejectConfirm (form page to confirm of parents want to approve/reject requests)
@@ -131,9 +131,19 @@ export function tasksReports() {
               task_description: e.target.id,
             };
             if (rewardType === "cents") {
-              approverejectConfirm("approve", targetedTask, "cents");
+              approverejectConfirm(
+                "approve",
+                targetedTask,
+                "cents",
+                "completed"
+              );
             } else {
-              approverejectConfirm("approve", targetedTask, "points");
+              approverejectConfirm(
+                "approve",
+                targetedTask,
+                "points",
+                "completed"
+              );
             }
           });
 
@@ -142,7 +152,21 @@ export function tasksReports() {
               task_id: e.target.value,
               task_description: e.target.id,
             };
-            approverejectConfirm("reject", targetedTask);
+            if (rewardType === "cents") {
+              approverejectConfirm(
+                "reject",
+                targetedTask,
+                "cents",
+                "completed"
+              );
+            } else {
+              approverejectConfirm(
+                "reject",
+                targetedTask,
+                "points",
+                "completed"
+              );
+            }
           });
         });
         // ============================================================
