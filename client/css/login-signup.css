@@ -35,23 +35,29 @@
   margin-top: 20px;
 }
 
-.type-option input[type="radio"].type {
-  /*display: none;*/
-  width: 20px;
-  margin: 10px;
+/* Radio Buttons Inspiration: https://codepen.io/dsenneff/pen/ZoLVZW */
+.type-option input {
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -9999px;
 }
 
-.type-option input[type="radio"].type + label {
+.type-option input + label {
   padding: 10px;
   width: 100px;
+  position: relative;
+  display: inline-block;
   background-color: var(--divita-light-grey);
+  cursor: pointer;
 }
 
-.type-option input[type="radio"].type:checked + label {
+.type-option input:checked + label {
+  color: #ffffff;
   padding: 10px;
   width: 100px;
   background-color: var(--divita-teal);
-  color: teal;
+  z-index: 1;
 }
 
 #log-in fieldset,
@@ -64,8 +70,18 @@
 }
 
 .login-sign-up-button {
+  margin-top: 2em;
+  font-weight: bold;
   all: unset;
   cursor: pointer;
+  background-color: var(--divita-light-grey);
+  height: 50px;
+  width: 50%;
+  text-align: center;
+}
+
+.login-sign-up-button:hover {
+  background-color: var(--divita-blue);
 }
 
 #login-type {
