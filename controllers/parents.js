@@ -69,7 +69,7 @@ router.get("/tasksreport/:id", (req, res) => {
 
 router.get("/pendingTasks/:id", (req, res) => {
   const parent_id = req.params.id;
-  console.log(parent_id);
+
   if (req.session.loggedIn) {
     const sql = `SELECT tasks.id as t_id,tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
@@ -126,7 +126,6 @@ router.patch("/taskcomplete/:id", (req, res) => {
     db.query(sql)
       .then(() => {
         if (req.body.cents) {
-          console.log("cents route");
           const redeemSql = `UPDATE kids
           SET total_cents = total_cents + ${req.body.cents}
           FROM tasks  WHERE tasks.id = ${taskId} AND tasks.kid_id=kids.id;`;
@@ -134,8 +133,6 @@ router.patch("/taskcomplete/:id", (req, res) => {
             res.json({ seccess: "Successfully redeemed money!" });
           });
         } else if (req.body.points) {
-          console.log("points route");
-          console.log("cents route");
           const redeemSql = `UPDATE kids
           SET total_points = total_points + ${req.body.points}
           FROM tasks  WHERE tasks.id = ${taskId} AND tasks.kid_id=kids.id;`;
@@ -153,8 +150,6 @@ router.patch("/taskcomplete/:id", (req, res) => {
 // route tochange the status of a task from 'pending' to 'approved'
 router.patch("/approvetask/:taskId", (req, res) => {
   const taskId = req.params.taskId;
-  console.log(taskId);
-  console.log(req.body);
 
   if (!taskId) {
     res.status(400).json({ success: false, message: "Missing valid task id" });
