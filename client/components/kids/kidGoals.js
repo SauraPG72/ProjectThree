@@ -60,12 +60,18 @@ export function kidGoals() {
           className: "goal item",
           innerHTML: `
                 <p>${goal.description}</p>
-                <p>$${goal.cents * 0.1}</p>
+                <p>$${goal.cents * 0.01}</p>
+                <form>
+                  <input type="number" name="all-cents" placeholder="?">
+                  <input type="submit">
+                </form>
                 `,
         });
 
         goalsListContainer.appendChild(newGoal);
-      } else if (goal.points) {
+      } 
+      
+      else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
@@ -76,6 +82,7 @@ export function kidGoals() {
 
         goalsListContainer.appendChild(newGoal);
       }
+      
     }
     goalsBoxFinal.append(goalsListContainer);
 

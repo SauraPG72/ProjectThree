@@ -62,8 +62,12 @@ export function kidTasks() {
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points: formData.get("type") === "points" ? formData.get("amount") : null,
-          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
+          points:
+            formData.get("type") === "points" ? formData.get("amount") : null,
+          cents:
+            formData.get("type") === "cents"
+              ? formData.get("amount") * 100
+              : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };
@@ -84,7 +88,27 @@ export function kidTasks() {
 
     // tasksBox.appendChild(taskHeader);
     for (const task of kidTasks) {
-      if ((task.status = "approved" && task.cents)) {
+      if (task.status == "pending" && task.cents) {
+        const newTask = createAnElement("div", {
+          className: "task item",
+          innerHTML: `
+          <p>${task.description}<p>
+          <p>$${task.cents * 0.01}</p>
+          `,
+          id: "pending-task",
+        });
+        tasksListContainer.appendChild(newTask);
+      } else if (task.status == "pending" && task.points) {
+        const newTask = createAnElement("div", {
+          className: "task item",
+          innerHTML: `
+        <p>${task.description}<p>
+        <p>$${task.cents * 0.01}</p>
+        `,
+          id: "pending-task",
+        });
+        tasksListContainer.appendChild(newTask);
+      } else if (task.status == "approved" && task.cents) {
         const newTask = createAnElement("div", {
           className: "task item",
           innerHTML: `
@@ -94,7 +118,7 @@ export function kidTasks() {
         });
 
         tasksListContainer.appendChild(newTask);
-      } else if ((task.status = "approved" && task.points)) {
+      } else if (task.status == "approved" && task.points) {
         const newTask = createAnElement("div", {
           className: "task item",
           textContent: `${task.description}  ${task.points} pts`,
