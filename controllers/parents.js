@@ -28,13 +28,14 @@ router.get("/tally/:id", (req, res) => {
 // :id in the url is parent's id
 router.get("/taskslist/:id", (req, res) => {
   const parent_id = req.params.id;
+
   if (req.session.loggedIn) {
     const sql = `SELECT tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
     ON tasks.kid_id = kids.id
     INNER JOIN parents
     ON kids.parent_id = parents.id
-    WHERE parents.id = $1`;
+    WHERE parents.id = $1  AND tasks.expiry_date::date >= to_timestamp(${Date.now()} / 1000.0)`;
     db.query(sql, [parent_id])
       .then((dbResult) => {
         res.json({ tasksList: dbResult.rows });
@@ -49,6 +50,7 @@ router.get("/taskslist/:id", (req, res) => {
 // to get all the tasks done by the kids
 router.get("/tasksreport/:id", (req, res) => {
   const parent_id = req.params.id;
+
   if (req.session.loggedIn) {
     const sql = `SELECT tasks.id as t_id,tasks.description, tasks.points, tasks.cents, kids.name, kids.id
     FROM tasks INNER JOIN kids
@@ -90,6 +92,8 @@ router.get("/pendingTasks/:id", (req, res) => {
 
 // for parents to add tasks for kids
 router.post("/task", (req, res) => {
+  const createdDate = new Date(req.body.expiry_date);
+
   const sql = `INSERT INTO tasks (description, kid_id, status, points, cents, expiry_date, category)
   VALUES ($1, $2, $3, $4, $5, $6, $7)`;
   db.query(sql, [
@@ -98,7 +102,7 @@ router.post("/task", (req, res) => {
     req.body.status,
     req.body.points,
     req.body.cents,
-    req.body.expiry_date,
+    createdDate,
     req.body.category,
   ])
     .then(() => {
