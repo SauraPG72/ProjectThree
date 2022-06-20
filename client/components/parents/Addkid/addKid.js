@@ -10,7 +10,7 @@ export function addKidPage() {
 
   // wrapper > form > inputs/ button
   const placeHolders = [
-    "Username",
+    "Name",
     { name: "Password", type: "password" },
     { name: "Confirm Password", type: "password" },
     "Starting Reward Points",
