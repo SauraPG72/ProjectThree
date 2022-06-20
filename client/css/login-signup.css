@@ -3,7 +3,6 @@
 #logo {
   font-family: "Pacifico", cursive;
   font-size: 48px;
-  color: var(--divita-teal);
 }
 
 #log-in,
@@ -13,10 +12,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+#log-in a,
+#sign-up a {
+  text-decoration: none;
+  color: var(--divita-teal);
+}
+
+#log-in a:hover,
+#sign-up a:hover {
+  text-decoration: none;
+  color: var(--divita-salmon);
+}
+
+#sign-up-form,
+#log-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
 input[type="radio"].type {
   display: none;
+  width: 50px;
 }
 
 input[type="radio"].type + label {
@@ -35,4 +56,17 @@ input[type="radio"].type:checked + label {
 #log-in fieldset,
 #sign-up fieldset {
   border: none;
+}
+
+.login-signup-message {
+  margin-top: 1em;
+}
+
+.login-sign-up-button {
+  all: unset;
+  cursor: pointer;
+}
+
+#login-type {
+  margin-bottom: 20px;
 }
