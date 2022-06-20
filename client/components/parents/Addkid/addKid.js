@@ -10,7 +10,7 @@ export function addKidPage() {
 
   // wrapper > form > inputs/ button
   const placeHolders = [
-    "Name",
+    "Username",
     { name: "Password", type: "password" },
     { name: "Confirm Password", type: "password" },
     "Starting Reward Points",
@@ -19,7 +19,7 @@ export function addKidPage() {
 
   const title = createAnElement("h1", {
     id: "createTaskTitle",
-    textContent: "SIGN UP YOUR CHILD",
+    textContent: "Sign Up Your Kid",
   });
 
   // create a form and input tags in it
