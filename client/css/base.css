@@ -54,4 +54,5 @@ input {
   margin-bottom: 0.5em;
   font-size: 28px;
   font-weight: bold;
+  border-bottom: 2px solid var(--divita-dark-grey);
 }

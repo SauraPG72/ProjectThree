@@ -13,17 +13,20 @@
 <body>
 	<div id="log-in">
 		<div id="logo">
-			<h1>Divita</h1>
+			<h1><a href="/">Divita</a></h1>
 		</div>
 		<h1>Log In</h1>
 		<form id="log-in-form">
 			<section id="errors1"></section>
 			<div id="login-type">
-				<label for="parent">Parent</label>
-				<input type="radio" id="parent" name="type" value="parent" class="type" checked />
-
-				<label for="kid">Kid</label>
-				<input type="radio" id="kid" name="type" value="kid" class="type" />
+				<div class="type-option">
+					<label for="parent">Parent</label>
+					<input type="radio" id="parent" name="type" value="parent" class="type" checked />
+				</div>
+				<div class="type-option">
+					<label for="kid">Kid</label>
+					<input type="radio" id="kid" name="type" value="kid" class="type" />
+				</div>
 			</div>
 			<fieldset>
 				<label for="">Username:</label><br />

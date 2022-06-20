@@ -35,18 +35,19 @@
   margin-top: 20px;
 }
 
-input[type="radio"].type {
-  display: none;
-  width: 50px;
+.type-option input[type="radio"].type {
+  /*display: none;*/
+  width: 20px;
+  margin: 10px;
 }
 
-input[type="radio"].type + label {
+.type-option input[type="radio"].type + label {
   padding: 10px;
   width: 100px;
   background-color: var(--divita-light-grey);
 }
 
-input[type="radio"].type:checked + label {
+.type-option input[type="radio"].type:checked + label {
   padding: 10px;
   width: 100px;
   background-color: var(--divita-teal);
@@ -69,4 +70,5 @@ input[type="radio"].type:checked + label {
 
 #login-type {
   margin-bottom: 20px;
+  display: flex;
 }
