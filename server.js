@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = 3000;
-const db = require('./db/db');
-const expressSession = require('express-session');
-const pgSession = require('connect-pg-simple')(expressSession);
-require('dotenv').config();
-app.use(express.static('client'));
+const db = require("./db/db");
+const expressSession = require("express-session");
+const pgSession = require("connect-pg-simple")(expressSession);
+require("dotenv").config();
+app.use(express.static("client"));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -24,15 +24,15 @@ app.use(
 );
 
 // Write code here
-const usersControls = require('./controllers/users');
-const sessionControls = require('./controllers/session');
-const parentsControls = require('./controllers/parents');
-const kidControls = require('./controllers/kids')
+const usersControls = require("./controllers/users");
+const sessionControls = require("./controllers/session");
+const parentsControls = require("./controllers/parents");
+const kidControls = require("./controllers/kids");
 
-app.use('/api/users', usersControls);
-app.use('/api/session', sessionControls);
-app.use('/api/parents', parentsControls);
-app.use('/api/kids', kidControls)
+app.use("/api/users", usersControls);
+app.use("/api/session", sessionControls);
+app.use("/api/parents", parentsControls);
+app.use("/api/kids", kidControls);
 //
 
 app.listen(port, () => {
