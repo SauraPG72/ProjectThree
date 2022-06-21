@@ -1,7 +1,7 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { approverejectConfirm } from "../Form/approveRejectConfirm.js";
-import { createTitle } from "../../title.js";
+import { createTitle } from "../Components/title.js";
 
 // next => approverejectConfirm (form page to confirm of parents want to approve/reject requests)
 export function tasksReports() {
