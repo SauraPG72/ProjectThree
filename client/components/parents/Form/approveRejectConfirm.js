@@ -4,9 +4,9 @@ import { postApproveReject } from "../api/postApproveReject.js";
 // This function is to create a form for approving/ rejecting a request from kids
 // next => postApproveReject (api to send request to the server)
 // rewardType = "cents"/ "points"
-// requestType = "completed"/ "pending"
+// requestType = "completed"/ "pending"/ "goals"
 // completed : approve completed task and redeem it
-// pending : approve a task request and change status from 'pending' to 'approved'
+// pendingTasks : approve a task request and change its status from 'pending' to 'approved'
 export function approverejectConfirm(status, task, rewardType, requestType) {
   app.innerHTML = "";
 
@@ -90,8 +90,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     app.appendChild(formWrapper);
 
-    // ============= event listeners =============
-    // for approval
+    // ============= event listener for approval =============
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       postApproveReject(form, "approve", data, requestType);
@@ -123,11 +122,10 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     app.appendChild(formWrapper);
 
-    // ============= event listeners =============
-    // for rejection
+    // ============= event listener for rejection =============
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      postApproveReject(form, "reject", requestType);
+      postApproveReject(form, "reject", data, requestType);
     });
   }
 }
