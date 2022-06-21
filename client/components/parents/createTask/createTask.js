@@ -114,7 +114,7 @@ export function createTaskPage(childInfoObj) {
     e.preventDefault();
     postTask(form);
   });
-  returnButton.addEventListener("click", () => {
+  returnButton.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.href = "/";
   });
