@@ -127,9 +127,19 @@ export function approvePendingTasks() {
             task_description: e.target.id,
           };
           if (rewardType === "cents") {
-            approverejectConfirm("approve", targetedTask, "cents", "pending");
+            approverejectConfirm(
+              "approve",
+              targetedTask,
+              "cents",
+              "pendingTasks"
+            );
           } else {
-            approverejectConfirm("approve", targetedTask, "points", "pending");
+            approverejectConfirm(
+              "approve",
+              targetedTask,
+              "points",
+              "pendingTasks"
+            );
           }
         });
 
@@ -138,7 +148,21 @@ export function approvePendingTasks() {
             task_id: e.target.value,
             task_description: e.target.id,
           };
-          approverejectConfirm("reject", targetedTask);
+          if (rewardType === "cents") {
+            approverejectConfirm(
+              "reject",
+              targetedTask,
+              "cents",
+              "pendingTasks"
+            );
+          } else {
+            approverejectConfirm(
+              "reject",
+              targetedTask,
+              "points",
+              "pendingTasks"
+            );
+          }
         });
       });
       // ============================================================

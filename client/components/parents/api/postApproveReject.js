@@ -7,9 +7,10 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
   const jsonData = data;
   const errorMessage = document.getElementById("error-message");
 
+  // if the form is about approving/ rejecting COMPLETED TASKS
   if (requestType === "completed") {
     if (appvoroOrReject === "approve") {
-      // send a delete request to the server
+      // send a request to the server to change the status of the task "completed"
       axios
         .patch(`/api/parents/taskcomplete/${taskId}`, jsonData)
         .then(() => {
@@ -24,9 +25,8 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
     } else {
       console.log("reject confirmed");
     }
-  } else if (requestType === "pending") {
-    console.log(data);
-    console.log(taskId);
+    // if the form is about approving/ rejecting REQUESTED TASKS
+  } else if (requestType === "pendingTasks") {
     if (appvoroOrReject === "approve") {
       // send a delete request to the server
       axios
