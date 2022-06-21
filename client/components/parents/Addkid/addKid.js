@@ -11,11 +11,13 @@ export function addKidPage() {
   // wrapper > form > inputs/ button
   const placeHolders = [
     "Name",
+    "Login Name",
     { name: "Password", type: "password" },
     { name: "Confirm Password", type: "password" },
     "Starting Reward Points",
     "Starting Reward Dollars",
   ];
+  const avatars = ["bunny", "dog", "fox", "koala", "monkey", "tiger"];
 
   const title = createAnElement("h1", {
     id: "createTaskTitle",
@@ -40,6 +42,36 @@ export function addKidPage() {
     const inputTag = createInputTag(placeholder);
     form.appendChild(inputTag);
   });
+
+  //  avatars selection
+  const avatarsSelection = avatars.map((avatar) => {
+    const avatarInput = createAnElement("input", {
+      type: "radio",
+      id: avatar,
+      name: "avatar",
+      value: avatar,
+      className: "avatar-input",
+    });
+
+    const avatarImage = createAnElement("img", {
+      src: `./assets/avatars/${avatar}.svg`,
+      className: "avatar-image",
+    });
+
+    const avatarLabel = createAnElement(
+      "label",
+      {
+        for: avatar,
+        className: "avatar-label",
+      },
+      [avatarInput, avatarImage]
+    );
+
+    return avatarLabel;
+  });
+
+  const avatarWrapper = createAnElement("div", { id: "avatar-wrapper" }, [...avatarsSelection]);
+  form.append(avatarWrapper);
 
   // error message area : defalut = HIDDEN
   const errorMessage = createAnElement("p", {

@@ -4,7 +4,7 @@ import { postApproveReject } from "../api/postApproveReject.js";
 // This function is to create a form for approving/ rejecting a request from kids
 // next => postApproveReject (api to send request to the server)
 // rewardType = "cents"/ "points"
-// requestType = "completed"/ "pending"
+// requestType = "completed"/ "pending"/ "goals"
 // completed : approve completed task and redeem it
 // pending : approve a task request and change status from 'pending' to 'approved'
 export function approverejectConfirm(status, task, rewardType, requestType) {

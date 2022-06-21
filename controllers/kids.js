@@ -4,10 +4,10 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   const kid_name = req.session.username;
-  console.log(kid_name);
+
   if (req.session.loggedIn) {
     const sql = "SELECT * FROM kids WHERE login_name = $1";
-    db.query(sql, [kid_name])
+    db.query(sql, [kid_name.toLowerCase()])
       .then((dbResult) => {
         console.log(dbResult.rows);
         res.json({ kidsData: dbResult.rows[0] });
@@ -47,7 +47,7 @@ router.post("/goals", (req, res) => {
     }
     const sql =
       "INSERT INTO goals (kid_id, description, cents, allocated_cents, status) VALUES ($1, $2, $3, $4, $5)";
-    db.query(sql, [kidId, description, (+cents * 100), (+allCents * 100), "approved"]).then(() => {
+    db.query(sql, [kidId, description, +cents * 100, +allCents * 100, "approved"]).then(() => {
       res.json({ success: true });
       console.log(req.body);
     });
@@ -75,15 +75,7 @@ router.post("/task", (req, res) => {
   }
   const sql = `INSERT INTO tasks (description, kid_id, status, points, cents, expiry_date, category) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
   const kidStatus = "pending";
-  db.query(sql, [
-    description,
-    kidId,
-    kidStatus,
-    +points,
-    +cents,
-    expiry,
-    category,
-  ]).then(() => {
+  db.query(sql, [description, kidId, kidStatus, +points, +cents, expiry, category]).then(() => {
     res.json({ success: true });
   });
 });
@@ -94,33 +86,28 @@ router.post("/all-cents", (req, res) => {
   const kidId = req.session.userId;
   let { allCents, goalId } = req.body;
 
-  console.log(req.body)
+  console.log(req.body);
 
   const sql = `SELECT * FROM goals WHERE kid_id = $1 AND id = $2`;
   db.query(sql, [kidId, goalId]).then((dbResult) => {
     const resultGoal = dbResult.rows[0];
-    console.log(kidId, goalId)
-    console.log(resultGoal)
-      let changeMade = parseInt(allCents) + parseInt(resultGoal.allocated_cents);
-      if (changeMade > resultGoal.cents) {
-        res.json({ message: "You have allocated too many dollars" });
-      } else {
-        const sql2 = `UPDATE goals SET allocated_cents = $1 WHERE id = $2`;
-        db.query(sql2, [changeMade, goalId]).then(() => {
-          if (changeMade == resultGoal.cents) {
-            res.json({ message: "You have hit your goal!!!" });
-          } else {
-            res.json({
-              message: `You have $${
-                resultGoal.cents * 0.01 - changeMade * 0.01
-              } to go`,
-            });
-          }
-        });
-      }
-    
-
-
+    console.log(kidId, goalId);
+    console.log(resultGoal);
+    let changeMade = parseInt(allCents) + parseInt(resultGoal.allocated_cents);
+    if (changeMade > resultGoal.cents) {
+      res.json({ message: "You have allocated too many dollars" });
+    } else {
+      const sql2 = `UPDATE goals SET allocated_cents = $1 WHERE id = $2`;
+      db.query(sql2, [changeMade, goalId]).then(() => {
+        if (changeMade == resultGoal.cents) {
+          res.json({ message: "You have hit your goal!!!" });
+        } else {
+          res.json({
+            message: `You have $${resultGoal.cents * 0.01 - changeMade * 0.01} to go`,
+          });
+        }
+      });
+    }
   });
 });
 
@@ -142,16 +129,15 @@ router.post("/all-points", (req, res) => {
             res.json({ message: "You have hit your goal!!!" });
           } else {
             res.json({
-              message: `You have $${
-                resultGoal.points - changeMade
-              } to go`,
+              message: `You have $${resultGoal.points - changeMade} to go`,
             });
           }
         });
       }
-    }
-    else {
-      res.json({message: "You are allocating points to a money earning task"})
+    } else {
+      res.json({
+        message: "You are allocating points to a money earning task",
+      });
     }
   });
 });

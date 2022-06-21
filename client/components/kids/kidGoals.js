@@ -73,31 +73,26 @@ export function kidGoals() {
                 `,
         });
 
-        console.log(goal)
+        console.log(goal);
 
-        const allocate = newGoal.querySelector('#allocate');
+        const allocate = newGoal.querySelector("#allocate");
 
-        
-        allocate.addEventListener('submit', (e) => {
+        allocate.addEventListener("submit", (e) => {
           e.preventDefault();
           const allocateData = new FormData(allocate);
           const allocateObj = {
-            allCents: parseInt(allocateData.get('all-cents') * 100),
+            allCents: parseInt(allocateData.get("all-cents") * 100),
             goalId: goal.id,
-            
-          }
-          console.log(allocateData)
-          console.log(allocate)
-          axios.post('/api/kids/all-cents', allocateObj).then((res) => {
-            
+          };
+          console.log(allocateData);
+          console.log(allocate);
+          axios.post("/api/kids/all-cents", allocateObj).then((res) => {
             console.log(res);
             location.reload();
-          })
-        })
+          });
+        });
         goalsListContainer.appendChild(newGoal);
-      } 
-      
-      else if (goal.points) {
+      } else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
@@ -108,7 +103,6 @@ export function kidGoals() {
 
         goalsListContainer.appendChild(newGoal);
       }
-      
     }
     goalsBoxFinal.append(goalsListContainer);
 

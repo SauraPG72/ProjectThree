@@ -19,8 +19,7 @@ export function createInputTag(placeholder) {
       type: "password",
     });
     return inputTag;
-  }
-  {
+  } else {
     const inputTag = createAnElement("input", {
       placeholder: placeholder,
       className: "input",
