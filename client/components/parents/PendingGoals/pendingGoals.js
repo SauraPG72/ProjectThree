@@ -120,7 +120,7 @@ export function approvePendingGoals() {
             task_id: e.target.value,
             task_description: e.target.id,
           };
-          approverejectConfirm("reject", targetedGoal);
+          approverejectConfirm("reject", targetedGoal, "points", "goals");
         });
       });
       // ============================================================

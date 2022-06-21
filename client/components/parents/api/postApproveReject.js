@@ -33,8 +33,8 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
     if (appvoroOrReject === "approve") {
       // send a request to the server to change the status of the task "approved"
       axios
-        .patch(`/api/parents/approvetask/${taskId}`, jsonData)
-        .then((res) => {
+        .patch(`/api/parents/pendingTasks/${taskId}`, jsonData)
+        .then(() => {
           renderPage();
         })
         .catch((err) => {
@@ -44,15 +44,27 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
           errorMessage.style.display = "block";
         });
     } else if (appvoroOrReject === "reject") {
-      console.log(data);
+      // send a request to the server to delete the task
+      axios
+        .delete(`/api/parents/pendingTasks/${taskId}`, jsonData)
+        .then(() => {
+          renderPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMessage.textContent =
+            "There was a server error. Please try again.";
+          errorMessage.style.display = "block";
+        });
     }
     // if the form is about approving/ rejecting REQUESTED GOALS with points =========================================
   } else if (requestType === "goals") {
+    console.log(requestType);
     if (appvoroOrReject === "approve") {
       // send a request to the server to change the status of the goal "approved"
       axios
         .patch(`/api/parents/pendingGoals/${taskId}`, jsonData)
-        .then((res) => {
+        .then(() => {
           renderPage();
         })
         .catch((err) => {
@@ -62,7 +74,18 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
           errorMessage.style.display = "block";
         });
     } else if (appvoroOrReject === "reject") {
-      console.log("reject confirmed");
+      // send a request to the server to delete the goal
+      axios
+        .delete(`/api/parents/pendingGoals/${taskId}`, jsonData)
+        .then(() => {
+          renderPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMessage.textContent =
+            "There was a server error. Please try again.";
+          errorMessage.style.display = "block";
+        });
     }
   }
 }
