@@ -12,6 +12,7 @@ export function signUpKid(form) {
     total_cents: parseFloat(formData.get("Starting Reward Dollars") * 100),
     password: formData.get("Password"),
     confirm_password: formData.get("Confirm Password"),
+	avatar: formData.get("avatar")
   };
 
   // check if there's any blanks or other errors (except for total_points and total_cents)
