@@ -48,10 +48,24 @@ select {
 
 input {
   width: 500px;
-  height: 40px;
+  height: 50px;
   border: none;
   background-color: var(--divita-light-grey);
   margin-bottom: 0.5em;
+  padding: 0.5em;
   font-size: 28px;
   font-weight: bold;
+  border-bottom: 2px solid var(--divita-dark-grey);
+}
+
+select {
+  height: 50px;
+  font-size: 28px;
+  margin-bottom: 0.5em;
+  /*padding: 0.5em;*/
+}
+
+.input::placeholder {
+  /*font-weight: bold;*/
+  color: var(--divita-dark-grey);
 }
