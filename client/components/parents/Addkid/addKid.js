@@ -19,7 +19,7 @@ export function addKidPage() {
 
   const title = createAnElement("h1", {
     id: "createTaskTitle",
-    textContent: "SIGN UP YOUR CHILD",
+    textContent: "Sign Up Your Kid",
   });
 
   // create a form and input tags in it
