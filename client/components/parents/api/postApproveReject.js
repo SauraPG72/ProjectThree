@@ -1,4 +1,6 @@
-import { renderPage } from "../../../index.js";
+import { sendDeleteRequest } from "./makeRequests/deleteMethod.js";
+import { sendPatchRequest } from "./makeRequests/patchMethod.js";
+import { sendGetRequest } from "./makeRequests/getMethod.js";
 
 // appvoroOrReject : String
 // requestType = "completed"/ "pendingTasks"/ "goals"
@@ -14,89 +16,28 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
   if (requestType === "completed") {
     if (appvoroOrReject === "approve") {
       // send a request to the server to change the status of the task "completed"
-      axios
-        .patch(`/api/parents/taskcomplete/${taskId}`, jsonData)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendPatchRequest(`/api/parents/taskcomplete/${taskId}`, jsonData);
     } else if (appvoroOrReject === "reject") {
       // send a request to the server to change the status of the task "rejected"
-      axios
-        .get(`/api/parents/rejectcompletedtask/${taskId}`)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendGetRequest(`/api/parents/rejectcompletedtask/${taskId}`);
     }
     // if the form is about approving/ rejecting REQUESTED TASKS =========================================
   } else if (requestType === "pendingTasks") {
     if (appvoroOrReject === "approve") {
       // send a request to the server to change the status of the task "approved"
-      axios
-        .patch(`/api/parents/pendingTasks/${taskId}`, jsonData)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendPatchRequest(`/api/parents/pendingTasks/${taskId}`, jsonData);
     } else if (appvoroOrReject === "reject") {
       // send a request to the server to delete the task
-      axios
-        .delete(`/api/parents/pendingTasks/${taskId}`, jsonData)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendDeleteRequest(`/api/parents/pendingTasks/${taskId}`, jsonData);
     }
     // if the form is about approving/ rejecting REQUESTED GOALS with points =========================================
   } else if (requestType === "goals") {
-    console.log(requestType);
     if (appvoroOrReject === "approve") {
       // send a request to the server to change the status of the goal "approved"
-      axios
-        .patch(`/api/parents/pendingGoals/${taskId}`, jsonData)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendPatchRequest(`/api/parents/pendingGoals/${taskId}`, jsonData);
     } else if (appvoroOrReject === "reject") {
       // send a request to the server to delete the goal
-      axios
-        .delete(`/api/parents/pendingGoals/${taskId}`, jsonData)
-        .then(() => {
-          renderPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage.textContent =
-            "There was a server error. Please try again.";
-          errorMessage.style.display = "block";
-        });
+      sendDeleteRequest(`/api/parents/pendingGoals/${taskId}`, jsonData);
     }
   }
 }
