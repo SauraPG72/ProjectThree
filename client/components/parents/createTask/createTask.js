@@ -32,12 +32,6 @@ export function createTaskPage(childInfoObj) {
     textContent: "CREATE A TASK",
   });
 
-  // submit button
-  const button = createAnElement("button", {
-    className: "formBtn",
-    textContent: "Add This Task",
-  });
-
   // create a form and input tags in it
   const form = createAnElement("form", {
     id: "createTaskForm",
@@ -77,12 +71,32 @@ export function createTaskPage(childInfoObj) {
     }
   });
 
+  // submit button
+  const button = createAnElement("button", {
+    className: "formBtn",
+    textContent: "Add This Task",
+  });
+
+  const returnButton = createAnElement("button", {
+    className: "formBtn",
+    textContent: "Back To Home",
+  });
+
+  const buttonsWrapper = createAnElement(
+    "div",
+    {
+      className: "formButtonsWrapper",
+    },
+    [button, returnButton]
+  );
+
   const errorMessage = createAnElement("p", {
     id: "error-message",
     type: "hidden",
   });
+
+  form.appendChild(buttonsWrapper);
   form.appendChild(errorMessage);
-  form.appendChild(button);
 
   // wrap everything in a wrapper and render it
   const formWrapper = createAnElement(
@@ -96,8 +110,12 @@ export function createTaskPage(childInfoObj) {
   app.appendChild(formWrapper);
 
   // ============= event listeners =============
-  form.addEventListener("submit", (e) => {
+  button.addEventListener("click", (e) => {
     e.preventDefault();
     postTask(form);
+  });
+  returnButton.addEventListener("click", () => {
+    e.preventDefault();
+    window.location.href = "/";
   });
 }

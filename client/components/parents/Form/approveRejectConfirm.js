@@ -59,6 +59,30 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     type: "hidden",
   });
 
+  // submit button
+  const button = createAnElement("button", {
+    className: "formBtn",
+    textContent: "Confirm",
+  });
+
+  const returnButton = createAnElement("button", {
+    className: "formBtn",
+    textContent: "Back To Home",
+  });
+
+  const buttonsWrapper = createAnElement(
+    "div",
+    {
+      className: "formButtonsWrapper",
+    },
+    [button, returnButton]
+  );
+
+  returnButton.addEventListener("click", () => {
+    e.preventDefault();
+    window.location.href = "/";
+  });
+
   // ======================================================================
 
   // if status is 'approve', send a request to delete the targeted task when the submit button is pressed
@@ -70,15 +94,8 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     form.appendChild(confirmation);
     form.appendChild(description);
-
-    // submit button
-    const button = createAnElement("button", {
-      className: "formBtn",
-      textContent: "Confirm",
-    });
-    form.appendChild(button);
+    form.appendChild(buttonsWrapper);
     form.appendChild(errorMessage);
-
     // wrap everything in a wrapper and render it
     const formWrapper = createAnElement(
       "div",
@@ -90,10 +107,15 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     app.appendChild(formWrapper);
 
-    // ============= event listener for approval =============
-    form.addEventListener("submit", (e) => {
+    // ============= event listeners =============
+    // for approval
+    button.addEventListener("click", (e) => {
       e.preventDefault();
       postApproveReject(form, "approve", data, requestType);
+    });
+    returnButton.addEventListener("click", () => {
+      e.preventDefault();
+      window.location.href = "/";
     });
   } else {
     const confirmation = createAnElement("p", {
@@ -103,14 +125,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     form.appendChild(confirmation);
     form.appendChild(description);
-
-    // submit button
-    const button = createAnElement("button", {
-      className: "formBtn",
-      textContent: "Confirm",
-    });
-    form.appendChild(button);
-
+    form.appendChild(buttonsWrapper);
     // wrap everything in a wrapper and render it
     const formWrapper = createAnElement(
       "div",
@@ -122,8 +137,9 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
     app.appendChild(formWrapper);
 
-    // ============= event listener for rejection =============
-    form.addEventListener("submit", (e) => {
+    // ============= event listeners =============
+    // for rejection
+    button.addEventListener("click", (e) => {
       e.preventDefault();
       postApproveReject(form, "reject", data, requestType);
     });
