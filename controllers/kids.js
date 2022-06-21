@@ -39,25 +39,25 @@ router.get("/goals", (req, res) => {
 
 router.post("/goals", (req, res) => {
   const kidId = req.session.userId;
-  let { description, cents, points, allPoints, allCents } = req.body;
+  let { description, cents, currency, allCents } = req.body;
 
-  if (cents) {
+  if (currency == "cents") {
     if (!allCents) {
       allCents = 0;
     }
     const sql =
-      "INSERT INTO goals (kid_id, description, cents, allocated_cents) VALUES ($1, $2, $3, $4)";
-    db.query(sql, [kidId, description, +cents, +allCents]).then(() => {
+      "INSERT INTO goals (kid_id, description, cents, allocated_cents, status) VALUES ($1, $2, $3, $4, $5)";
+    db.query(sql, [kidId, description, (+cents * 100), (+allCents * 100), "approved"]).then(() => {
       res.json({ success: true });
       console.log(req.body);
     });
-  } else if (req.body.points) {
-    if (!allPoints) {
+  } else if (currency == "points") {
+    if (!allCents) {
       allPoints = 0;
     }
     const sql =
-      "INSERT INTO goals (kid_id, description, points) VALUES ($1, $2, $3, $4)";
-    db.query(sql, [kidId, description, +points, +allPoints]).then(() => {
+      "INSERT INTO goals (kid_id, description, points, allocated_points) VALUES ($1, $2, $3, $4, $5)";
+    db.query(sql, [kidId, description, +cents, +allCents, "pending"]).then(() => {
       res.json({ success: true });
     });
   }
