@@ -26,11 +26,11 @@ export function kidTasks() {
     
         <form id="addTaskForm">
 			<div>
-        		<input type="text" name="description" placeholder="Description:">
+        <input type="text" name="description" placeholder="Description:">
 			</div>
 			<div>
-        		<input type="number" name="amount" placeholder="Amount">
-        	<select name="type">
+        <input type="number" name="amount" placeholder="Amount">
+      <select name="type">
 				<option value="cents">Dollars</option>
 				<option value="points">Points</option>
 			</select>
@@ -90,22 +90,21 @@ export function kidTasks() {
     for (const task of kidTasks) {
       if (task.status == "pending" && task.cents) {
         const newTask = createAnElement("div", {
-          className: "task item",
+          className: "pending task item",
           innerHTML: `
           <p>${task.description}<p>
           <p>$${task.cents * 0.01}</p>
-          `,
-          id: "pending-task",
+          `
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "pending" && task.points) {
         const newTask = createAnElement("div", {
-          className: "task item",
+          className: "pending task item",
           innerHTML: `
         <p>${task.description}<p>
         <p>$${task.cents * 0.01}</p>
-        `,
-          id: "pending-task",
+        `
+          
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.cents) {

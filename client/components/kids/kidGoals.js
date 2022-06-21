@@ -22,8 +22,7 @@ export function kidGoals() {
             <form id="addGoalsForm">
                 <input type="text" name="description" placeholder="Name your goal?">
                 <input type="number" name="cents" placeholder="cents">
-                <input type="number" name="points" placeholder="points">
-                <input type="number" name="all-points" placeholder="Allocate points?">
+
                 <input type="number" name="all-cents" placeholder="Allocate money?">
                 <input type="submit">
             </form>
@@ -37,8 +36,7 @@ export function kidGoals() {
         const data = {
           description: formData.get("description"),
           cents: formData.get("cents"),
-          points: formData.get("points"),
-          allPoints: formData.get("all-points"),
+
           allCents: formData.get("all-cents"),
         };
         axios.post("/api/kids/goals", data).then((response) => {
@@ -61,13 +59,34 @@ export function kidGoals() {
           innerHTML: `
                 <p>${goal.description}</p>
                 <p>$${goal.cents * 0.01}</p>
-                <form>
-                  <input type="number" name="all-cents" placeholder="?">
-                  <input type="submit">
+                <form id="allocate">
+                  <input type="number" name="all-cents" placeholder="$">
+                  <input type="submit" value="+">
                 </form>
                 `,
         });
 
+        console.log(goal)
+
+        const allocate = newGoal.querySelector('#allocate');
+
+        
+        allocate.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const allocateData = new FormData(allocate);
+          const allocateObj = {
+            allCents: parseInt(allocateData.get('all-cents') * 100),
+            goalId: goal.id,
+            
+          }
+          console.log(allocateData)
+          console.log(allocate)
+          axios.post('/api/kids/all-cents', allocateObj).then((res) => {
+            
+            console.log(res);
+            location.reload();
+          })
+        })
         goalsListContainer.appendChild(newGoal);
       } 
       
