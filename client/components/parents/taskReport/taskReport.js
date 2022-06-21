@@ -92,7 +92,7 @@ export function tasksReports() {
 
           let rewardType = "";
           let approveBtn;
-
+          let rejectBtn;
           if (task.cents) {
             approveBtn = createAnElement("button", {
               textContent: "Approve",
@@ -100,8 +100,16 @@ export function tasksReports() {
               value: task.task_id, // task id
               id: `${task.description}:${task.cents}`,
             });
+            rejectBtn = createAnElement("button", {
+              textContent: "Reject",
+              className: "approve-reject",
+              value: task.task_id, // task id
+              id: `${task.description}:${task.cents}`,
+            });
+
             rewardType = "cents";
             btnsContainer.appendChild(approveBtn);
+            btnsContainer.appendChild(rejectBtn);
           } else {
             approveBtn = createAnElement("button", {
               textContent: "Approve",
@@ -109,17 +117,18 @@ export function tasksReports() {
               value: task.task_id, // task id
               id: `${task.description}:${task.points}`,
             });
+            rejectBtn = createAnElement("button", {
+              textContent: "Reject",
+              className: "approve-reject",
+              value: task.task_id, // task id
+              id: `${task.description}:${task.points}`,
+            });
+
             rewardType = "points";
             btnsContainer.appendChild(approveBtn);
+            btnsContainer.appendChild(rejectBtn);
           }
 
-          const rejectBtn = createAnElement("button", {
-            textContent: "Reject",
-            className: "approve-reject",
-            value: task.task_id, // task id
-            id: task.description,
-          });
-          btnsContainer.appendChild(rejectBtn);
           taskWrapper.appendChild(btnsContainer);
 
           tasksListContainer.appendChild(taskWrapper);

@@ -26,7 +26,18 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
           errorMessage.style.display = "block";
         });
     } else if (appvoroOrReject === "reject") {
-      console.log("reject confirmed");
+      // send a request to the server to change the status of the task "rejected"
+      axios
+        .get(`/api/parents/rejectcompletedtask/${taskId}`)
+        .then(() => {
+          renderPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMessage.textContent =
+            "There was a server error. Please try again.";
+          errorMessage.style.display = "block";
+        });
     }
     // if the form is about approving/ rejecting REQUESTED TASKS =========================================
   } else if (requestType === "pendingTasks") {
