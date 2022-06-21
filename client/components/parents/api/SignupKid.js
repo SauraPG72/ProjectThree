@@ -6,14 +6,15 @@ export function signUpKid(form) {
 
   jsonForm = {
     name: formData.get("Name"),
+    login_name: formData.get("Login Name"),
     parent_id: formData.get("parent_id"),
-    total_points: parseFloat(formData.get("Starting Reward Points")),
+    total_points: +formData.get("Starting Reward Points"),
     total_cents: parseFloat(formData.get("Starting Reward Dollars") * 100),
     password: formData.get("Password"),
     confirm_password: formData.get("Confirm Password"),
   };
 
-  // check if there's any blanks or other errors
+  // check if there's any blanks or other errors (except for total_points and total_cents)
   // if so, pops up an error message on the screen
   const errorHandling = errorHandlingForCreatingTask(jsonForm);
   const errorMessage = document.getElementById("error-message");
@@ -27,7 +28,7 @@ export function signUpKid(form) {
     // post data to the server
     axios
       .post("/api/users/kids", jsonForm)
-      .then((res) => {
+      .then(() => {
         renderPage();
       })
       .catch((err) => {
@@ -45,8 +46,6 @@ function errorHandlingForCreatingTask(form) {
   const inputs = [
     form.name,
     form.parent_id,
-    form.total_points,
-    form.total_cents,
     form.password,
     form.confirm_password,
   ];
@@ -56,7 +55,7 @@ function errorHandlingForCreatingTask(form) {
 
   if (form.password !== form.confirm_password) {
     return "Password does not match.";
-  } else if (filteredInputs.length !== 6) {
+  } else if (filteredInputs.length !== 4) {
     return "Fill in all the blanks.";
   } else {
     return true;

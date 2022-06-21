@@ -31,7 +31,8 @@ router.get("/kids-by-parent-id/:id", (req, res) => {
 //});
 
 router.post("/", (req, res) => {
-  const { familyName, parentFirstName, userName, password, passwordCheck } = req.body;
+  const { familyName, parentFirstName, userName, password, passwordCheck } =
+    req.body;
 
   //Check if username exists
   db.query("SELECT login_name FROM parents").then((dbResult) => {
@@ -53,16 +54,18 @@ router.post("/", (req, res) => {
     res.status(400).json({ success: false, message: "Missing valid password" });
   } else {
     const sql = `INSERT into parents (name, login_name, password_hash, family_name) VALUES ($1, $2, $3, $4)`;
-    db.query(sql, [parentFirstName, userName, hashedPassword, familyName]).then((dbResult) => {
-      res.json({ status: "success" });
-    });
+    db.query(sql, [parentFirstName, userName, hashedPassword, familyName]).then(
+      (dbResult) => {
+        res.json({ status: "success" });
+      }
+    );
   }
 });
 
 // kids signup
 router.post("/kids", (req, res) => {
-  const { name, parent_id, password, total_points, total_cents } = req.body;
-  console.log(name, parent_id, password, total_points, total_cents);
+  const { name, login_name, parent_id, password, total_points, total_cents } =
+    req.body;
   const hashedPassword = generateHash(password);
 
   if (!name || name.trim() == "") {
@@ -71,7 +74,14 @@ router.post("/kids", (req, res) => {
     res.status(400).json({ success: false, message: "Missing valid password" });
   } else {
     const sql = `INSERT into kids (name, parent_id, login_name, password_hash, total_points, total_cents) VALUES ($1, $2, $3, $4, $5, $6)`;
-    db.query(sql, [name, parent_id, name, hashedPassword, total_points, total_cents])
+    db.query(sql, [
+      name,
+      parent_id,
+      login_name.toLowerCase(),
+      hashedPassword,
+      total_points,
+      total_cents,
+    ])
       .then((dbResult) => {
         console.log(dbResult);
         res.json({ status: "success" });
