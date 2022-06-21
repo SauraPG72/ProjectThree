@@ -43,5 +43,22 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
     } else {
       console.log("reject confirmed");
     }
+  } else if (requestType === "goals") {
+    if (appvoroOrReject === "approve") {
+      // send a delete request to the server
+      axios
+        .patch(`/api/parents/pendingGoals/${taskId}`, jsonData)
+        .then((res) => {
+          renderPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMessage.textContent =
+            "There was a server error. Please try again.";
+          errorMessage.style.display = "block";
+        });
+    } else {
+      console.log("reject confirmed");
+    }
   }
 }
