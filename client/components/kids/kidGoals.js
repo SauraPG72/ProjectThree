@@ -21,10 +21,16 @@ export function kidGoals() {
             <h1> Make a goal:</h1>
             <form id="addGoalsForm">
                 <input type="text" name="description" placeholder="Name your goal?">
-                <input type="number" name="cents" placeholder="cents">
-                <input type="number" name="points" placeholder="points">
-                <input type="number" name="all-points" placeholder="Allocate points?">
-                <input type="number" name="all-cents" placeholder="Allocate money?">
+                <input type="number" name="cents" placeholder="Dollars / Points">
+
+                <label for="currency">Choose:</label>
+
+                <select name="currency" id="cars">
+                  <option value="cents">Money</option>
+                  <option value="points">Points</option>
+                </select>
+
+                <input type="number" name="all-cents" placeholder="Allocate money/points">
                 <input type="submit">
             </form>
             `,
@@ -37,8 +43,7 @@ export function kidGoals() {
         const data = {
           description: formData.get("description"),
           cents: formData.get("cents"),
-          points: formData.get("points"),
-          allPoints: formData.get("all-points"),
+          currency: formData.get("currency"),
           allCents: formData.get("all-cents"),
         };
         axios.post("/api/kids/goals", data).then((response) => {
@@ -60,12 +65,39 @@ export function kidGoals() {
           className: "goal item",
           innerHTML: `
                 <p>${goal.description}</p>
-                <p>$${goal.cents * 0.1}</p>
+                <p>$${goal.cents * 0.01}</p>
+                <form id="allocate">
+                  <input type="number" name="all-cents" placeholder="$">
+                  <input type="submit" value="+">
+                </form>
                 `,
         });
 
+        console.log(goal)
+
+        const allocate = newGoal.querySelector('#allocate');
+
+        
+        allocate.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const allocateData = new FormData(allocate);
+          const allocateObj = {
+            allCents: parseInt(allocateData.get('all-cents') * 100),
+            goalId: goal.id,
+            
+          }
+          console.log(allocateData)
+          console.log(allocate)
+          axios.post('/api/kids/all-cents', allocateObj).then((res) => {
+            
+            console.log(res);
+            location.reload();
+          })
+        })
         goalsListContainer.appendChild(newGoal);
-      } else if (goal.points) {
+      } 
+      
+      else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
@@ -76,6 +108,7 @@ export function kidGoals() {
 
         goalsListContainer.appendChild(newGoal);
       }
+      
     }
     goalsBoxFinal.append(goalsListContainer);
 

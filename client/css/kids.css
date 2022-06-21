@@ -47,7 +47,17 @@
   align-items: center;
 }
 
-/*#tasksList {
-  grid-row: 1/2;
-  grid-column: 2/3;
-}*/
+.item.pending.task {
+  background-color: var(--divita-cream);
+  color:var(--divita-dark-grey)
+}
+
+
+#allocate {  
+  width: 40px;
+}
+#allocate > input {
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+}

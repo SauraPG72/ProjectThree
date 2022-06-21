@@ -10,7 +10,6 @@ import { postApproveReject } from "../api/postApproveReject.js";
 export function approverejectConfirm(status, task, rewardType, requestType) {
   app.innerHTML = "";
 
-  console.log(requestType);
   let taskInfoArr = task.task_description.split(":"); // [task description, task reward]
   let data;
   if (rewardType === "cents") {
@@ -24,8 +23,6 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
       points: parseFloat(taskInfoArr[1]),
     };
   }
-
-  console.log(data);
 
   // ==================== common items for both approval/rejection ========================
 
@@ -80,7 +77,6 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
       textContent: "Confirm",
     });
     form.appendChild(button);
-
     form.appendChild(errorMessage);
 
     // wrap everything in a wrapper and render it

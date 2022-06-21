@@ -39,5 +39,6 @@ CREATE TABLE goals(
 	cents INT,
 	points INT,
 	allocated_cents INT,
-	allocated_points INT
+	allocated_points INT,
+	status TEXT
 );
