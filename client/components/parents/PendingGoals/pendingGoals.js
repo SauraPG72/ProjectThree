@@ -1,6 +1,6 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
-import { createTitle } from "../../title.js";
+import { createTitle } from "../Components/title.js";
 import { approverejectConfirm } from "../Form/approveRejectConfirm.js";
 
 export function approvePendingGoals() {
