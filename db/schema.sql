@@ -18,7 +18,8 @@ CREATE TABLE kids(
 	login_name VARCHAR(255),
 	password_hash VARCHAR(255),
 	total_points INT,
-	total_cents INT
+	total_cents INT,
+	avatar VARCHAR(255)
 );
 
 CREATE TABLE tasks(

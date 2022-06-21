@@ -170,3 +170,41 @@
   width: 70%;
   margin: 0.3em;
 }
+
+#avatar-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.avatar-label {
+  width: auto;
+}
+
+.avatar-label input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  /*left: -9999px;*/
+}
+
+.avatar-label input + img {
+  position: relative;
+  display: inline-block;
+  width: 1/6;
+  cursor: pointer;
+  flex: 1;
+  border: 12px solid #ffffff;
+}
+
+.avatar-label input:checked + img {
+  width: 1/6;
+  z-index: 1;
+  border: 12px solid var(--divita-teal);
+  border-radius: 500px;
+  transition: all 0.2s ease-in-out;
+}
+
+.avatar-image {
+  width: 100%;
+}

@@ -15,11 +15,25 @@
   font-size: 48px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   min-height: 70px;
   height: auto;
   background-color: var(--divita-blue);
   border-radius: 6px;
   padding: 1rem;
+}
+
+#avatar-name-header {
+  display: flex;
+  align-items: center;
+}
+
+#avatar-name-header > * {
+  margin-right: 20px;
+}
+
+#avatar-name-header > img {
+  height: 80px;
 }
 
 #header-total-tally {
@@ -49,11 +63,10 @@
 
 .item.pending.task {
   background-color: var(--divita-cream);
-  color:var(--divita-dark-grey)
+  color: var(--divita-dark-grey);
 }
 
-
-#allocate {  
+#allocate {
   width: 40px;
 }
 #allocate > input {
