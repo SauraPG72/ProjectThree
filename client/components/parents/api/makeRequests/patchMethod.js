@@ -1,6 +1,7 @@
 import { renderPage } from "../../../../index.js";
 
 export function sendPatchRequest(url, jsonForm) {
+  const errorMessage = document.getElementById("error-message");
   axios
     .patch(url, jsonForm)
     .then(() => {

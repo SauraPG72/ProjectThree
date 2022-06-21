@@ -10,7 +10,6 @@ import { sendGetRequest } from "./makeRequests/getMethod.js";
 export function postApproveReject(form, appvoroOrReject, data, requestType) {
   const taskId = form.task_id.value;
   const jsonData = data;
-  const errorMessage = document.getElementById("error-message");
 
   // if the form is about approving/ rejecting COMPLETED TASKS =========================================
   if (requestType === "completed") {

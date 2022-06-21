@@ -1,6 +1,7 @@
 import { renderPage } from "../../../../index.js";
 
 export function sendGetRequest(url) {
+  const errorMessage = document.getElementById("error-message");
   axios
     .get(url, jsonForm)
     .then(() => {
