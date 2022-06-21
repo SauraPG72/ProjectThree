@@ -171,28 +171,33 @@
   width: 100%;
 }
 
-.avatar-item {
-  width: 1/6;
+.avatar-label {
+  width: auto;
 }
 
-.avatar-item input {
+.avatar-label input {
   width: 0;
   height: 0;
+  opacity: 0;
   position: absolute;
-  left: -9999px;
+  /*left: -9999px;*/
 }
 
-.avatar-item input + label {
+.avatar-label input + img {
   position: relative;
   display: inline-block;
-  width: auto;
+  width: 1/6;
   cursor: pointer;
-  border: 2px solid #ffffff;
   flex: 1;
+  border: 12px solid #ffffff;
 }
 
-.avatar-item input:checked + label {
-  border: 2px solid var(--divita-teal);
+.avatar-label input:checked + img {
+  width: 1/6;
+  z-index: 1;
+  border: 12px solid var(--divita-teal);
+  border-radius: 500px;
+  transition: all 0.2s ease-in-out;
 }
 
 .avatar-image {

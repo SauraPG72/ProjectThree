@@ -44,12 +44,6 @@ export function addKidPage() {
 
   //  avatars selection
   const avatarsSelection = avatars.map((avatar) => {
-    const avatarLabel = createAnElement("label", {
-      for: avatar,
-      className: "avatar-label",
-      innerHTML: `<img src="./assets/avatars/${avatar}.svg" class="avatar-image">`,
-    });
-
     const avatarInput = createAnElement("input", {
       type: "radio",
       id: avatar,
@@ -58,7 +52,21 @@ export function addKidPage() {
       className: "avatar-input",
     });
 
-    return createAnElement("div", { className: "avatar-item" }, [avatarInput, avatarLabel]);
+    const avatarImage = createAnElement("img", {
+      src: `./assets/avatars/${avatar}.svg`,
+      className: "avatar-image",
+    });
+
+    const avatarLabel = createAnElement(
+      "label",
+      {
+        for: avatar,
+        className: "avatar-label",
+      },
+      [avatarInput, avatarImage]
+    );
+
+    return avatarLabel;
   });
 
   const avatarWrapper = createAnElement("div", { id: "avatar-wrapper" }, [...avatarsSelection]);
