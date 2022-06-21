@@ -14,4 +14,7 @@ INSERT INTO tasks(description, kid_id, status, points, category) VALUES ('Weekly
 INSERT INTO tasks(description, kid_id, status, cents, category) VALUES ('Get a B or higher in maths', 1, 'approved', 1000, 'Recurring');
 
 
-INSERT INTO goals(description, kid_id, cents) VALUES ('New Final Fantasy Game', 1,  5000);
+INSERT INTO goals (description, kid_id, cents, status, allocated_cents) VALUES ('New Final Fantasy Game', 1,  5000, 'approved', 1000);
+INSERT INTO goals (description, kid_id, cents, status, allocated_cents) VALUES ('Gucci Flip Flops', 1,  5000, 'pending', 2000);
+INSERT INTO goals (description, kid_id, points, status, allocated_points) VALUES ('Play Outside', 1,  5000, 'approved', 3000);
+INSERT INTO goals (description, kid_id, points, status, allocated_points) VALUES ('Family hug time', 1,  10000, 'pending', 2000);
