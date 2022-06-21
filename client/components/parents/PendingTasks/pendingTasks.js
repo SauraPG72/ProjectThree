@@ -4,14 +4,11 @@ import { createTitle } from "../../title.js";
 import { approverejectConfirm } from "../Form/approveRejectConfirm.js";
 
 export function approvePendingTasks() {
-  console.log("ok");
   // take user id out of Store and send it to the server
   const user_id = store.userId;
 
   // response : tasks data whose status is 'pending' of all the kids related to that user id (array)
   return axios.get(`/api/parents/pendingTasks/${user_id}`).then((res) => {
-    console.log(res.data);
-
     const pendingTasksList = res.data.tasksList;
 
     // pending task list area wrapper ( return this later )
