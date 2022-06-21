@@ -1,7 +1,7 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { addKidPage } from "../Addkid/addKid.js";
-import { createTitle } from "../../title.js";
+import { createTitle } from "../Components/title.js";
 
 export function renderTally() {
   // take user id out of Store and send it to the server
