@@ -1,4 +1,5 @@
 import { createAnElement } from "../../utils/elementCreator.js";
+import { renderPage } from "../../index.js";
 
 export function kidGoals() {
   return axios.get("/api/kids/goals").then((response) => {
@@ -39,6 +40,10 @@ export function kidGoals() {
       addGoalsForm.addEventListener("submit", (event) => {
         console.log(event);
         event.preventDefault();
+        app.innerHTML = "";
+
+        loaderWrapper.style.display = "flex";
+
         const formData = new FormData(addGoalsForm);
         const data = {
           description: formData.get("description"),
@@ -48,7 +53,8 @@ export function kidGoals() {
         };
         axios.post("/api/kids/goals", data).then((response) => {
           console.log(response);
-          location.reload();
+          // location.reload();
+          renderPage();
         });
       });
       kidPage.innerHTML = "";
@@ -86,7 +92,8 @@ export function kidGoals() {
           console.log(allocate);
           axios.post("/api/kids/all-cents", allocateObj).then((res) => {
             console.log(res);
-            location.reload();
+            // location.reload();
+            renderPage();
           });
         });
         goalsListContainer.appendChild(newGoal);

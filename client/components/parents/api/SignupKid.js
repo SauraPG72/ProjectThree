@@ -31,7 +31,8 @@ export function signUpKid(form) {
       .post("/api/users/kids", jsonForm)
       .then(() => {
         app.innerHTML = "";
-        loaderWrapper.style.display = "flex";
+        // loaderWrapper.style.display = "flex";
+        loaderWrapper.classList.add("fadein");
         renderPage();
       })
       .catch((err) => {

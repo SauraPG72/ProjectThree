@@ -13,6 +13,9 @@ window.onload = () => {
   loaderWrapper.classList.add("fadeout");
   app.classList.remove("fadeout");
   app.classList.remove("fadein");
+  setTimeout(function () {
+    loaderWrapper.style.display = "none";
+  }, 1000);
 };
 
 export async function renderPage() {
@@ -22,7 +25,12 @@ export async function renderPage() {
 
   await getSessionData();
 
-  loaderWrapper.style.display = "none";
+  // loaderWrapper.style.display = "none";
+  loaderWrapper.classList.add("fadeout");
+  setTimeout(function () {
+    loaderWrapper.style.display = "none";
+  }, 1000);
+
   renderHeader();
 
   console.log(store);

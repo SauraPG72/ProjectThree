@@ -40,15 +40,15 @@ export function renderHeader() {
   //===================================
   logoutBtn.addEventListener("click", () => {
     appHeader.style.display = "none";
-    loaderWrapper.style.display = "flex";
-    axios.delete("api/session").then((res) => {
+    loaderWrapper.classList.add("fadein");
+    axios.delete("api/session").then(() => {
       window.location.href = "/";
     });
   });
 
   loginBtn.addEventListener("click", () => {
-    loaderWrapper.style.display = "flex";
-    axios.delete("api/session").then((res) => {
+    loaderWrapper.classList.add("fadein");
+    axios.delete("api/session").then(() => {
       window.location.href = "/login.html";
     });
   });
