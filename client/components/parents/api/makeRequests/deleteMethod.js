@@ -1,9 +1,9 @@
 import { renderPage } from "../../../../index.js";
 
-export function sendDeleteRequest(url, jsonForm) {
+export function sendDeleteRequest(url) {
   const errorMessage = document.getElementById("error-message");
   axios
-    .delete(url, jsonForm)
+    .delete(url)
     .then(() => {
       renderPage();
     })

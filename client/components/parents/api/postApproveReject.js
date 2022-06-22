@@ -27,7 +27,7 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
       sendPatchRequest(`/api/parents/pendingTasks/${taskId}`, jsonData);
     } else if (appvoroOrReject === "reject") {
       // send a request to the server to delete the task
-      sendDeleteRequest(`/api/parents/pendingTasks/${taskId}`, jsonData);
+      sendDeleteRequest(`/api/parents/pendingTasks/${taskId}`);
     }
     // if the form is about approving/ rejecting REQUESTED GOALS with points =========================================
   } else if (requestType === "goals") {
@@ -36,7 +36,7 @@ export function postApproveReject(form, appvoroOrReject, data, requestType) {
       sendPatchRequest(`/api/parents/pendingGoals/${taskId}`, jsonData);
     } else if (appvoroOrReject === "reject") {
       // send a request to the server to delete the goal
-      sendDeleteRequest(`/api/parents/pendingGoals/${taskId}`, jsonData);
+      sendDeleteRequest(`/api/parents/pendingGoals/${taskId}`);
     }
   }
 }
