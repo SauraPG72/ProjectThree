@@ -6,7 +6,7 @@ import { postApproveReject } from "../api/postApproveReject.js";
 // rewardType = "cents"/ "points"
 // requestType = "completed"/ "pending"/ "goals"
 // completed : approve completed task and redeem it
-// pending : approve a task request and change status from 'pending' to 'approved'
+// pendingTasks : approve a task request and change its status from 'pending' to 'approved'
 export function approverejectConfirm(status, task, rewardType, requestType) {
   app.innerHTML = "";
 
@@ -85,7 +85,9 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
   // ======================================================================
 
-  // if status is 'approve', send a request to delete the targeted task when the submit button is pressed
+  // if status is 'approve', send a request to change the status of the targeted task
+  // from 'pending' to 'approved'
+  //when the submit button is pressed
   if (status === "approve") {
     const confirmation = createAnElement("p", {
       className: "approve-reject-confirmation",
@@ -117,7 +119,10 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
       e.preventDefault();
       window.location.href = "/";
     });
-  } else {
+    // if status is 'reject', send a request to change the status of the targeted task
+    // from 'pending' to 'approved'
+    //when the submit button is pressed
+  } else if (status === "reject") {
     const confirmation = createAnElement("p", {
       className: "approve-reject-confirmation",
       textContent: "Are you sure you want to reject",
@@ -141,7 +146,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     // for rejection
     button.addEventListener("click", (e) => {
       e.preventDefault();
-      postApproveReject(form, "reject", requestType);
+      postApproveReject(form, "reject", data, requestType);
     });
   }
 }

@@ -99,7 +99,7 @@ router.get("/tasksreport/:id", (req, res) => {
   }
 });
 
-// to change the status completed task (when parents approve kids' task completion request)
+// to change the status of a completed task (when parents APPROVE kids' task completion request)
 // and then redeem points/money of that task
 router.patch("/taskcomplete/:id", (req, res) => {
   const taskId = req.params.id;
@@ -132,6 +132,24 @@ router.patch("/taskcomplete/:id", (req, res) => {
   }
 });
 
+// to change the status of a completed task (when parents REJECT kids' task completion request)
+router.get("/rejectcompletedtask/:id", (req, res) => {
+  const taskId = req.params.id;
+
+  if (!taskId) {
+    res.status(400).json({ success: false, message: "Missing valid task id" });
+  } else {
+    const sql = `UPDATE tasks SET status='rejected' WHERE id=${taskId}`;
+    db.query(sql)
+      .then(() => {
+        res.json({ seccess: "Successfully rejected a task!" });
+      })
+      .catch((err) => {
+        res.status(500).json({ seccess: "fail", error: err });
+      });
+  }
+});
+
 //============== pending tasks =======================
 
 router.get("/pendingTasks/:id", (req, res) => {
@@ -156,7 +174,7 @@ router.get("/pendingTasks/:id", (req, res) => {
 });
 
 // route tochange the status of a task from 'pending' to 'approved'
-router.patch("/approvetask/:taskId", (req, res) => {
+router.patch("/pendingTasks/:taskId", (req, res) => {
   const taskId = req.params.taskId;
 
   if (!taskId) {
@@ -166,6 +184,24 @@ router.patch("/approvetask/:taskId", (req, res) => {
     db.query(sql)
       .then(() => {
         res.json({ seccess: "Successfully changed the status of the task!" });
+      })
+      .catch((err) => {
+        res.status(500).json({ seccess: "fail", error: err });
+      });
+  }
+});
+
+// rejecting a requested task from kids
+router.delete("/pendingTasks/:taskId", (req, res) => {
+  const taskId = req.params.taskId;
+
+  if (!taskId) {
+    res.status(400).json({ success: false, message: "Missing valid task id" });
+  } else {
+    const sql = `DELETE FROM tasks WHERE id=${taskId}`;
+    db.query(sql)
+      .then(() => {
+        res.json({ seccess: "Successfully deleted the task!" });
       })
       .catch((err) => {
         res.status(500).json({ seccess: "fail", error: err });
@@ -206,6 +242,23 @@ router.patch("/pendingGoals/:id", (req, res) => {
     db.query(sql)
       .then(() => {
         res.json({ seccess: "Successfully changed the status of the goal!" });
+      })
+      .catch((err) => {
+        res.status(500).json({ seccess: "fail", error: err });
+      });
+  }
+});
+
+// rejecting a requested goal with points from kids
+router.delete("/pendingGoals/:id", (req, res) => {
+  const goalId = req.params.id;
+  if (!goalId) {
+    res.status(400).json({ success: false, message: "Missing valid task id" });
+  } else {
+    const sql = `DELETE FROM goals WHERE id=${goalId}`;
+    db.query(sql)
+      .then(() => {
+        res.json({ seccess: "Successfully deleted the goal!" });
       })
       .catch((err) => {
         res.status(500).json({ seccess: "fail", error: err });

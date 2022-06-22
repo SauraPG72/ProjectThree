@@ -99,7 +99,7 @@ export function approvePendingGoals() {
           textContent: "Reject",
           className: "approve-reject",
           value: goal.goal_id, // goal id
-          id: goal.description,
+          id: `${goal.description}:${goal.points}`,
         });
         btnsContainer.appendChild(rejectBtn);
         goalWrapper.appendChild(btnsContainer);
@@ -120,7 +120,7 @@ export function approvePendingGoals() {
             task_id: e.target.value,
             task_description: e.target.id,
           };
-          approverejectConfirm("reject", targetedGoal);
+          approverejectConfirm("reject", targetedGoal, "points", "goals");
         });
       });
       // ============================================================

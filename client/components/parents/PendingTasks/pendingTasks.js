@@ -87,8 +87,18 @@ export function approvePendingTasks() {
         });
 
         let rewardType = "";
-        let approveBtn;
 
+        // ====================== approve/ reject buttons =============================
+        let approveBtn;
+        let rejectBtn;
+        /** check if the task's reward is based on CENTS or POINTS, and create both approve/ reject buttons that contain
+         * {
+         *  name of the button,
+         *  class = "approve-reject",
+         *  value = task_id / goal_id
+         *  id = "task/goal description" + "cents/ points"
+         * }
+         */
         if (task.cents) {
           approveBtn = createAnElement("button", {
             textContent: "Approve",
@@ -98,6 +108,13 @@ export function approvePendingTasks() {
           });
           rewardType = "cents";
           btnsContainer.appendChild(approveBtn);
+          rejectBtn = createAnElement("button", {
+            textContent: "Reject",
+            className: "approve-reject",
+            value: task.task_id, // task id
+            id: `${task.description}:${task.cents}`,
+          });
+          btnsContainer.appendChild(rejectBtn);
         } else {
           approveBtn = createAnElement("button", {
             textContent: "Approve",
@@ -107,16 +124,17 @@ export function approvePendingTasks() {
           });
           rewardType = "points";
           btnsContainer.appendChild(approveBtn);
+          rejectBtn = createAnElement("button", {
+            textContent: "Reject",
+            className: "approve-reject",
+            value: task.task_id, // task id
+            id: `${task.description}:${task.points}`,
+          });
+          btnsContainer.appendChild(rejectBtn);
         }
 
-        const rejectBtn = createAnElement("button", {
-          textContent: "Reject",
-          className: "approve-reject",
-          value: task.task_id, // task id
-          id: task.description,
-        });
-        btnsContainer.appendChild(rejectBtn);
         taskWrapper.appendChild(btnsContainer);
+        // ===================================================
 
         tasksListContainer.appendChild(taskWrapper);
 
@@ -127,9 +145,19 @@ export function approvePendingTasks() {
             task_description: e.target.id,
           };
           if (rewardType === "cents") {
-            approverejectConfirm("approve", targetedTask, "cents", "pending");
+            approverejectConfirm(
+              "approve",
+              targetedTask,
+              "cents",
+              "pendingTasks"
+            );
           } else {
-            approverejectConfirm("approve", targetedTask, "points", "pending");
+            approverejectConfirm(
+              "approve",
+              targetedTask,
+              "points",
+              "pendingTasks"
+            );
           }
         });
 
@@ -138,7 +166,21 @@ export function approvePendingTasks() {
             task_id: e.target.value,
             task_description: e.target.id,
           };
-          approverejectConfirm("reject", targetedTask);
+          if (rewardType === "cents") {
+            approverejectConfirm(
+              "reject",
+              targetedTask,
+              "cents",
+              "pendingTasks"
+            );
+          } else {
+            approverejectConfirm(
+              "reject",
+              targetedTask,
+              "points",
+              "pendingTasks"
+            );
+          }
         });
       });
       // ============================================================
