@@ -12,7 +12,7 @@ export function signUpKid(form) {
     total_cents: parseFloat(formData.get("Starting Reward Dollars") * 100),
     password: formData.get("Password"),
     confirm_password: formData.get("Confirm Password"),
-	avatar: formData.get("avatar")
+    avatar: formData.get("avatar"),
   };
 
   // check if there's any blanks or other errors (except for total_points and total_cents)
@@ -30,6 +30,8 @@ export function signUpKid(form) {
     axios
       .post("/api/users/kids", jsonForm)
       .then(() => {
+        app.innerHTML = "";
+        loaderWrapper.style.display = "flex";
         renderPage();
       })
       .catch((err) => {

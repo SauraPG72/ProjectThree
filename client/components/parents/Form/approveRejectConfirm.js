@@ -80,6 +80,10 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
   returnButton.addEventListener("click", (e) => {
     e.preventDefault();
+    const appHeader = document.getElementById("app-header");
+    appHeader.innerHTML = "";
+    form.style.display = "none";
+    loaderWrapper.style.display = "flex";
     window.location.href = "/";
   });
 
@@ -113,12 +117,11 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     // for approval
     button.addEventListener("click", (e) => {
       e.preventDefault();
+      form.style.display = "none";
+      loaderWrapper.style.display = "flex";
       postApproveReject(form, "approve", data, requestType);
     });
-    returnButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.href = "/";
-    });
+
     // if status is 'reject', send a request to change the status of the targeted task
     // from 'pending' to 'approved'
     //when the submit button is pressed
@@ -146,6 +149,8 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     // for rejection
     button.addEventListener("click", (e) => {
       e.preventDefault();
+      form.style.display = "none";
+      loaderWrapper.style.display = "flex";
       postApproveReject(form, "reject", data, requestType);
     });
   }

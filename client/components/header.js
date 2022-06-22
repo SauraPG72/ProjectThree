@@ -38,12 +38,14 @@ export function renderHeader() {
 
   //===================================
   logoutBtn.addEventListener("click", () => {
+    loaderWrapper.style.display = "flex";
     axios.delete("api/session").then((res) => {
       window.location.href = "/";
     });
   });
 
   loginBtn.addEventListener("click", () => {
+    loaderWrapper.style.display = "flex";
     axios.delete("api/session").then((res) => {
       window.location.href = "/login.html";
     });
