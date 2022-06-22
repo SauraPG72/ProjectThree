@@ -1,70 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./css/login-signup.css" />
+    <link rel="stylesheet" href="./css/loader.css" />
+    <title>Log in to Divida</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<link rel="stylesheet" href="./css/login-signup.css">
-	<title>Log in to Divida</title>
-</head>
+  <body>
+    <div class="loaderWrapper" id="loaderWrapper">
+      <div class="loader">
+        <span></span>
+        <span></span>
+        <h2>Loading ...</h2>
+      </div>
+    </div>
+    <div id="log-in">
+      <div id="logo">
+        <h1><a href="/">Divita</a></h1>
+      </div>
+      <h1>Log In</h1>
+      <form id="log-in-form">
+        <section id="errors1"></section>
+        <div id="login-type">
+          <div class="type-option">
+            <input
+              type="radio"
+              id="parent"
+              name="type"
+              value="parent"
+              class="type"
+              checked
+            />
+            <label for="parent">Parent</label>
+          </div>
+          <div class="type-option">
+            <input type="radio" id="kid" name="type" value="kid" class="type" />
+            <label for="kid">Kid</label>
+          </div>
+        </div>
+        <fieldset>
+          <label for="">Username:</label><br />
+          <input type="text" name="username" />
+        </fieldset>
+        <fieldset>
+          <label for="">Password: </label><br />
+          <input type="password" name="password" />
+        </fieldset>
+        <button class="login-sign-up-button">Log in</button>
+      </form>
+      <p class="login-signup-message">
+        Don't Have An Account? <a href="/signup.html">Click Here to Sign Up</a>
+      </p>
+    </div>
+    <!-- <script type="module" src="./js/logandsign.js"></script> -->
+    <script>
+      let form = document.getElementById("log-in-form");
+      let formWrapper = document.getElementById("log-in");
 
-<body>
-	<div id="log-in">
-		<div id="logo">
-			<h1><a href="/">Divita</a></h1>
-		</div>
-		<h1>Log In</h1>
-		<form id="log-in-form">
-			<section id="errors1"></section>
-			<div id="login-type">
-				<div class="type-option">
-					<input type="radio" id="parent" name="type" value="parent" class="type" checked />
-					<label for="parent">Parent</label>
-				</div>
-				<div class="type-option">
-					<input type="radio" id="kid" name="type" value="kid" class="type" />
-					<label for="kid">Kid</label>
-				</div>
-			</div>
-			<fieldset>
-				<label for="">Username:</label><br />
-				<input type="text" name="username" />
-			</fieldset>
-			<fieldset>
-				<label for="">Password: </label><br />
-				<input type="password" name="password" />
-			</fieldset>
-			<button class="login-sign-up-button">Log in</button>
-		</form>
-		<p class="login-signup-message">Don't Have An Account? <a href="/signup.html">Click Here to Sign Up</a></p>
+      window.onload = () => {
+        const loaderWrapper = document.getElementById("loaderWrapper");
+        loaderWrapper.style.display = "none";
+      };
 
-	</div>
-
-	<script>
-		let form = document.getElementById("log-in-form");
-		form.addEventListener("submit", (event) => {
-			event.preventDefault();
-			const formData = new FormData(form);
-			const data = {
-				type: formData.get("type"),
-				username: formData.get("username"),
-				password: formData.get("password"),
-			};
-			console.log(data);
-			axios
-				.post("/api/session", data)
-				.then((response) => {
-					window.location.href = "/";
-				})
-				.catch((err) => {
-					console.log(err);
-					let messageBox = document.getElementById("errors1");
-					messageBox.textContent = err.response.data.message;
-				});
-		});
-	</script>
-</body>
-
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        formWrapper.style.display = "none";
+        loaderWrapper.style.display = "flex";
+        const formData = new FormData(form);
+        const data = {
+          type: formData.get("type"),
+          username: formData.get("username"),
+          password: formData.get("password"),
+        };
+        console.log(data);
+        axios
+          .post("/api/session", data)
+          .then((response) => {
+            window.location.href = "/";
+          })
+          .catch((err) => {
+            console.log(err);
+            let messageBox = document.getElementById("errors1");
+            messageBox.textContent = err.response.data.message;
+          });
+      });
+    </script>
+  </body>
 </html>
