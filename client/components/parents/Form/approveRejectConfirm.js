@@ -78,7 +78,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     [button, returnButton]
   );
 
-  returnButton.addEventListener("click", () => {
+  returnButton.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.href = "/";
   });
@@ -113,7 +113,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
       e.preventDefault();
       postApproveReject(form, "approve", data, requestType);
     });
-    returnButton.addEventListener("click", () => {
+    returnButton.addEventListener("click", (e) => {
       e.preventDefault();
       window.location.href = "/";
     });

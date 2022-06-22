@@ -70,7 +70,9 @@ export function addKidPage() {
     return avatarLabel;
   });
 
-  const avatarWrapper = createAnElement("div", { id: "avatar-wrapper" }, [...avatarsSelection]);
+  const avatarWrapper = createAnElement("div", { id: "avatar-wrapper" }, [
+    ...avatarsSelection,
+  ]);
   form.append(avatarWrapper);
 
   // error message area : defalut = HIDDEN
@@ -85,8 +87,26 @@ export function addKidPage() {
     textContent: "Confirm",
   });
 
+  const returnButton = createAnElement("button", {
+    className: "formBtn",
+    textContent: "Back To Home",
+  });
+
+  const buttonsWrapper = createAnElement(
+    "div",
+    {
+      className: "formButtonsWrapper",
+    },
+    [button, returnButton]
+  );
+
+  returnButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "/";
+  });
+
   form.appendChild(errorMessage);
-  form.appendChild(button);
+  form.appendChild(buttonsWrapper);
 
   // wrap everything in a wrapper and render it
   const formWrapper = createAnElement(

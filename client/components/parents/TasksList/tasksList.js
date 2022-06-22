@@ -1,7 +1,7 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { store } from "../../../utils/store.js";
 import { isKidExists } from "./isKidExists.js";
-import { createTitle } from "../../title.js";
+import { createTitle } from "../Components/title.js";
 import { createKidTasksList } from "./createTasksList.js";
 
 export function tasksList() {
