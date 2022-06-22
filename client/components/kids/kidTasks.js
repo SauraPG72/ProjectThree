@@ -84,10 +84,9 @@ export function kidTasks() {
     });
 
     // tasksBox.appendChild(taskHeader);
-    let newTask;
     for (const task of kidTasks) {
       if (task.status == "pending" && task.cents) {
-        newTask = createAnElement("div", {
+        const newTask = createAnElement("div", {
           className: "pending task item",
           innerHTML: `
           <p>${task.description}<p>
@@ -96,7 +95,7 @@ export function kidTasks() {
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "pending" && task.points) {
-        newTask = createAnElement("div", {
+        const newTask = createAnElement("div", {
           className: "pending task item",
           innerHTML: `
         <p>${task.description}<p>
@@ -105,7 +104,7 @@ export function kidTasks() {
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.cents) {
-        newTask = createAnElement("div", {
+        const newTask = createAnElement("div", {
           className: "task item",
           innerHTML: `
           <p>${task.description}<p>
@@ -117,9 +116,14 @@ export function kidTasks() {
           `,
         });
 
+        const completeButton = newTask.querySelector(".complete-task");
+        const deleteButton = newTask.querySelector(".delete-task");
+        completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
+        deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
+
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.points) {
-        newTask = createAnElement("div", {
+        const newTask = createAnElement("div", {
           className: "task item",
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
@@ -132,15 +136,12 @@ export function kidTasks() {
           `,
         });
 
-        tasksListContainer.appendChild(newTask);
-      }
-
-      //  Adding Event Listener to the buttons
-      const completeButton = newTask.querySelector(".complete-task");
-      const deleteButton = newTask.querySelector(".delete-task");
-      if (completeButton || deleteButton) {
+        const completeButton = newTask.querySelector(".complete-task");
+        const deleteButton = newTask.querySelector(".delete-task");
         completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
         deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
+
+        tasksListContainer.appendChild(newTask);
       }
     }
     tasksBoxFinal.append(tasksListContainer);

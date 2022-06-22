@@ -36,7 +36,10 @@ export function completeDeleteTask(action, task) {
       window.location.href = "/";
     }
     if (action === "delete") {
-      console.log("delete");
+      axios
+        .delete(`/api/kids/delete-task/${task.id}`)
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
       window.location.href = "/";
     }
   });

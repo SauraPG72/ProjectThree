@@ -150,4 +150,12 @@ router.patch("/complete-task/:taskId", (req, res) => {
     });
 });
 
+router.delete("/delete-task/:taskId", (req, res) => {
+  db.query("DELETE FROM tasks WHERE id = $1", [req.params.taskId])
+    .then((dbResult) => res.status(200).json({ status: "success" }))
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
