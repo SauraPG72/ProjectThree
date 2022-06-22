@@ -4,6 +4,7 @@ export function completeDeleteTask(action, task) {
   app.innerHTML = "";
   let promptMessage;
   let buttonText;
+  console.log(task.id);
 
   if (action === "complete") {
     promptMessage = `Mark ${task.description} as Complete?`;
@@ -28,7 +29,10 @@ export function completeDeleteTask(action, task) {
   //  EVENT LISTENERS
   confirmButton.addEventListener("click", () => {
     if (action === "complete") {
-      console.log("complete");
+      axios
+        .patch(`/api/kids/complete-task/${task.id}`)
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error));
       window.location.href = "/";
     }
     if (action === "delete") {

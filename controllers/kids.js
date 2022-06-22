@@ -142,4 +142,12 @@ router.post("/all-points", (req, res) => {
   });
 });
 
+router.patch("/complete-task/:taskId", (req, res) => {
+  db.query("UPDATE tasks SET status = 'completed' WHERE id = $1", [req.params.taskId])
+    .then((dbResult) => res.status(200).json({ status: "success" }))
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
