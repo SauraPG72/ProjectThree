@@ -1,4 +1,5 @@
 import { createAnElement } from "../../utils/elementCreator.js";
+import { completeDeleteTask } from "./completeOrDeleteTask.js";
 
 export function kidTasks() {
   return axios.get("/api/kids/tasks").then((response) => {
@@ -62,12 +63,8 @@ export function kidTasks() {
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points:
-            formData.get("type") === "points" ? formData.get("amount") : null,
-          cents:
-            formData.get("type") === "cents"
-              ? formData.get("amount") * 100
-              : null,
+          points: formData.get("type") === "points" ? formData.get("amount") : null,
+          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };
@@ -94,7 +91,7 @@ export function kidTasks() {
           innerHTML: `
           <p>${task.description}<p>
           <p>$${task.cents * 0.01}</p>
-          `
+          `,
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "pending" && task.points) {
@@ -103,8 +100,7 @@ export function kidTasks() {
           innerHTML: `
         <p>${task.description}<p>
         <p>$${task.cents * 0.01}</p>
-        `
-          
+        `,
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.cents) {
@@ -112,9 +108,18 @@ export function kidTasks() {
           className: "task item",
           innerHTML: `
           <p>${task.description}<p>
-          <p>$${task.cents * 0.01}</p>
+		  <div class="amount-and-buttons">
+			<p>$${task.cents * 0.01}</p>
+				<i class="fa-solid fa-circle-check green complete-task"></i>
+				<i class="fa-solid fa-circle-xmark red delete-task"></i>
+		  </div>
           `,
         });
+
+        const completeButton = newTask.querySelector(".complete-task");
+        const deleteButton = newTask.querySelector(".delete-task");
+        completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
+        deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
 
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.points) {
@@ -123,9 +128,18 @@ export function kidTasks() {
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
           <p>${task.description}<p>
+		  <div class="amount-and-buttons">
           <p>${task.points} pts</p>
+			<i class="fa-solid fa-circle-check green complete-task"></i>
+			<i class="fa-solid fa-circle-xmark red delete-task"></i>
+		  </div>
           `,
         });
+
+        const completeButton = newTask.querySelector(".complete-task");
+        const deleteButton = newTask.querySelector(".delete-task");
+        completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
+        deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
 
         tasksListContainer.appendChild(newTask);
       }

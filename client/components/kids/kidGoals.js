@@ -73,8 +73,6 @@ export function kidGoals() {
                 `,
         });
 
-        console.log(goal);
-
         const allocate = newGoal.querySelector("#allocate");
 
         allocate.addEventListener("submit", (e) => {

@@ -69,3 +69,22 @@ select {
   /*font-weight: bold;*/
   color: var(--divita-dark-grey);
 }
+
+.amount-and-buttons {
+  display: flex;
+}
+.amount-and-buttons > p {
+  margin-right: 5px;
+}
+.amount-and-buttons > i {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
