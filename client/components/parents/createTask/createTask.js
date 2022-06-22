@@ -1,5 +1,5 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
-import { postTask } from "../api/addTask.js";
+import { postTask } from "../api/postTask.js";
 import {
   createInputTag,
   createRewardTag,

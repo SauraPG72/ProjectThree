@@ -1,5 +1,6 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { postApproveReject } from "../api/postApproveReject.js";
+import { renderPage } from "../../../index.js";
 
 // This function is to create a form for approving/ rejecting a request from kids
 // next => postApproveReject (api to send request to the server)
@@ -84,7 +85,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     appHeader.innerHTML = "";
     form.style.display = "none";
     loaderWrapper.style.display = "flex";
-    window.location.href = "/";
+    renderPage();
   });
 
   // ======================================================================

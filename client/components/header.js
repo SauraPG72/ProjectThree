@@ -35,6 +35,7 @@ export function renderHeader() {
   ]);
 
   appHeader.appendChild(headerContainer);
+  appHeader.classList.add("fadein");
 
   //===================================
   logoutBtn.addEventListener("click", () => {

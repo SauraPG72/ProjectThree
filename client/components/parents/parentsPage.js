@@ -8,7 +8,7 @@ import { approvePendingGoals } from "./PendingGoals/pendingGoals.js";
 // This function is an async function
 // as it has to wait for all the components( using axios ) to come back
 export async function renderParentsPage(kidsArray) {
-  app.innerHTML = "";
+  app.classList.add("fadeout");
 
   // wait for all the results of each section to come back first
   const [
@@ -46,4 +46,5 @@ export async function renderParentsPage(kidsArray) {
   );
 
   app.appendChild(mainContainer);
+  app.classList.add("fadein");
 }

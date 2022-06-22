@@ -10,10 +10,14 @@ renderPage();
 
 window.onload = () => {
   const loaderWrapper = document.getElementById("loaderWrapper");
-  loaderWrapper.style.display = "none";
+  loaderWrapper.classList.add("fadeout");
+  app.classList.remove("fadeout");
+  app.classList.remove("fadein");
 };
 
 export async function renderPage() {
+  app.classList.remove("fadeout");
+  app.classList.remove("fadein");
   app.innerHTML = "";
 
   await getSessionData();
