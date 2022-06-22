@@ -38,6 +38,7 @@ export function renderHeader() {
 
   //===================================
   logoutBtn.addEventListener("click", () => {
+    appHeader.style.display = "none";
     loaderWrapper.style.display = "flex";
     axios.delete("api/session").then((res) => {
       window.location.href = "/";
