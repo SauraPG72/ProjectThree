@@ -62,12 +62,8 @@ export function kidTasks() {
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points:
-            formData.get("type") === "points" ? formData.get("amount") : null,
-          cents:
-            formData.get("type") === "cents"
-              ? formData.get("amount") * 100
-              : null,
+          points: formData.get("type") === "points" ? formData.get("amount") : null,
+          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };
@@ -94,7 +90,7 @@ export function kidTasks() {
           innerHTML: `
           <p>${task.description}<p>
           <p>$${task.cents * 0.01}</p>
-          `
+          `,
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "pending" && task.points) {
@@ -103,8 +99,7 @@ export function kidTasks() {
           innerHTML: `
         <p>${task.description}<p>
         <p>$${task.cents * 0.01}</p>
-        `
-          
+        `,
         });
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.cents) {
@@ -112,7 +107,11 @@ export function kidTasks() {
           className: "task item",
           innerHTML: `
           <p>${task.description}<p>
-          <p>$${task.cents * 0.01}</p>
+		  <div class="amount-and-buttons">
+			<p>$${task.cents * 0.01}</p>
+			<i class="fa-solid fa-circle-check green"></i>
+			<i class="fa-solid fa-circle-xmark red"></i>
+		  </div>
           `,
         });
 
@@ -123,7 +122,12 @@ export function kidTasks() {
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
           <p>${task.description}<p>
+		  <div class="amount-and-buttons">
           <p>${task.points} pts</p>
+			<i class="fa-solid fa-circle-check green"></i>
+			<i class="fa-solid fa-circle-xmark red"></i>
+		  </div>
+
           `,
         });
 

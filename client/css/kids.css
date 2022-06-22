@@ -62,8 +62,8 @@
 }
 
 .item.pending.task {
-  background-color: var(--divita-cream);
-  color: var(--divita-dark-grey);
+  background-color: var(--divita-dark-grey);
+  color: var(--divita-cream);
 }
 
 #allocate {
