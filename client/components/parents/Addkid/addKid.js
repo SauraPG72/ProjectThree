@@ -121,6 +121,9 @@ export function addKidPage() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    form.style.display = "none";
+    title.style.display = "none";
+    loaderWrapper.style.display = "flex";
     signUpKid(form);
   });
 }

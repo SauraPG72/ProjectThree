@@ -35,16 +35,20 @@ export function renderHeader() {
   ]);
 
   appHeader.appendChild(headerContainer);
+  appHeader.classList.add("fadein");
 
   //===================================
   logoutBtn.addEventListener("click", () => {
-    axios.delete("api/session").then((res) => {
+    appHeader.style.display = "none";
+    loaderWrapper.classList.add("fadein");
+    axios.delete("api/session").then(() => {
       window.location.href = "/";
     });
   });
 
   loginBtn.addEventListener("click", () => {
-    axios.delete("api/session").then((res) => {
+    loaderWrapper.classList.add("fadein");
+    axios.delete("api/session").then(() => {
       window.location.href = "/login.html";
     });
   });

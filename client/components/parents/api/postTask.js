@@ -1,4 +1,3 @@
-import { renderParentsPage } from "../parentsPage.js";
 import { renderPage } from "../../../index.js";
 
 // ============= post task form data to the server =============
@@ -45,13 +44,9 @@ export function postTask(form) {
     errorMessage.textContent = errorHandling;
     errorMessage.style.display = "block";
   } else {
-    errorMessage.style.display = "none";
-
     // if there's no error with the inputs,
     // post data to the server
-    axios.post("/api/parents/task", jsonForm).then((res) => {
-      console.log(res);
-      // renderParentsPage();
+    axios.post("/api/parents/task", jsonForm).then(() => {
       renderPage();
     });
   }

@@ -1,0 +1,83 @@
+.loaderWrapper {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderWrapper.loaded {
+  animation: fadeOut 3s forwards;
+}
+
+.loader {
+  width: 400px;
+  height: 400px;
+  /* background-color: var(--divita-teal); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fadeout {
+  animation: fadeOut 1s;
+  animation-fill-mode: both;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fadein {
+  animation: fadeIn 1s;
+  animation-fill-mode: both;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--divita-teal);
+  animation: circle 5s linear infinite;
+}
+
+.loader span:nth-child(1) {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+.loader span:nth-child(2) {
+  animation-direction: reverse;
+  border-radius: 64% 36% 37% 63% / 66% 53% 47% 34%;
+}
+
+.loader span:nth-child(3) {
+  animation-delay: 0.8s;
+  border-radius: 83% 17% 45% 55% / 28% 64% 36% 72%;
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader h2 {
+  font-size: 2.3rem;
+}

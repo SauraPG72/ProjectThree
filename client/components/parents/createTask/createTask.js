@@ -1,5 +1,5 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
-import { postTask } from "../api/addTask.js";
+import { postTask } from "../api/postTask.js";
 import {
   createInputTag,
   createRewardTag,
@@ -112,10 +112,14 @@ export function createTaskPage(childInfoObj) {
   // ============= event listeners =============
   button.addEventListener("click", (e) => {
     e.preventDefault();
+    app.innerHTML = "";
+    loaderWrapper.style.display = "flex";
     postTask(form);
   });
   returnButton.addEventListener("click", (e) => {
     e.preventDefault();
+    app.innerHTML = "";
+    loaderWrapper.style.display = "flex";
     window.location.href = "/";
   });
 }

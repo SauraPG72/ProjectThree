@@ -1,5 +1,6 @@
 import { createAnElement } from "../../utils/elementCreator.js";
 import { completeDeleteTask } from "./completeOrDeleteTask.js";
+import { renderPage } from "../../index.js";
 
 export function kidTasks() {
   return axios.get("/api/kids/tasks").then((response) => {
@@ -59,19 +60,27 @@ export function kidTasks() {
       const addTaskForm = taskForm.querySelector("#addTaskForm");
       addTaskForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        app.innerHTML = "";
+        loaderWrapper.style.display = "flex";
+
         const formData = new FormData(addTaskForm);
         console.log(formData.get("expiry-date"));
         const data = {
           description: formData.get("description"),
-          points: formData.get("type") === "points" ? formData.get("amount") : null,
-          cents: formData.get("type") === "cents" ? formData.get("amount") * 100 : null,
+          points:
+            formData.get("type") === "points" ? formData.get("amount") : null,
+          cents:
+            formData.get("type") === "cents"
+              ? formData.get("amount") * 100
+              : null,
           expiry: formData.get("expiry-date"),
           category: formData.get("category"),
         };
 
         axios.post("/api/kids/task", data).then((response) => {
           console.log(response);
-          location.reload();
+          // location.reload();
+          renderPage();
         });
       });
 
@@ -118,8 +127,12 @@ export function kidTasks() {
 
         const completeButton = newTask.querySelector(".complete-task");
         const deleteButton = newTask.querySelector(".delete-task");
-        completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
-        deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
+        completeButton.addEventListener("click", () =>
+          completeDeleteTask("complete", task)
+        );
+        deleteButton.addEventListener("click", () =>
+          completeDeleteTask("delete", task)
+        );
 
         tasksListContainer.appendChild(newTask);
       } else if (task.status == "approved" && task.points) {
@@ -138,8 +151,12 @@ export function kidTasks() {
 
         const completeButton = newTask.querySelector(".complete-task");
         const deleteButton = newTask.querySelector(".delete-task");
-        completeButton.addEventListener("click", () => completeDeleteTask("complete", task));
-        deleteButton.addEventListener("click", () => completeDeleteTask("delete", task));
+        completeButton.addEventListener("click", () =>
+          completeDeleteTask("complete", task)
+        );
+        deleteButton.addEventListener("click", () =>
+          completeDeleteTask("delete", task)
+        );
 
         tasksListContainer.appendChild(newTask);
       }

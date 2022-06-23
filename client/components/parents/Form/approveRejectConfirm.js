@@ -1,5 +1,6 @@
 import { createAnElement } from "../../../utils/elementCreator.js";
 import { postApproveReject } from "../api/postApproveReject.js";
+import { renderPage } from "../../../index.js";
 
 // This function is to create a form for approving/ rejecting a request from kids
 // next => postApproveReject (api to send request to the server)
@@ -80,7 +81,11 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
   returnButton.addEventListener("click", (e) => {
     e.preventDefault();
-    window.location.href = "/";
+    const appHeader = document.getElementById("app-header");
+    appHeader.innerHTML = "";
+    form.style.display = "none";
+    loaderWrapper.style.display = "flex";
+    renderPage();
   });
 
   // ======================================================================
@@ -113,12 +118,11 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     // for approval
     button.addEventListener("click", (e) => {
       e.preventDefault();
+      form.style.display = "none";
+      loaderWrapper.style.display = "flex";
       postApproveReject(form, "approve", data, requestType);
     });
-    returnButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.href = "/";
-    });
+
     // if status is 'reject', send a request to change the status of the targeted task
     // from 'pending' to 'approved'
     //when the submit button is pressed
@@ -146,6 +150,8 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
     // for rejection
     button.addEventListener("click", (e) => {
       e.preventDefault();
+      form.style.display = "none";
+      loaderWrapper.style.display = "flex";
       postApproveReject(form, "reject", data, requestType);
     });
   }
