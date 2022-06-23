@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     const sql = "SELECT * FROM kids WHERE login_name = $1";
     db.query(sql, [kid_name.toLowerCase()])
       .then((dbResult) => {
-        console.log(dbResult.rows);
+        // console.log(dbResult.rows);
         res.json({ kidsData: dbResult.rows[0] });
       })
       .catch((err) => {
@@ -45,8 +45,12 @@ router.get('/kids/data', (req, res) => {
   const sql = `select goals.id, description, kid_id, cents, points, allocated_cents, allocated_points from goals where kid_id = $1`
   db.query(sql, [kidUser]).then(dbResult => {
     const allGoals = dbResult.rows
-    let pointGoals = allGoals.filter(goal => goal["points"]).map(goal => goal.allocated_points).reduce((x, y) => x + y, 0)
+    let pointGoals = allGoals.filter(goal => !goal["cents"])  
+    .map(goal => goal.allocated_points)
+    .reduce((x, y) => x + y, 0)
+    
     let centGoals = allGoals.filter(goal => goal["cents"]).map(goal => goal.allocated_cents).reduce((x, y) => x + y, 0)
+    
     res.json({
       pointGoals: pointGoals,
       centGoals: centGoals
@@ -173,5 +177,16 @@ router.delete("/delete-task/:taskId", (req, res) => {
       res.status(500).json(error);
     });
 });
+
+router.delete("/delete-goal/:goalId", (req, res) => {
+  const kidId = req.session.userId
+  // const kidId = 1
+  const { goalId } = req.params.goalId;
+  sql = `DELETE from goals WHERE id = $1`
+  db.query(sql, [goalId]).then((dbResult) => 
+    res.json({ its: "deleted" }))
+
+
+})
 
 module.exports = router;
