@@ -32,7 +32,10 @@ export function kidGoals() {
               </div>
 
               <input type="number" name="all-cents" placeholder="Allocate money/points">
-              <input type="submit">
+              <div class="buttonsWrapper">
+                <button type="submit" class="formBtn confirmBtn">Submit</button>
+                <button class="formBtn">Cancel</button>
+              </div>
             </form>
             `,
       });
@@ -97,11 +100,7 @@ export function kidGoals() {
           });
         });
         goalsListContainer.appendChild(newGoal);
-      } 
-      
-      else if (goal.points) {
-
-
+      } else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
@@ -113,7 +112,7 @@ export function kidGoals() {
                 </form>
                 `,
         });
-        const allocate = newGoal.querySelector("#allocate")
+        const allocate = newGoal.querySelector("#allocate");
         allocate.addEventListener("submit", (e) => {
           e.preventDefault();
           const allocateData = new FormData(allocate);
@@ -127,7 +126,7 @@ export function kidGoals() {
             // location.reload();
             renderPage();
           });
-        })
+        });
         goalsListContainer.appendChild(newGoal);
       }
     }

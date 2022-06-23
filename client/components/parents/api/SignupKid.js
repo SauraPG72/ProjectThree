@@ -29,11 +29,8 @@ export function signUpKid(form) {
     // post data to the server
     axios
       .post("/api/users/kids", jsonForm)
-      .then(() => {
-        app.innerHTML = "";
-        // loaderWrapper.style.display = "flex";
-        loaderWrapper.classList.add("fadein");
-        renderPage();
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -41,6 +38,9 @@ export function signUpKid(form) {
           "There was a server error. Please try again.";
         errorMessage.style.display = "block";
       });
+    app.innerHTML = "";
+    loaderWrapper.classList.add("fadein");
+    renderPage();
   }
 }
 

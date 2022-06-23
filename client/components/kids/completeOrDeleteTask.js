@@ -34,7 +34,6 @@ export function completeDeleteTask(action, task) {
         .patch(`/api/kids/complete-task/${task.id}`)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
-      // window.location.href = "/";
       renderPage();
     }
     if (action === "delete") {
@@ -42,11 +41,11 @@ export function completeDeleteTask(action, task) {
         .delete(`/api/kids/delete-task/${task.id}`)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
-      window.location.href = "/";
+      renderPage();
     }
   });
   backButton.addEventListener("click", () => {
-    window.location.href = "/";
+    renderPage();
   });
 
   //   MAIN CONTAINER
