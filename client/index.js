@@ -8,16 +8,6 @@ import { createAnElement } from "./utils/elementCreator.js";
 
 renderPage();
 
-window.onload = () => {
-  const loaderWrapper = document.getElementById("loaderWrapper");
-  loaderWrapper.classList.add("fadeout");
-  app.classList.remove("fadeout");
-  app.classList.remove("fadein");
-  setTimeout(function () {
-    loaderWrapper.style.display = "none";
-  }, 1000);
-};
-
 export async function renderPage() {
   app.classList.remove("fadeout");
   app.classList.remove("fadein");
@@ -25,7 +15,6 @@ export async function renderPage() {
 
   await getSessionData();
 
-  // loaderWrapper.style.display = "none";
   loaderWrapper.classList.add("fadeout");
   setTimeout(function () {
     loaderWrapper.style.display = "none";
