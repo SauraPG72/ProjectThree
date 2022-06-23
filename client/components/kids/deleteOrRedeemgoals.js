@@ -28,7 +28,8 @@ export function completeDeleteGoal(action, goal) {
     });
   
     //  EVENT LISTENERS
-    confirmButton.addEventListener("click", () => {
+    confirmButton.addEventListener("click", (event) => {
+    event.preventDefault();
       if (action === "redeem") {
         axios
           .patch(`/api/kids/complete-task/${task.id}`)

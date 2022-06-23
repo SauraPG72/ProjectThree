@@ -181,12 +181,11 @@ router.delete("/delete-task/:taskId", (req, res) => {
 router.delete("/delete-goal/:goalId", (req, res) => {
   const kidId = req.session.userId
   // const kidId = 1
-  const { goalId } = req.params.goalId;
+  const  goalId = req.params.goalId;
   sql = `DELETE from goals WHERE id = $1`
+
   db.query(sql, [goalId]).then((dbResult) => 
-    res.json({ its: "deleted" }))
-
-
+    res.json( {success: true} ))
 })
 
 module.exports = router;
