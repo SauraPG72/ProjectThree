@@ -20,6 +20,15 @@
   box-sizing: border-box;
 }
 
+#app {
+  width: 100%;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .main-container {
   width: var(--container-width);
   margin: auto;
@@ -47,15 +56,68 @@ select {
 }
 
 input {
-  width: 500px;
+  width: 100%;
   height: 50px;
   border: none;
   background-color: var(--divita-light-grey);
   margin-bottom: 0.5em;
   padding: 0.5em;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
   border-bottom: 2px solid var(--divita-dark-grey);
+}
+
+input[type="submit"] {
+  margin: 1em 0;
+  background-color: var(--divita-blue);
+}
+
+input[type="submit"]:hover {
+  color: var(--divita-light-grey);
+  background-color: var(--divita-teal);
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 80vh;
+}
+
+.formWrapper input,
+.formWrapper select {
+  font-size: 20px;
+}
+
+.formTitle {
+  font-size: 50px;
+  margin: 0.3em;
+}
+
+#addTaskForm,
+#addGoalsForm {
+  width: 60%;
+}
+
+.categoryInputArea,
+.expiryDateInput,
+.rewardInputArea {
+  display: flex;
+  width: 100%;
+}
+
+.half-width-input {
+  width: 50%;
+  margin: 0.3em 0;
+  align-items: center;
+  display: flex;
+}
+
+.rewardInputArea > select {
+  width: 50%;
+  margin: 0.3em;
 }
 
 select {
@@ -68,6 +130,32 @@ select {
 .input::placeholder {
   /*font-weight: bold;*/
   color: var(--divita-dark-grey);
+}
+
+.confirmationText {
+  font-size: 30px;
+  margin: 1em 0;
+}
+
+.buttonsWrapper {
+  display: flex;
+  margin: 1em;
+}
+
+.formBtn {
+  padding: 1em 5em;
+  margin: 0 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.formBtn.confirmBtn {
+  background-color: var(--divita-blue);
+}
+
+.formBtn.confirmBtn:hover {
+  color: var(--divita-light-grey);
+  background-color: var(--divita-teal);
 }
 
 .amount-and-buttons {

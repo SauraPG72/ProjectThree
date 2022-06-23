@@ -62,7 +62,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
 
   // submit button
   const button = createAnElement("button", {
-    className: "formBtn",
+    className: "formBtn confirmBtn",
     textContent: "Confirm",
   });
 
@@ -74,7 +74,7 @@ export function approverejectConfirm(status, task, rewardType, requestType) {
   const buttonsWrapper = createAnElement(
     "div",
     {
-      className: "formButtonsWrapper",
+      className: "buttonsWrapper",
     },
     [button, returnButton]
   );

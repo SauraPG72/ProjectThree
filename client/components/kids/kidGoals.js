@@ -15,24 +15,24 @@ export function kidGoals() {
     });
     let goalsButt = goalsBoxFinal.querySelector("#add-goals");
     goalsButt.addEventListener("click", (event) => {
-      let kidPage = document.getElementById("kidsPageWrapper");
+      let app = document.getElementById("app");
       console.log(event);
       const addGoals = createAnElement("div", {
+        className: "formWrapper",
         innerHTML: `
-            <h1> Make a goal:</h1>
+            <h1 class="formTitle"> Make a goal:</h1>
             <form id="addGoalsForm">
-                <input type="text" name="description" placeholder="Name your goal?">
-                <input type="number" name="cents" placeholder="Dollars / Points">
-
-                <label for="currency">Choose:</label>
-
-                <select name="currency" id="cars">
+              <input type="text" name="description" placeholder="Name your goal?">
+              <div class="rewardInputArea">
+                <input type="number" name="cents" placeholder="Dollars / Points"  class="half-width-input">
+                <select name="currency" id="cars"  class="half-width-input">
                   <option value="cents">Money</option>
                   <option value="points">Points</option>
                 </select>
+              </div>
 
-                <input type="number" name="all-cents" placeholder="Allocate money/points">
-                <input type="submit">
+              <input type="number" name="all-cents" placeholder="Allocate money/points">
+              <input type="submit">
             </form>
             `,
       });
@@ -57,8 +57,8 @@ export function kidGoals() {
           renderPage();
         });
       });
-      kidPage.innerHTML = "";
-      kidPage.appendChild(addGoals);
+      app.innerHTML = "";
+      app.appendChild(addGoals);
     });
 
     const goalsListContainer = createAnElement("div", {
