@@ -73,7 +73,7 @@ export function createTaskPage(childInfoObj) {
 
   // submit button
   const button = createAnElement("button", {
-    className: "formBtn",
+    className: "formBtn confirmBtn",
     textContent: "Add This Task",
   });
 
@@ -85,7 +85,7 @@ export function createTaskPage(childInfoObj) {
   const buttonsWrapper = createAnElement(
     "div",
     {
-      className: "formButtonsWrapper",
+      className: "buttonsWrapper",
     },
     [button, returnButton]
   );

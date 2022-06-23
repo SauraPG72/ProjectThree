@@ -86,6 +86,11 @@ input[type="submit"]:hover {
   min-height: 80vh;
 }
 
+.formWrapper input,
+.formWrapper select {
+  font-size: 20px;
+}
+
 .formTitle {
   font-size: 50px;
   margin: 0.3em;
@@ -125,6 +130,32 @@ select {
 .input::placeholder {
   /*font-weight: bold;*/
   color: var(--divita-dark-grey);
+}
+
+.confirmationText {
+  font-size: 30px;
+  margin: 1em 0;
+}
+
+.buttonsWrapper {
+  display: flex;
+  margin: 1em;
+}
+
+.formBtn {
+  padding: 1em 5em;
+  margin: 0 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.formBtn.confirmBtn {
+  background-color: var(--divita-blue);
+}
+
+.formBtn.confirmBtn:hover {
+  color: var(--divita-light-grey);
+  background-color: var(--divita-teal);
 }
 
 .amount-and-buttons {
