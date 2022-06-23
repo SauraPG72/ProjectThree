@@ -83,7 +83,7 @@ export function addKidPage() {
 
   // submit button
   const button = createAnElement("button", {
-    className: "formBtn",
+    className: "formBtn confirmBtn",
     textContent: "Confirm",
   });
 
@@ -95,7 +95,7 @@ export function addKidPage() {
   const buttonsWrapper = createAnElement(
     "div",
     {
-      className: "formButtonsWrapper",
+      className: "buttonsWrapper",
     },
     [button, returnButton]
   );
