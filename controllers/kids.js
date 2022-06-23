@@ -112,13 +112,16 @@ router.post("/all-cents", (req, res) => {
 });
 
 router.post("/all-points", (req, res) => {
-  let { kidId, allPoints, goalId } = req.body;
+  let kidId = req.session.userId
+  let { allPoints, goalId } = req.body;
+  
+  console.log(kidId, goalId)
 
   const sql = `SELECT * FROM goals WHERE kid_id = $1 AND id = $2`;
   db.query(sql, [kidId, goalId]).then((dbResult) => {
     const resultGoal = dbResult.rows[0];
-
-    if (resultGoal.points) {
+    console.log(dbResult)
+    
       let changeMade = allPoints + resultGoal.allocated_points;
       if (changeMade > resultGoal.points) {
         res.json({ message: "You have allocated too many points" });
@@ -134,11 +137,7 @@ router.post("/all-points", (req, res) => {
           }
         });
       }
-    } else {
-      res.json({
-        message: "You are allocating points to a money earning task",
-      });
-    }
+    
   });
 });
 
