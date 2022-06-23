@@ -83,10 +83,16 @@
 
 .taskDescription {
   font-weight: bold;
+  margin-right: auto;
 }
 
 .task {
   background-color: #ff9a61;
+}
+
+.approve-reject-wrapper > * {
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 .addBtn {

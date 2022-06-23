@@ -100,40 +100,40 @@ export function approvePendingTasks() {
          * }
          */
         if (task.cents) {
-          approveBtn = createAnElement("button", {
-            textContent: "Approve",
-            className: "approve-reject",
+          approveBtn = createAnElement("i", {
+            //textContent: "Approve",
+            className: "fa-solid fa-circle-check green complete-task",
             value: task.task_id, // task id
             id: `${task.description}:${task.cents}`,
           });
           rewardType = "cents";
           btnsContainer.appendChild(approveBtn);
-          rejectBtn = createAnElement("button", {
-            textContent: "Reject",
-            className: "approve-reject",
+          rejectBtn = createAnElement("i", {
+            //textContent: "Reject",
+            className: "fa-solid fa-circle-xmark red delete-task",
             value: task.task_id, // task id
             id: `${task.description}:${task.cents}`,
           });
           btnsContainer.appendChild(rejectBtn);
         } else {
-          approveBtn = createAnElement("button", {
-            textContent: "Approve",
-            className: "approve-reject",
+          approveBtn = createAnElement("i", {
+            //textContent: "Approve",
+            className: "fa-solid fa-circle-check green complete-task",
             value: task.task_id, // task id
             id: `${task.description}:${task.points}`,
           });
           rewardType = "points";
           btnsContainer.appendChild(approveBtn);
-          rejectBtn = createAnElement("button", {
-            textContent: "Reject",
-            className: "approve-reject",
+          rejectBtn = createAnElement("i", {
+            //textContent: "Reject",
+            className: "fa-solid fa-circle-xmark red delete-task",
             value: task.task_id, // task id
             id: `${task.description}:${task.points}`,
           });
           btnsContainer.appendChild(rejectBtn);
         }
 
-        taskWrapper.appendChild(btnsContainer);
+        taskElement.appendChild(btnsContainer);
         // ===================================================
 
         tasksListContainer.appendChild(taskWrapper);
@@ -145,19 +145,9 @@ export function approvePendingTasks() {
             task_description: e.target.id,
           };
           if (rewardType === "cents") {
-            approverejectConfirm(
-              "approve",
-              targetedTask,
-              "cents",
-              "pendingTasks"
-            );
+            approverejectConfirm("approve", targetedTask, "cents", "pendingTasks");
           } else {
-            approverejectConfirm(
-              "approve",
-              targetedTask,
-              "points",
-              "pendingTasks"
-            );
+            approverejectConfirm("approve", targetedTask, "points", "pendingTasks");
           }
         });
 
@@ -167,19 +157,9 @@ export function approvePendingTasks() {
             task_description: e.target.id,
           };
           if (rewardType === "cents") {
-            approverejectConfirm(
-              "reject",
-              targetedTask,
-              "cents",
-              "pendingTasks"
-            );
+            approverejectConfirm("reject", targetedTask, "cents", "pendingTasks");
           } else {
-            approverejectConfirm(
-              "reject",
-              targetedTask,
-              "points",
-              "pendingTasks"
-            );
+            approverejectConfirm("reject", targetedTask, "points", "pendingTasks");
           }
         });
       });
