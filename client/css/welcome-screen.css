@@ -29,8 +29,13 @@
 
 .text-overlay {
   position: absolute;
-  top: 0;
+  top: 70px;
   left: calc((100vw - var(--container-width)) / 2);
-  width: var(--container-width);
+  width: calc(var(--container-width) / 1.5);
   margin: auto;
+}
+
+#hero-header {
+  font-size: 80px;
+  color: #ffffff;
 }
