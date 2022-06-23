@@ -79,9 +79,9 @@ export function tasksReports() {
         // create tasks elements for all the kids
         kidsTasksObj[kidName].forEach((task) => {
           // container > taskElement > "task = taslElement + buttons container: (ApproveBtn + rejectBtn)"
-          //  const taskWrapper = createAnElement("div", {
-          //    className: "taskItem",
-          //  });
+          const taskWrapper = createAnElement("div", {
+            className: "taskItem",
+          });
 
           // taskElement contains description, points/cents
           const taskElement = createTaskElement(task);
@@ -113,13 +113,13 @@ export function tasksReports() {
             btnsContainer.appendChild(rejectBtn);
           } else {
             approveBtn = createAnElement("i", {
-              textContent: "Approve",
+              //  textContent: "Approve",
               className: "fa-solid fa-circle-check green complete-task",
               value: task.task_id, // task id
               id: `${task.description}:${task.points}`,
             });
             rejectBtn = createAnElement("i", {
-              textContent: "Reject",
+              //  textContent: "Reject",
               className: "fa-solid fa-circle-xmark red delete-task",
               value: task.task_id, // task id
               id: `${task.description}:${task.points}`,
@@ -133,9 +133,9 @@ export function tasksReports() {
             btnsContainer.appendChild(rejectBtn);
           }
 
-          //  taskWrapper.appendChild();
+          taskElement.appendChild(btnsContainer);
 
-          tasksListContainer.appendChild(btnsContainer);
+          tasksListContainer.appendChild(taskWrapper);
 
           //========== event listener for approve/reject buttons ===========
           approveBtn.addEventListener("click", (e) => {
