@@ -4,7 +4,7 @@ INSERT INTO parents(name, login_name, password_hash, family_name) VALUES ('Saura
 INSERT INTO parents(name, login_name, password_hash, family_name) VALUES ('Rina','rinasham','$2b$10$vkSEjPUVM5NZYh7CRrdykO1FNgfGU07wGYjrdrX6iC5dSQDFvLhIO', 'Sham');
 
 INSERT INTO kids(name, parent_id, login_name, password_hash, total_points, total_cents, avatar) VALUES (
-	'Laura', 1, 'lauraganguli', '$2b$10$vkSEjPUVM5NZYh7CRrdykO1FNgfGU07wGYjrdrX6iC5dSQDFvLhIO', 500, 1000, 'dog'
+	'Laura', 1, 'lauraganguli', '$2b$10$vkSEjPUVM5NZYh7CRrdykO1FNgfGU07wGYjrdrX6iC5dSQDFvLhIO', 10000, 10000, 'dog'
 );
 INSERT INTO kids(name, parent_id, login_name, password_hash, total_points, total_cents, avatar) VALUES (
 	'Bob', 2, 'bobsham', '$2b$10$vkSEjPUVM5NZYh7CRrdykO1FNgfGU07wGYjrdrX6iC5dSQDFvLhIO', 500, 1000, 'koala'

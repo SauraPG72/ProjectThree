@@ -37,6 +37,23 @@ router.get("/goals", (req, res) => {
   });
 });
 
+// Getting the kids data :) 
+router.get('/kids/data', (req, res) => {
+  let kidUser = req.session.userId
+  // kidUser = req.body.user
+  const master = {}
+  const sql = `select goals.id, description, kid_id, cents, points, allocated_cents, allocated_points from goals where kid_id = $1`
+  db.query(sql, [kidUser]).then(dbResult => {
+    const allGoals = dbResult.rows
+    let pointGoals = allGoals.filter(goal => goal["points"]).map(goal => goal.allocated_points).reduce((x, y) => x + y)
+    let centGoals = allGoals.filter(goal => goal["cents"]).map(goal => goal.allocated_cents).reduce((x, y) => x + y)
+    res.json({
+      pointGoals: pointGoals,
+      centGoals: centGoals
+    })
+  })
+})
+
 router.post("/goals", (req, res) => {
   const kidId = req.session.userId;
   let { description, cents, currency, allCents } = req.body;
@@ -56,7 +73,7 @@ router.post("/goals", (req, res) => {
       allPoints = 0;
     }
     const sql =
-      "INSERT INTO goals (kid_id, description, points, allocated_points) VALUES ($1, $2, $3, $4, $5)";
+      "INSERT INTO goals (kid_id, description, points, allocated_points, status) VALUES ($1, $2, $3, $4, $5)";
     db.query(sql, [kidId, description, +cents, +allCents, "pending"]).then(() => {
       res.json({ success: true });
     });

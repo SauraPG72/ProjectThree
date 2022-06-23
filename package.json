@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "runthedb": "psql -d divita < db/schema.sql && psql -d divita < db/seed.sql"
+    "runthedb": "psql -d divita < db/schema.sql && psql -d divita < db/seed.sql",
+    "startnodemon": "nodemon server.js"
   },
   "repository": {
     "type": "git",
