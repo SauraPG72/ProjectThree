@@ -7,7 +7,7 @@ export async function kidsBalance() {
 
    let availableCents = parseInt(kidsData.data.kidsData.total_cents) - parseInt(total.data.centGoals)
    let availablePoints = parseInt(kidsData.data.kidsData.total_cents) - parseInt(total.data.pointGoals)
-   console.log(availablePoints)
+   console.log(kidsData.data.kidsData.total_cents, total.data.pointGoals)
 
             const balance = createAnElement('div', {
                 id: "kid-balance-bar",
