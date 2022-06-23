@@ -37,6 +37,23 @@ router.get("/goals", (req, res) => {
   });
 });
 
+// Getting the kids data :) 
+router.get('/kids/data', (req, res) => {
+  let kidUser = req.session.userId
+  // kidUser = req.body.user
+  const master = {}
+  const sql = `select goals.id, description, kid_id, cents, points, allocated_cents, allocated_points from goals where kid_id = $1`
+  db.query(sql, [kidUser]).then(dbResult => {
+    const allGoals = dbResult.rows
+    let pointGoals = allGoals.filter(goal => goal["points"]).map(goal => goal.allocated_points).reduce((x, y) => x + y, 0)
+    let centGoals = allGoals.filter(goal => goal["cents"]).map(goal => goal.allocated_cents).reduce((x, y) => x + y, 0)
+    res.json({
+      pointGoals: pointGoals,
+      centGoals: centGoals
+    })
+  })
+})
+
 router.post("/goals", (req, res) => {
   const kidId = req.session.userId;
   let { description, cents, currency, allCents } = req.body;
@@ -56,7 +73,7 @@ router.post("/goals", (req, res) => {
       allPoints = 0;
     }
     const sql =
-      "INSERT INTO goals (kid_id, description, points, allocated_points) VALUES ($1, $2, $3, $4, $5)";
+      "INSERT INTO goals (kid_id, description, points, allocated_points, status) VALUES ($1, $2, $3, $4, $5)";
     db.query(sql, [kidId, description, +cents, +allCents, "pending"]).then(() => {
       res.json({ success: true });
     });
@@ -112,13 +129,16 @@ router.post("/all-cents", (req, res) => {
 });
 
 router.post("/all-points", (req, res) => {
-  let { kidId, allPoints, goalId } = req.body;
+  let kidId = req.session.userId
+  let { allPoints, goalId } = req.body;
+  
+  console.log(kidId, goalId)
 
   const sql = `SELECT * FROM goals WHERE kid_id = $1 AND id = $2`;
   db.query(sql, [kidId, goalId]).then((dbResult) => {
     const resultGoal = dbResult.rows[0];
-
-    if (resultGoal.points) {
+    console.log(dbResult)
+    
       let changeMade = allPoints + resultGoal.allocated_points;
       if (changeMade > resultGoal.points) {
         res.json({ message: "You have allocated too many points" });
@@ -134,11 +154,7 @@ router.post("/all-points", (req, res) => {
           }
         });
       }
-    } else {
-      res.json({
-        message: "You are allocating points to a money earning task",
-      });
-    }
+    
   });
 });
 

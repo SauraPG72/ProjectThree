@@ -73,7 +73,7 @@ export function kidGoals() {
                 <p>${goal.description}</p>
                 <p>$${goal.cents * 0.01}</p>
                 <form id="allocate">
-                  <input type="number" name="all-cents" placeholder="$">
+                  <input type="number" name="all-cents" placeholder="$" class="numeral">
                   <input type="submit" value="+">
                 </form>
                 `,
@@ -97,15 +97,37 @@ export function kidGoals() {
           });
         });
         goalsListContainer.appendChild(newGoal);
-      } else if (goal.points) {
+      } 
+      
+      else if (goal.points) {
+
+
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
                 <p>${goal.description}</p>
                 <p>${goal.points} points</p>
+                <form id="allocate">
+                  <input type="number" name="all-points" placeholder="Pts" class="numeral">
+                  <input type="submit" value="+">
+                </form>
                 `,
         });
+        const allocate = newGoal.querySelector("#allocate")
+        allocate.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const allocateData = new FormData(allocate);
+          const allocateObj = {
+            allPoints: parseInt(allocateData.get("all-points")),
+            goalId: goal.id,
+          };
 
+          axios.post("/api/kids/all-points", allocateObj).then((res) => {
+            console.log(res);
+            // location.reload();
+            renderPage();
+          });
+        })
         goalsListContainer.appendChild(newGoal);
       }
     }

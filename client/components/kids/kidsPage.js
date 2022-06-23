@@ -2,11 +2,13 @@ import { createAnElement } from "../../utils/elementCreator.js";
 import { kidGoals } from "./kidGoals.js";
 import { kidData } from "./kidStatus.js";
 import { kidTasks } from "./kidTasks.js";
+import { kidsBalance } from "./kidsBalance.js"
 
 export async function renderKidsPage() {
   app.classList.add("fadeout");
-  const [kidDataSection, kidTasksSection, kidGoalsSection] = await Promise.all([
+  const [kidDataSection, kidBalanceSection, kidTasksSection, kidGoalsSection] = await Promise.all([
     kidData(),
+    kidsBalance(),
     kidTasks(),
     kidGoals(),
   ]);
@@ -16,7 +18,7 @@ export async function renderKidsPage() {
     {
       id: "kidsPageWrapper",
     },
-    [kidDataSection, kidTasksSection, kidGoalsSection]
+    [kidDataSection, kidBalanceSection, kidTasksSection, kidGoalsSection]
   );
 
   const mainContainer = createAnElement(
