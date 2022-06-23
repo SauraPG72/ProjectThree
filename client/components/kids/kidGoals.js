@@ -124,9 +124,20 @@ export function kidGoals() {
                 <form id="allocate">
                   <input type="number" name="all-points" placeholder="Pts" class="numeral">
                   <input type="submit" value="+">
-                </form>
+              </form>
+              <form class="delete-goal">
+                <input type="submit" value="X">
+              </form>
                 `,
         });
+
+        const deleteButton = newGoal.querySelector(".delete-goal");
+        deleteButton.addEventListener("submit", event => {
+          event.preventDefault()
+          completeDeleteGoal("delete", goal)
+
+        })
+
         const allocate = newGoal.querySelector("#allocate")
         allocate.addEventListener("submit", (e) => {
           e.preventDefault();
