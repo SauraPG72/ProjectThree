@@ -1,0 +1,36 @@
+#main-page-container {
+  width: 100vw;
+}
+
+#hero-image {
+  width: 100vw;
+  height: 700px;
+  /*height: 200px;*/
+  position: relative;
+}
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.text-overlay {
+  position: absolute;
+  top: 0;
+  left: calc((100vw - var(--container-width)) / 2);
+  width: var(--container-width);
+  margin: auto;
+}

@@ -5,13 +5,14 @@ import { renderAddKidPrompt } from "./components/main/addKidPrompt.js";
 import { renderKidsPage } from "./components/kids/kidsPage.js";
 import { setKidsInStore } from "./components/parents/setKidInStore.js";
 import { createAnElement } from "./utils/elementCreator.js";
+import { renderMainPage } from "./components/main/mainPage.js";
 
 renderPage();
 
 export async function renderPage() {
   app.classList.remove("fadeout");
   app.classList.remove("fadein");
-  app.innerHTML = "";
+  //  app.innerHTML = "";
 
   await getSessionData();
 
@@ -22,24 +23,13 @@ export async function renderPage() {
 
   renderHeader();
 
-  console.log(store);
   if (!store.loggedIn) {
     loaderWrapper.style.display = "none";
-    app.innerHTML = "";
-    const message = createAnElement("h2", {
-      textContent: "Please log in",
-    });
-
-    const messageWrapper = createAnElement(
-      "div",
-      {
-        className: "formWrapper",
-      },
-      [message]
-    );
-    app.appendChild(messageWrapper);
+    //renderMainPage();
+    return;
   }
-  const kidsArray = await getKidsByParent(store.userId);
+  let kidsArray;
+  if (store.loggedIn) kidsArray = await getKidsByParent(store.userId);
   if (store.loggedIn && store.type === "parent" && kidsArray.length === 0) {
     renderAddKidPrompt();
     return;
