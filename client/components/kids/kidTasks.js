@@ -22,38 +22,34 @@ export function kidTasks() {
     taskAddbutt.addEventListener("click", (e) => {
       let kidPage = document.getElementById("kidsPageWrapper");
       let taskForm = createAnElement("div", {
-        id: "taskForm",
+        className: "formWrapper",
         innerHTML: `
-        <h1> Request a task: </h1>
-    
+        <h1 class="formTitle"> Request a task: </h1>
         <form id="addTaskForm">
-			<div>
-        <input type="text" name="description" placeholder="Description:">
-			</div>
-			<div>
-        <input type="number" name="amount" placeholder="Amount">
-      <select name="type">
-				<option value="cents">Dollars</option>
-				<option value="points">Points</option>
-			</select>
-		</div>
-		<div>
-			<label for="expiry-date">Expiry Date:</label>
-			<input type="date" name="expiry-date">
-		</div>
-		<div>
-			<label for="category">Choose a category:</label>
-			<select name="category" id="category">
-			<option value="Reccuring">Reccuring</option>
-			<option value="House Chores">House Chores</option>
-			<option value="Academic">Academic</option>
-			<option value="Art">Art</option>
-        </select>
-		</div>
-    
-        <input type="submit">
-    
-    
+          <div>
+            <input type="text" name="description" placeholder="Description:">
+          </div>
+          <div class="rewardInputArea">
+            <input type="number" name="amount" placeholder="Amount" class="half-width-input">
+            <select name="type" class="half-width-input">
+              <option value="cents">Dollars</option>
+              <option value="points">Points</option>
+            </select>
+          </div>
+          <div class="expiryDateInput">
+            <label for="expiry-date" class="half-width-input">Expiry Date:</label>
+            <input type="date" name="expiry-date" class="half-width-input">
+          </div>
+          <div class="categoryInputArea">
+            <label for="category" class="half-width-input">Choose a category:</label>
+            <select name="category" id="category" class="half-width-input">
+              <option value="Reccuring">Reccuring</option>
+              <option value="House Chores">House Chores</option>
+              <option value="Academic">Academic</option>
+              <option value="Art">Art</option>
+            </select>
+          </div>
+          <input type="submit">
         </form>
         `,
       });

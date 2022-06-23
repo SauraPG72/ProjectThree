@@ -53,8 +53,8 @@
   background-color: var(--divita-teal);
 }
 
-#taskForm {
-  width: 80%;
+.formWrapper {
+  width: 60%;
   margin: auto;
   display: flex;
   flex-direction: column;
