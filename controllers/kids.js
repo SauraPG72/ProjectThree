@@ -45,8 +45,8 @@ router.get('/kids/data', (req, res) => {
   const sql = `select goals.id, description, kid_id, cents, points, allocated_cents, allocated_points from goals where kid_id = $1`
   db.query(sql, [kidUser]).then(dbResult => {
     const allGoals = dbResult.rows
-    let pointGoals = allGoals.filter(goal => goal["points"]).map(goal => goal.allocated_points).reduce((x, y) => x + y)
-    let centGoals = allGoals.filter(goal => goal["cents"]).map(goal => goal.allocated_cents).reduce((x, y) => x + y)
+    let pointGoals = allGoals.filter(goal => goal["points"]).map(goal => goal.allocated_points).reduce((x, y) => x + y, 0)
+    let centGoals = allGoals.filter(goal => goal["cents"]).map(goal => goal.allocated_cents).reduce((x, y) => x + y, 0)
     res.json({
       pointGoals: pointGoals,
       centGoals: centGoals
