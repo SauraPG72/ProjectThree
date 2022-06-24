@@ -86,23 +86,23 @@ export function approvePendingGoals() {
         let rewardType = "";
         let approveBtn;
 
-        approveBtn = createAnElement("button", {
-          textContent: "Approve",
-          className: "approve-reject",
+        approveBtn = createAnElement("i", {
+          //  textContent: "Approve",
+          className: "fa-solid fa-circle-check green complete-task",
           value: goal.goal_id, // task id
           id: `${goal.description}:${goal.points}`,
         });
         rewardType = "points";
         btnsContainer.appendChild(approveBtn);
 
-        const rejectBtn = createAnElement("button", {
-          textContent: "Reject",
-          className: "approve-reject",
+        const rejectBtn = createAnElement("i", {
+          //  textContent: "Reject",
+          className: "fa-solid fa-circle-xmark red delete-task",
           value: goal.goal_id, // goal id
           id: `${goal.description}:${goal.points}`,
         });
         btnsContainer.appendChild(rejectBtn);
-        goalWrapper.appendChild(btnsContainer);
+        goalElement.appendChild(btnsContainer);
 
         goalsListContainer.appendChild(goalWrapper);
 
