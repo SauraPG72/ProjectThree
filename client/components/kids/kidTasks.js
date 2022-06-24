@@ -51,10 +51,14 @@ export function kidTasks() {
           </div>
           <div class="buttonsWrapper">
             <button type="submit" class="formBtn confirmBtn">Submit</button>
-            <button class="formBtn">Cancel</button>
+            <button class="formBtn" id="backBtn">Cancel</button>
         </div>
         </form>
         `,
+      });
+      const backBtn = taskForm.querySelector("#backBtn");
+      backBtn.addEventListener("click", () => {
+        renderPage();
       });
       const addTaskForm = taskForm.querySelector("#addTaskForm");
       addTaskForm.addEventListener("submit", (e) => {
