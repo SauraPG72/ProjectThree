@@ -41,6 +41,9 @@ export function signUpKid(form) {
         messageBox.textContent = err.response.data.message;
         messageBox.style.display = "block";
       });
+    app.innerHTML = "";
+    loaderWrapper.classList.add("fadein");
+    renderPage();
   }
 }
 

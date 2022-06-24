@@ -2,7 +2,6 @@ import { createAnElement } from "../../utils/elementCreator.js";
 import { renderPage } from "../../index.js";
 import { completeDeleteGoal } from "./deleteOrRedeemgoals.js";
 
-
 export function kidGoals() {
   return axios.get("/api/kids/goals").then((response) => {
     const kidGoals = response.data;
@@ -34,7 +33,10 @@ export function kidGoals() {
               </div>
 
               <input type="number" name="all-cents" placeholder="Allocate money/points">
-              <input type="submit">
+              <div class="buttonsWrapper">
+                <button type="submit" class="formBtn confirmBtn">Submit</button>
+                <button class="formBtn">Cancel</button>
+              </div>
             </form>
             `,
       });
@@ -67,7 +69,7 @@ export function kidGoals() {
       className: "container",
     });
 
-    const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`
+    const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`;
 
     for (const goal of kidGoals) {
       if (goal.cents) {
@@ -87,11 +89,10 @@ export function kidGoals() {
         });
 
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("submit", event => {
-          event.preventDefault()
-          completeDeleteGoal("delete", goal)
-
-        })
+        deleteButton.addEventListener("submit", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
+        });
 
         const allocate = newGoal.querySelector("#allocate");
 
@@ -106,16 +107,12 @@ export function kidGoals() {
           console.log(allocate);
           axios.post("/api/kids/all-cents", allocateObj).then((res) => {
             console.log(res);
-            
+
             renderPage();
           });
         });
         goalsListContainer.appendChild(newGoal);
-      } 
-      
-      else if (goal.points) {
-
-
+      } else if (goal.points) {
         const newGoal = createAnElement("div", {
           className: "goal item",
           innerHTML: `
@@ -132,13 +129,12 @@ export function kidGoals() {
         });
 
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("submit", event => {
-          event.preventDefault()
-          completeDeleteGoal("delete", goal)
+        deleteButton.addEventListener("submit", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
+        });
 
-        })
-
-        const allocate = newGoal.querySelector("#allocate")
+        const allocate = newGoal.querySelector("#allocate");
         allocate.addEventListener("submit", (e) => {
           e.preventDefault();
           const allocateData = new FormData(allocate);
@@ -152,7 +148,7 @@ export function kidGoals() {
             // location.reload();
             renderPage();
           });
-        })
+        });
         goalsListContainer.appendChild(newGoal);
       }
     }
