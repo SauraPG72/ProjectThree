@@ -1,6 +1,9 @@
 #main-page-container {
   width: 100vw;
 }
+#main-page-container a {
+  text-decoration: none;
+}
 
 #hero-image {
   width: 100vw;
@@ -9,6 +12,7 @@
   /*height: 200px;*/
   position: relative;
 }
+
 .hero-image {
   position: absolute;
   top: 0;

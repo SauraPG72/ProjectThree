@@ -14,7 +14,7 @@ export function renderMainPage() {
 				<h2 id="sub-header">It's never to early to teach responsibility. Divita gives you all the tools you need
 					to make sure
 					they are prepared for the future.</h2>
-				<button class="hero-button">Get Started</button>
+				<a href="/signup.html" class="hero-button">Get Started</a>
 			</div>
 		</div>
 		<div id="main-page-points">
@@ -31,5 +31,6 @@ export function renderMainPage() {
 			</div>
 		</div>`,
   });
+
   welcomePageContainer.append(welcomeScreen);
 }
