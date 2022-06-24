@@ -128,12 +128,21 @@ export function kidGoals() {
             renderPage();
           });
         });
+// code for redeeming points 
+        if (goal.cents == goal.allocated_cents) {
+          const redeemButton = newGoal.querySelector('.redeem-goal');
+          redeemButton.addEventListener("submit", (event) => {
+            event.preventDefault()
+            completeDeleteGoal("redeem", goal)
+          })
+        }
+
         goalsListContainer.appendChild(newGoal);
       } 
       
       else if (goal.points) {
-        const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100
-        console.log(amountAchieved)
+        const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100;
+
 
         const newGoal = createAnElement("div", {
           className: "goal item",
@@ -142,7 +151,7 @@ export function kidGoals() {
             <p id="goal-d">${goal.description}</p>
             <p id="goal-c">${goal.points} pts</p>
             <form id="allocate">
-              <input type="number" name="all-cents" placeholder="pts" class="numeral">
+              <input type="number" name="all-points" placeholder="pts" class="numeral">
               <input type="submit" value="+">
             </form>
             <form class="delete-goal">
@@ -180,10 +189,18 @@ export function kidGoals() {
 
           axios.post("/api/kids/all-points", allocateObj).then((res) => {
             console.log(res);
-            // location.reload();
+            
             renderPage();
           });
-        })
+        });
+        // code for redeeming a points based task
+        if (goal.points == goal.allocated_points) {
+          const redeemButton = newGoal.querySelector('.redeem-goal');
+          redeemButton.addEventListener("submit", (event) => {
+            event.preventDefault()
+            completeDeleteGoal("redeem", goal)
+          })
+        }
         goalsListContainer.appendChild(newGoal);
       }
     }

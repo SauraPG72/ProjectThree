@@ -188,4 +188,33 @@ router.delete("/delete-goal/:goalId", (req, res) => {
     res.json( {success: true} ))
 })
 
+router.post("/redeem-goal/:goalId", (req, res) => {
+  const goalId = req.params.goalId;
+  sql = 'SELECT * from goals WHERE id = $1';
+  db.query(sql, [goalId]).then((dbResult) => {
+    
+   if (dbResult.rows[0].cents) {
+      const subPoints = `UPDATE kids SET total_cents = total_cents - $1 WHERE id = $2`
+    
+    db.query(subPoints, [dbResult.rows[0].cents, dbResult.rows[0].kid_id]).then(() => {
+      const deleteGoal = `DELETE from goals WHERE id = $1`
+      db.query(deleteGoal, [dbResult.rows[0].id]).then(() => {
+        res.json({success: true})
+      })
+    })
+  }
+  else {
+    const subPoints = `UPDATE kids SET total_points = total_points - $1 WHERE id = $2`
+    
+    db.query(subPoints, [dbResult.rows[0].points, dbResult.rows[0].kid_id]).then(() => {
+      const deleteGoal = `DELETE from goals WHERE id = $1`
+      db.query(deleteGoal, [dbResult.rows[0].id]).then(() => {
+        res.json({success: true})
+      })
+    })
+  }
+    
+  })
+})
+
 module.exports = router;
