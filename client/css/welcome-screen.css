@@ -4,7 +4,8 @@
 
 #hero-image {
   width: 100vw;
-  height: 700px;
+  min-height: 700px;
+  height: auto;
   /*height: 200px;*/
   position: relative;
 }
@@ -64,4 +65,36 @@
 .hero-button:hover {
   background-color: #ffffff;
   color: var(--divita-dark-grey);
+}
+
+#main-page-points {
+  width: var(--container-width);
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.main-page-point {
+  width: 300px;
+  height: 300px;
+  margin: 60px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--divita-light-grey);
+  border-radius: 300px;
+  padding: 30px;
+}
+
+.main-page-point > i {
+  /*width: 50px;*/
+  transform: scale(3);
+}
+
+.main-page-point > p {
+  font-size: 20px;
+  text-align: center;
+  word-wrap: normal;
+  margin-top: 50px;
 }

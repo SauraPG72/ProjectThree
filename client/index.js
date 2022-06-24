@@ -12,7 +12,8 @@ renderPage();
 export async function renderPage() {
   app.classList.remove("fadeout");
   app.classList.remove("fadein");
-  //  app.innerHTML = "";
+  app.innerHTML = "";
+  document.getElementById("main-page-container").innerHTML = "";
 
   await getSessionData();
 
@@ -25,7 +26,7 @@ export async function renderPage() {
 
   if (!store.loggedIn) {
     loaderWrapper.style.display = "none";
-    //renderMainPage();
+    renderMainPage();
     return;
   }
   let kidsArray;
