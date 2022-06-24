@@ -37,9 +37,10 @@ export function kidGoals() {
                 <button class="formBtn" id="backBtn">Cancel</button>
               </div>
             </form>
+            <div id="message-box" class="errors"></div>
             `,
       });
-      const backBtn = taskForm.querySelector("#backBtn");
+      const backBtn = addGoals.querySelector("#backBtn");
       backBtn.addEventListener("click", () => {
         renderPage();
       });
@@ -47,9 +48,6 @@ export function kidGoals() {
       addGoalsForm.addEventListener("submit", (event) => {
         console.log(event);
         event.preventDefault();
-        app.innerHTML = "";
-
-        loaderWrapper.style.display = "flex";
 
         const formData = new FormData(addGoalsForm);
         const data = {
@@ -58,11 +56,29 @@ export function kidGoals() {
           currency: formData.get("currency"),
           allCents: formData.get("all-cents"),
         };
-        axios.post("/api/kids/goals", data).then((response) => {
-          console.log(response);
-          // location.reload();
-          renderPage();
-        });
+
+        const errorHandling = errorHandlingFunc(data);
+        const errorMessage = document.getElementById("message-box");
+
+        if (errorHandling !== true) {
+          errorMessage.textContent = errorHandling;
+          errorMessage.style.display = "block";
+        } else {
+          axios.post("/api/kids/goals", data).then((response) => {
+            console.log(response);
+            app.innerHTML = "";
+            loaderWrapper.style.display = "flex";
+            // location.reload();
+            renderPage();
+          });
+        }
+        function errorHandlingFunc(data) {
+          if (!data.description || !data.cents) {
+            return "Fill in all of the fields";
+          } else {
+            return true;
+          }
+        }
       });
       app.innerHTML = "";
       app.appendChild(addGoals);
