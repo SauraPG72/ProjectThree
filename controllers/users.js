@@ -31,37 +31,56 @@ router.get("/kids-by-parent-id/:id", (req, res) => {
 //});
 
 router.post("/", (req, res) => {
-  const { familyName, parentFirstName, userName, password, passwordCheck } = req.body;
+  const { familyName, parentFirstName, userName, password, passwordCheck } =
+    req.body;
 
   //Check if username exists
   db.query("SELECT login_name FROM parents").then((dbResult) => {
     const allUserNames = dbResult.rows.map((user) => user.login_name);
-    if (allUserNames.includes(userName)) {
+    if (allUserNames.includes(userName.toLowerCase())) {
       res.status(400).json({
         status: "error",
         message: "Username Already Exists. Please Choose Another Username",
+        type: "duplicateName",
       });
       return;
+    } else {
+      const hashedPassword = generateHash(password);
+
+      if (!userName || userName.trim() == "") {
+        res
+          .status(400)
+          .json({ success: false, message: "Missing valid login" });
+      } else if (!password || password.trim() == "") {
+        res
+          .status(400)
+          .json({ success: false, message: "Missing valid password" });
+      } else {
+        const sql = `INSERT into parents (name, login_name, password_hash, family_name) VALUES ($1, $2, $3, $4)`;
+        db.query(sql, [
+          parentFirstName,
+          userName,
+          hashedPassword,
+          familyName,
+        ]).then((dbResult) => {
+          res.json({ status: "success" });
+        });
+      }
     }
   });
-
-  const hashedPassword = generateHash(password);
-
-  if (!userName || userName.trim() == "") {
-    res.status(400).json({ success: false, message: "Missing valid login" });
-  } else if (!password || password.trim() == "") {
-    res.status(400).json({ success: false, message: "Missing valid password" });
-  } else {
-    const sql = `INSERT into parents (name, login_name, password_hash, family_name) VALUES ($1, $2, $3, $4)`;
-    db.query(sql, [parentFirstName, userName, hashedPassword, familyName]).then((dbResult) => {
-      res.json({ status: "success" });
-    });
-  }
 });
 
 // kids signup
 router.post("/kids", (req, res) => {
-  const { name, login_name, parent_id, password, total_points, total_cents, avatar } = req.body;
+  const {
+    name,
+    login_name,
+    parent_id,
+    password,
+    total_points,
+    total_cents,
+    avatar,
+  } = req.body;
   const hashedPassword = generateHash(password);
 
   if (!name || name.trim() == "") {
