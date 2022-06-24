@@ -1,0 +1,16 @@
+#footer-container {
+  width: var(--container-width);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#footer-container a {
+  text-decoration: none;
+  color: var(--divita-teal);
+}
+
+#footer-container a:hover {
+  text-decoration: none;
+  color: var(--divita-dark-grey);
+}

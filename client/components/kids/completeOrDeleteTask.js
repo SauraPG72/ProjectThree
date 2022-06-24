@@ -19,12 +19,15 @@ export function completeDeleteTask(action, task) {
   // DOM ELEMENTS
   const prompt = createAnElement("h2", {
     innerText: promptMessage,
+    className: "confirmationText",
   });
   const confirmButton = createAnElement("button", {
     innerText: buttonText,
+    className: "formBtn confirmBtn",
   });
   const backButton = createAnElement("button", {
     innerText: "Cancel",
+    className: "formBtn",
   });
 
   //  EVENT LISTENERS
@@ -34,7 +37,6 @@ export function completeDeleteTask(action, task) {
         .patch(`/api/kids/complete-task/${task.id}`)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
-      // window.location.href = "/";
       renderPage();
     }
     if (action === "delete") {
@@ -42,12 +44,20 @@ export function completeDeleteTask(action, task) {
         .delete(`/api/kids/delete-task/${task.id}`)
         .then((result) => console.log(result))
         .catch((error) => console.log(error));
-      window.location.href = "/";
+      renderPage();
     }
   });
   backButton.addEventListener("click", () => {
-    window.location.href = "/";
+    renderPage();
   });
+
+  const buttonsWrapper = createAnElement(
+    "div",
+    {
+      className: "buttonsWrapper",
+    },
+    [confirmButton, backButton]
+  );
 
   //   MAIN CONTAINER
   const mainContainer = createAnElement(
@@ -55,7 +65,7 @@ export function completeDeleteTask(action, task) {
     {
       className: "main-container",
     },
-    [prompt, confirmButton, backButton]
+    [prompt, buttonsWrapper]
   );
 
   app.append(mainContainer);

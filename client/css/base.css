@@ -60,21 +60,11 @@ input {
   height: 50px;
   border: none;
   background-color: var(--divita-light-grey);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.3em;
   padding: 0.5em;
   font-size: 20px;
   font-weight: bold;
   border-bottom: 2px solid var(--divita-dark-grey);
-}
-
-input[type="submit"] {
-  margin: 1em 0;
-  background-color: var(--divita-blue);
-}
-
-input[type="submit"]:hover {
-  color: var(--divita-light-grey);
-  background-color: var(--divita-teal);
 }
 
 .formWrapper {
@@ -139,6 +129,7 @@ select {
 
 .buttonsWrapper {
   display: flex;
+  justify-content: center;
   margin: 1em;
 }
 

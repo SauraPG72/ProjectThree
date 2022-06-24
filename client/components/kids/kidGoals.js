@@ -2,7 +2,6 @@ import { createAnElement } from "../../utils/elementCreator.js";
 import { renderPage } from "../../index.js";
 import { completeDeleteGoal } from "./deleteOrRedeemgoals.js";
 
-
 export function kidGoals() {
   return axios.get("/api/kids/goals").then((response) => {
     const kidGoals = response.data;
@@ -33,7 +32,10 @@ export function kidGoals() {
                 </select>
               </div>
               <input type="number" name="all-cents" placeholder="Allocate money/points">
-              <input type="submit">
+              <div class="buttonsWrapper">
+                <button type="submit" class="formBtn confirmBtn">Submit</button>
+                <button class="formBtn">Cancel</button>
+              </div>
             </form>
             `,
       });
@@ -66,7 +68,7 @@ export function kidGoals() {
       className: "container",
     });
 
-    const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`
+    const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`;
 
     for (const goal of kidGoals) {
       
@@ -120,7 +122,7 @@ export function kidGoals() {
           console.log(allocate);
           axios.post("/api/kids/all-cents", allocateObj).then((res) => {
             console.log(res);
-            
+
             renderPage();
           });
         });
@@ -138,8 +140,6 @@ export function kidGoals() {
       
       else if (goal.points) {
         const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100;
-
-
         const newGoal = createAnElement("div", {
           className: "goal item",
           id: "goal-container",
@@ -170,7 +170,7 @@ export function kidGoals() {
 
         })
 
-        const allocate = newGoal.querySelector("#allocate")
+        const allocate = newGoal.querySelector("#allocate");
         allocate.addEventListener("submit", (e) => {
           e.preventDefault();
           const allocateData = new FormData(allocate);

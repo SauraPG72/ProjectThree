@@ -77,6 +77,7 @@ export function addKidPage() {
 
   // error message area : defalut = HIDDEN
   const errorMessage = createAnElement("p", {
+    className: "errors",
     id: "error-message",
     type: "hidden",
   });
@@ -105,8 +106,8 @@ export function addKidPage() {
     window.location.href = "/";
   });
 
-  form.appendChild(errorMessage);
   form.appendChild(buttonsWrapper);
+  form.appendChild(errorMessage);
 
   // wrap everything in a wrapper and render it
   const formWrapper = createAnElement(
@@ -121,9 +122,6 @@ export function addKidPage() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    form.style.display = "none";
-    title.style.display = "none";
-    loaderWrapper.style.display = "flex";
     signUpKid(form);
   });
 }

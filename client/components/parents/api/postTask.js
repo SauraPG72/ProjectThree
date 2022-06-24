@@ -46,9 +46,10 @@ export function postTask(form) {
   } else {
     // if there's no error with the inputs,
     // post data to the server
-    axios.post("/api/parents/task", jsonForm).then(() => {
-      renderPage();
+    axios.post("/api/parents/task", jsonForm).then((res) => {
+      console.log(res);
     });
+    renderPage();
   }
 }
 

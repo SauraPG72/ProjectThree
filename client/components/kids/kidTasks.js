@@ -49,7 +49,10 @@ export function kidTasks() {
               <option value="Art">Art</option>
             </select>
           </div>
-          <input type="submit">
+          <div class="buttonsWrapper">
+            <button type="submit" class="formBtn confirmBtn">Submit</button>
+            <button class="formBtn">Cancel</button>
+        </div>
         </form>
         `,
       });
