@@ -51,7 +51,7 @@
       <p class="login-signup-message">
         Already Have An Account? <a href="/login.html">Click Here to Log In</a>
       </p>
-      <div id="message-box"></div>
+      <div id="message-box" class="errors"></div>
     </div>
 
     <script>
@@ -67,8 +67,6 @@
 
       signUpForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        formWrapper.style.display = "none";
-        loaderWrapper.style.display = "flex";
         const signUpFormData = new FormData(signUpForm);
         const data = {
           familyName: signUpFormData.get("family-name"),
@@ -103,6 +101,8 @@
             if (response.status === 200) {
               messageBox.textContent =
                 "Your account has been created! You are being redirected to the login page shortly!";
+              formWrapper.style.display = "none";
+              loaderWrapper.style.display = "flex";
               setTimeout(() => {
                 window.location.href = "/login.html";
               }, 2000);
@@ -111,6 +111,9 @@
           .catch((err) => {
             console.log(err);
             messageBox.textContent = err.response.data.message;
+            if (err.response.data.type == "duplicateName") {
+              messageBox.style.color = "#f98770";
+            }
           });
       });
     </script>

@@ -19,12 +19,15 @@ export function completeDeleteTask(action, task) {
   // DOM ELEMENTS
   const prompt = createAnElement("h2", {
     innerText: promptMessage,
+    className: "confirmationText",
   });
   const confirmButton = createAnElement("button", {
     innerText: buttonText,
+    className: "formBtn confirmBtn",
   });
   const backButton = createAnElement("button", {
     innerText: "Cancel",
+    className: "formBtn",
   });
 
   //  EVENT LISTENERS
@@ -48,13 +51,21 @@ export function completeDeleteTask(action, task) {
     renderPage();
   });
 
+  const buttonsWrapper = createAnElement(
+    "div",
+    {
+      className: "buttonsWrapper",
+    },
+    [confirmButton, backButton]
+  );
+
   //   MAIN CONTAINER
   const mainContainer = createAnElement(
     "main",
     {
       className: "main-container",
     },
-    [prompt, confirmButton, backButton]
+    [prompt, buttonsWrapper]
   );
 
   app.append(mainContainer);

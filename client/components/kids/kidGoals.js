@@ -1,5 +1,6 @@
 import { createAnElement } from "../../utils/elementCreator.js";
 import { renderPage } from "../../index.js";
+import { completeDeleteGoal } from "./deleteOrRedeemgoals.js";
 
 export function kidGoals() {
   return axios.get("/api/kids/goals").then((response) => {
@@ -68,6 +69,8 @@ export function kidGoals() {
       className: "container",
     });
 
+    const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`;
+
     for (const goal of kidGoals) {
       if (goal.cents) {
         const newGoal = createAnElement("div", {
@@ -79,7 +82,16 @@ export function kidGoals() {
                   <input type="number" name="all-cents" placeholder="$" class="numeral">
                   <input type="submit" value="+">
                 </form>
+                <form class="delete-goal">
+                  <input type="submit" value="X">
+                </form>
                 `,
+        });
+
+        const deleteButton = newGoal.querySelector(".delete-goal");
+        deleteButton.addEventListener("submit", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
         });
 
         const allocate = newGoal.querySelector("#allocate");
@@ -95,7 +107,7 @@ export function kidGoals() {
           console.log(allocate);
           axios.post("/api/kids/all-cents", allocateObj).then((res) => {
             console.log(res);
-            // location.reload();
+
             renderPage();
           });
         });
@@ -109,9 +121,19 @@ export function kidGoals() {
                 <form id="allocate">
                   <input type="number" name="all-points" placeholder="Pts" class="numeral">
                   <input type="submit" value="+">
-                </form>
+              </form>
+              <form class="delete-goal">
+                <input type="submit" value="X">
+              </form>
                 `,
         });
+
+        const deleteButton = newGoal.querySelector(".delete-goal");
+        deleteButton.addEventListener("submit", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
+        });
+
         const allocate = newGoal.querySelector("#allocate");
         allocate.addEventListener("submit", (e) => {
           e.preventDefault();

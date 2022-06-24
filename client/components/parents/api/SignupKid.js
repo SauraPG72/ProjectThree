@@ -18,25 +18,28 @@ export function signUpKid(form) {
   // check if there's any blanks or other errors (except for total_points and total_cents)
   // if so, pops up an error message on the screen
   const errorHandling = errorHandlingForCreatingTask(jsonForm);
-  const errorMessage = document.getElementById("error-message");
+  const messageBox = document.getElementById("error-message");
   if (errorHandling !== true) {
-    errorMessage.textContent = errorHandling;
-    errorMessage.style.display = "block";
+    messageBox.textContent = errorHandling;
+    messageBox.style.display = "block";
   } else {
-    errorMessage.style.display = "none";
+    messageBox.style.display = "hidden";
 
     // if there's no error with the inputs,
     // post data to the server
     axios
       .post("/api/users/kids", jsonForm)
       .then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          app.innerHTML = "";
+          loaderWrapper.classList.add("fadein");
+          renderPage();
+        }
       })
       .catch((err) => {
         console.log(err);
-        errorMessage.textContent =
-          "There was a server error. Please try again.";
-        errorMessage.style.display = "block";
+        messageBox.textContent = err.response.data.message;
+        messageBox.style.display = "block";
       });
     app.innerHTML = "";
     loaderWrapper.classList.add("fadein");

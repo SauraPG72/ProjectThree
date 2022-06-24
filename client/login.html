@@ -25,7 +25,6 @@
       </div>
       <h1>Log In</h1>
       <form id="log-in-form">
-        <section id="errors1"></section>
         <div id="login-type">
           <div class="type-option">
             <input
@@ -56,8 +55,8 @@
       <p class="login-signup-message">
         Don't Have An Account? <a href="/signup.html">Click Here to Sign Up</a>
       </p>
+      <section id="errors1" class="errors"></section>
     </div>
-    <!-- <script type="module" src="./js/logandsign.js"></script> -->
     <script>
       let form = document.getElementById("log-in-form");
       let formWrapper = document.getElementById("log-in");
@@ -69,8 +68,7 @@
 
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-        formWrapper.style.display = "none";
-        loaderWrapper.style.display = "flex";
+
         const formData = new FormData(form);
         const data = {
           type: formData.get("type"),
@@ -81,12 +79,15 @@
         axios
           .post("/api/session", data)
           .then((response) => {
+            formWrapper.style.display = "none";
+            loaderWrapper.style.display = "flex";
             window.location.href = "/";
           })
           .catch((err) => {
             console.log(err);
             let messageBox = document.getElementById("errors1");
             messageBox.textContent = err.response.data.message;
+            messageBox.style.display = "block";
           });
       });
     </script>
