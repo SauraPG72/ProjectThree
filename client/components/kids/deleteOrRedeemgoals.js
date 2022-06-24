@@ -32,7 +32,7 @@ export function completeDeleteGoal(action, goal) {
     event.preventDefault();
       if (action === "redeem") {
         axios
-          .patch(`/api/kids/complete-task/${task.id}`)
+          .post(`/api/kids/redeem-goal/${goal.id}`)
           .then((result) => console.log(result))
           .catch((error) => console.log(error));
         // window.location.href = "/";

@@ -6,8 +6,11 @@ export async function kidsBalance() {
    const kidsData = await axios.get('api/kids')
 
    let availableCents = parseInt(kidsData.data.kidsData.total_cents) - parseInt(total.data.centGoals)
-   let availablePoints = parseInt(kidsData.data.kidsData.total_cents) - parseInt(total.data.pointGoals)
+   let availablePoints = parseInt(kidsData.data.kidsData.total_points) - parseInt(total.data.pointGoals)
    console.log(kidsData.data.kidsData.total_cents, total.data.pointGoals)
+
+   console.log(total.data)
+   console.log(kidsData.data)
 
             const balance = createAnElement('div', {
                 id: "kid-balance-bar",
