@@ -62,7 +62,7 @@ router.post("/", (req, res) => {
           userName,
           hashedPassword,
           familyName,
-        ]).then((dbResult) => {
+        ]).then(() => {
           res.json({ status: "success" });
         });
       }
@@ -81,31 +81,51 @@ router.post("/kids", (req, res) => {
     total_cents,
     avatar,
   } = req.body;
-  const hashedPassword = generateHash(password);
 
-  if (!name || name.trim() == "") {
-    res.status(400).json({ success: false, message: "Missing valid login" });
-  } else if (!password || password.trim() == "") {
-    res.status(400).json({ success: false, message: "Missing valid password" });
-  } else {
-    const sql = `INSERT into kids (name, parent_id, login_name, password_hash, total_points, total_cents, avatar) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-    db.query(sql, [
-      name,
-      parent_id,
-      login_name.toLowerCase(),
-      hashedPassword,
-      total_points,
-      total_cents,
-      avatar,
-    ])
-      .then((dbResult) => {
-        console.log(dbResult);
-        res.json({ status: "success" });
-      })
-      .catch((err) => {
-        res.status(500).json({ success: false, message: "Server Error" });
+  const hashedPassword = generateHash(password);
+  //Check if username exists
+  db.query("SELECT login_name FROM kids").then((dbResult) => {
+    const allUserNames = dbResult.rows.map((user) => user.login_name);
+    if (allUserNames.includes(login_name.toLowerCase())) {
+      res.status(400).json({
+        status: "error",
+        message: "Username Already Exists. Please Choose Another Username",
+        type: "duplicateName",
       });
-  }
+      return;
+    } else {
+      if (!name || name.trim() == "") {
+        res
+          .status(400)
+          .json({ success: false, message: "Missing valid login" });
+      } else if (!password || password.trim() == "") {
+        res
+          .status(400)
+          .json({ success: false, message: "Missing valid password" });
+      } else {
+        const sql = `INSERT into kids (name, parent_id, login_name, password_hash, total_points, total_cents, avatar) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+        db.query(sql, [
+          name,
+          parent_id,
+          login_name.toLowerCase(),
+          hashedPassword,
+          total_points,
+          total_cents,
+          avatar,
+        ])
+          .then(() => {
+            res.json({ status: 200 });
+          })
+          .catch(() => {
+            console.log(err);
+            res.status(500).json({
+              success: false,
+              message: "Server Error. Please try again.",
+            });
+          });
+      }
+    }
+  });
 });
 
 module.exports = router;
