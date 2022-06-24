@@ -51,7 +51,7 @@
       <p class="login-signup-message">
         Already Have An Account? <a href="/login.html">Click Here to Log In</a>
       </p>
-      <div id="message-box"></div>
+      <div id="message-box" class="errors"></div>
     </div>
 
     <script>
@@ -112,7 +112,7 @@
             console.log(err);
             messageBox.textContent = err.response.data.message;
             if (err.response.data.type == "duplicateName") {
-              messageBox.style.color = "red";
+              messageBox.style.color = "#f98770";
             }
           });
       });
