@@ -138,7 +138,8 @@ export function kidGoals() {
         goalsListContainer.appendChild(newGoal);
       } 
       
-      else if (goal.points) {
+      else if (goal.points && goal.status == "approved") {
+        
         const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100;
         const newGoal = createAnElement("div", {
           className: "goal item",
@@ -154,7 +155,7 @@ export function kidGoals() {
             <i class="fa-solid fa-circle-xmark red delete-task delete-goal"></i>
             <div class="progress">
               <div class="progress-done" data-done="${amountAchieved}">
-                ${(goal.allocated_points)} pts
+               ${(goal.allocated_points)}pts 
               </div>
             </div>
                 `,
@@ -195,6 +196,18 @@ export function kidGoals() {
         }
         goalsListContainer.appendChild(newGoal);
       }
+    else {
+      const newGoal = createAnElement("div", {
+        className: "item pending goal",
+        
+        innerHTML: `
+          <p id="goal-d">${goal.description}</p>
+          <p id="goal-c">${goal.points} pts</p>
+          
+              `,
+      });
+      goalsListContainer.appendChild(newGoal)
+    }
     }
     goalsBoxFinal.append(goalsListContainer);
 
