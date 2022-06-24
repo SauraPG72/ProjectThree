@@ -42,6 +42,10 @@
 
 }
 
+#addTasks, #add-goals, #goal-container > i {
+  cursor: pointer;
+}
+
 #avatar-name-header {
   display: flex;
   align-items: center;

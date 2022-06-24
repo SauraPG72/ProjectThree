@@ -32,7 +32,6 @@ export function kidGoals() {
                   <option value="points">Points</option>
                 </select>
               </div>
-
               <input type="number" name="all-cents" placeholder="Allocate money/points">
               <input type="submit">
             </form>
@@ -86,12 +85,9 @@ export function kidGoals() {
                   <input type="number" name="all-cents" placeholder="$" class="numeral">
                   <input type="submit" value="+">
                 </form>
-                <form class="delete-goal">
-                  <input type="submit" value="X">
-                </form>
-                <form class="redeem-goal">
-                  <input type="submit" value="X">
-                </form>
+
+                <i class="fa-solid fa-circle-check green complete-task redeem-goal"></i>
+                <i class="fa-solid fa-circle-xmark red delete-task delete-goal"></i>
                 <div class="progress">
 	                <div class="progress-done" data-done="${amountAchieved}">
 		                $${(goal.allocated_cents * 0.01).toFixed(2)}
@@ -105,7 +101,7 @@ export function kidGoals() {
         progress.style.opacity = 1;
 // code for the deleting goals button 
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("submit", event => {
+        deleteButton.addEventListener("click", event => {
           event.preventDefault()
           completeDeleteGoal("delete", goal)
 
@@ -131,7 +127,7 @@ export function kidGoals() {
 // code for redeeming points 
         if (goal.cents == goal.allocated_cents) {
           const redeemButton = newGoal.querySelector('.redeem-goal');
-          redeemButton.addEventListener("submit", (event) => {
+          redeemButton.addEventListener("click", (event) => {
             event.preventDefault()
             completeDeleteGoal("redeem", goal)
           })
@@ -154,12 +150,8 @@ export function kidGoals() {
               <input type="number" name="all-points" placeholder="pts" class="numeral">
               <input type="submit" value="+">
             </form>
-            <form class="delete-goal">
-              <input type="submit" value="X">
-            </form>
-            <form class="redeem-goal">
-              <input type="submit" value="X">
-            </form>
+            <i class="fa-solid fa-circle-check green complete-task redeem-goal"></i>
+            <i class="fa-solid fa-circle-xmark red delete-task delete-goal"></i>
             <div class="progress">
               <div class="progress-done" data-done="${amountAchieved}">
                 ${(goal.allocated_points)} pts
@@ -172,7 +164,7 @@ export function kidGoals() {
         progress.style.opacity = 1;
 
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("submit", event => {
+        deleteButton.addEventListener("click", event => {
           event.preventDefault()
           completeDeleteGoal("delete", goal)
 
@@ -196,7 +188,7 @@ export function kidGoals() {
         // code for redeeming a points based task
         if (goal.points == goal.allocated_points) {
           const redeemButton = newGoal.querySelector('.redeem-goal');
-          redeemButton.addEventListener("submit", (event) => {
+          redeemButton.addEventListener("click", (event) => {
             event.preventDefault()
             completeDeleteGoal("redeem", goal)
           })
