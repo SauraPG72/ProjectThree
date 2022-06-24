@@ -31,11 +31,37 @@
   position: absolute;
   top: 70px;
   left: calc((100vw - var(--container-width)) / 2);
-  width: calc(var(--container-width) / 1.5);
+  width: calc(var(--container-width) / 1.8);
   margin: auto;
 }
 
 #hero-header {
   font-size: 80px;
   color: #ffffff;
+}
+
+#sub-header {
+  color: var(--divita-blue);
+  margin-top: 20px;
+  line-height: 36px;
+}
+
+.hero-button {
+  all: unset;
+  background-color: var(--divita-teal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.hero-button:hover {
+  background-color: #ffffff;
+  color: var(--divita-dark-grey);
 }
