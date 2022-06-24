@@ -54,6 +54,7 @@ export function kidTasks() {
             <button class="formBtn" id="backBtn">Cancel</button>
         </div>
         </form>
+        <div id="message-box" class="errors"></div>
         `,
       });
       const backBtn = taskForm.querySelector("#backBtn");
@@ -63,8 +64,6 @@ export function kidTasks() {
       const addTaskForm = taskForm.querySelector("#addTaskForm");
       addTaskForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        app.innerHTML = "";
-        loaderWrapper.style.display = "flex";
 
         const formData = new FormData(addTaskForm);
         console.log(formData.get("expiry-date"));
@@ -80,11 +79,29 @@ export function kidTasks() {
           category: formData.get("category"),
         };
 
-        axios.post("/api/kids/task", data).then((response) => {
-          console.log(response);
-          // location.reload();
-          renderPage();
-        });
+        const errorHandling = errorHandlingFunc(data);
+        const errorMessage = document.getElementById("message-box");
+
+        if (errorHandling !== true) {
+          errorMessage.textContent = errorHandling;
+          errorMessage.style.display = "block";
+        } else {
+          axios.post("/api/kids/task", data).then((response) => {
+            app.innerHTML = "";
+            loaderWrapper.style.display = "flex";
+            console.log(response);
+
+            renderPage();
+          });
+        }
+
+        function errorHandlingFunc(data) {
+          if (!data.expiry) {
+            return "Fill in all of the fields";
+          } else {
+            return true;
+          }
+        }
       });
 
       app.innerHTML = "";
