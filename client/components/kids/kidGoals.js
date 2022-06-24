@@ -70,12 +70,18 @@ export function kidGoals() {
     const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`
 
     for (const goal of kidGoals) {
+      
+      
       if (goal.cents) {
+        const amountAchieved = (goal.allocated_cents / goal.cents).toFixed(2) * 100
+        
+
         const newGoal = createAnElement("div", {
           className: "goal item",
+          id: "goal-container",
           innerHTML: `
-                <p>${goal.description}</p>
-                <p>$${goal.cents * 0.01}</p>
+                <p id="goal-d">${goal.description}</p>
+                <p id="goal-c">$${goal.cents * 0.01}</p>
                 <form id="allocate">
                   <input type="number" name="all-cents" placeholder="$" class="numeral">
                   <input type="submit" value="+">
@@ -83,9 +89,21 @@ export function kidGoals() {
                 <form class="delete-goal">
                   <input type="submit" value="X">
                 </form>
+                <form class="redeem-goal">
+                  <input type="submit" value="X">
+                </form>
+                <div class="progress">
+	                <div class="progress-done" data-done="${amountAchieved}">
+		                $${(goal.allocated_cents * 0.01).toFixed(2)}
+	                </div>
+                </div>
                 `,
         });
-
+// code for showing progress on allocated goals button
+        const progress = newGoal.querySelector('.progress-done');
+        progress.style.width = progress.getAttribute('data-done') + '%';
+        progress.style.opacity = 1;
+// code for the deleting goals button 
         const deleteButton = newGoal.querySelector(".delete-goal");
         deleteButton.addEventListener("submit", event => {
           event.preventDefault()
@@ -114,22 +132,35 @@ export function kidGoals() {
       } 
       
       else if (goal.points) {
-
+        const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100
+        console.log(amountAchieved)
 
         const newGoal = createAnElement("div", {
           className: "goal item",
+          id: "goal-container",
           innerHTML: `
-                <p>${goal.description}</p>
-                <p>${goal.points} points</p>
-                <form id="allocate">
-                  <input type="number" name="all-points" placeholder="Pts" class="numeral">
-                  <input type="submit" value="+">
-              </form>
-              <form class="delete-goal">
-                <input type="submit" value="X">
-              </form>
+            <p id="goal-d">${goal.description}</p>
+            <p id="goal-c">${goal.points} pts</p>
+            <form id="allocate">
+              <input type="number" name="all-cents" placeholder="pts" class="numeral">
+              <input type="submit" value="+">
+            </form>
+            <form class="delete-goal">
+              <input type="submit" value="X">
+            </form>
+            <form class="redeem-goal">
+              <input type="submit" value="X">
+            </form>
+            <div class="progress">
+              <div class="progress-done" data-done="${amountAchieved}">
+                ${(goal.allocated_points)} pts
+              </div>
+            </div>
                 `,
         });
+        const progress = newGoal.querySelector('.progress-done');
+        progress.style.width = progress.getAttribute('data-done') + '%';
+        progress.style.opacity = 1;
 
         const deleteButton = newGoal.querySelector(".delete-goal");
         deleteButton.addEventListener("submit", event => {

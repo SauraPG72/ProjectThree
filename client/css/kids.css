@@ -71,6 +71,52 @@
 .goal {
   background-color: var(--divita-teal);
 }
+/* This is each goal div  */
+#goal-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr 1fr 1fr;
+  grid-template-rows: 8fr 1fr;
+  grid-template-areas: 
+  "description cents allocate delete redeem"
+  "progress progress progress progress progress"
+  ;
+}
+#goal-d{
+  grid-area: description;
+}
+#goal-c {
+  grid-area: cents;
+}
+#allocate {
+  grid-area: allocate;
+  width: 50px;
+}
+#allocate > input {
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0
+}
+.delete-goal {
+  grid-area: delete;
+}
+.redeem-goal {
+  grid-area: redeem;
+}
+
+.progress {
+  grid-area: progress;
+  
+  background-color: var(--divita-light-grey);
+	border-radius: 6px;
+}
+.progress-done {
+  background-color: var(--divita-blue);
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* this is where the goal div styling ends */
 
 .formWrapper {
   width: 60%;
@@ -85,15 +131,7 @@
   color: var(--divita-cream);
 }
 
-#allocate {
-  width: 50px;
-}
-#allocate > input {
-  width: 100%;
-  text-align: center;
-  border-radius: 6px;
-  padding: 0
-}
+
 
 .main-container {
   min-height: 80vh;
