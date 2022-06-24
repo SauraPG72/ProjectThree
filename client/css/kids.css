@@ -79,7 +79,7 @@
 #goal-container {
   display: grid;
   grid-template-columns: 3fr 1fr 2fr 1fr 1fr;
-  grid-template-rows: 8fr 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas: 
   "description cents allocate delete redeem"
   "progress progress progress progress progress"
@@ -118,6 +118,7 @@
   background-color: var(--divita-blue);
   border-radius: 6px;
   text-align: center;
+  display: flex;
 }
 
 /* this is where the goal div styling ends */
@@ -130,11 +131,14 @@
   align-items: center;
 }
 
-.item.pending.task {
+.item.pending.task, .item.pending.goal {
   background-color: var(--divita-dark-grey);
   color: var(--divita-cream);
 }
-
+.item.pending.goal {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 .main-container {
