@@ -18,6 +18,7 @@ export function createTaskPage(childInfoObj) {
     "Sports",
     "Academic",
     "Art",
+    "Errands",
   ];
 
   //============= create html elements =============

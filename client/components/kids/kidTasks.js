@@ -47,6 +47,8 @@ export function kidTasks() {
               <option value="House Chores">House Chores</option>
               <option value="Academic">Academic</option>
               <option value="Art">Art</option>
+              <option value="Sports">Sports</option>
+              <option value="Sports">Errands</option>
             </select>
           </div>
           <div class="buttonsWrapper">
@@ -160,12 +162,12 @@ export function kidTasks() {
           className: "task item",
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
-          <p>${task.description}<p>
-		  <div class="amount-and-buttons">
-          <p>${task.points} pts</p>
-			<i class="fa-solid fa-circle-check green complete-task"></i>
-			<i class="fa-solid fa-circle-xmark red delete-task"></i>
-		  </div>
+            <p>${task.description}<p>
+            <div class="amount-and-buttons">
+                <p>${task.points} pts</p>
+              <i class="fa-solid fa-circle-check green complete-task"></i>
+              <i class="fa-solid fa-circle-xmark red delete-task"></i>
+            </div>
           `,
         });
 
