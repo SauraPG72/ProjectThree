@@ -48,6 +48,8 @@ export function postTask(form) {
     // post data to the server
     axios.post("/api/parents/task", jsonForm).then((res) => {
       console.log(res);
+      app.innerHTML = "";
+      loaderWrapper.style.display = "flex";
     });
     renderPage();
   }
@@ -73,6 +75,8 @@ function errorHandlingForCreatingTask(form) {
     return "Input correct Reward.";
   } else if (form.category == "Select a category") {
     return "Select a category";
+  } else if (!inputs.expiry_date) {
+    return "Fill in all the blanks.";
   } else if (filteredInputs.length !== 5) {
     return "Fill in all the blanks.";
   } else {
