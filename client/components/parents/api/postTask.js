@@ -66,7 +66,6 @@ function errorHandlingForCreatingTask(form) {
     form.cents,
     form.expiry_date,
   ];
-  console.log(inputs);
 
   const filteredInputs = inputs.filter(Boolean);
 
@@ -76,6 +75,8 @@ function errorHandlingForCreatingTask(form) {
     return "Input correct Reward.";
   } else if (form.category == "Select a category") {
     return "Select a category";
+  } else if (!inputs[5]) {
+    return "Fill in all the blanks.";
   } else if (filteredInputs.length < 5) {
     return "Fill in all the blanks.";
   } else {
