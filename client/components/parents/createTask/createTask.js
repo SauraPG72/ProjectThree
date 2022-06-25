@@ -18,6 +18,7 @@ export function createTaskPage(childInfoObj) {
     "Sports",
     "Academic",
     "Art",
+    "Errands",
   ];
 
   //============= create html elements =============
@@ -92,6 +93,7 @@ export function createTaskPage(childInfoObj) {
 
   const errorMessage = createAnElement("p", {
     id: "error-message",
+    className: "errors",
     type: "hidden",
   });
 
@@ -112,8 +114,7 @@ export function createTaskPage(childInfoObj) {
   // ============= event listeners =============
   button.addEventListener("click", (e) => {
     e.preventDefault();
-    app.innerHTML = "";
-    loaderWrapper.style.display = "flex";
+
     postTask(form);
   });
   returnButton.addEventListener("click", (e) => {

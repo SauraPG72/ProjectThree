@@ -47,20 +47,25 @@ export function kidTasks() {
               <option value="House Chores">House Chores</option>
               <option value="Academic">Academic</option>
               <option value="Art">Art</option>
+              <option value="Sports">Sports</option>
+              <option value="Sports">Errands</option>
             </select>
           </div>
           <div class="buttonsWrapper">
             <button type="submit" class="formBtn confirmBtn">Submit</button>
-            <button class="formBtn">Cancel</button>
+            <button class="formBtn" id="backBtn">Cancel</button>
         </div>
         </form>
+        <div id="message-box" class="errors"></div>
         `,
+      });
+      const backBtn = taskForm.querySelector("#backBtn");
+      backBtn.addEventListener("click", () => {
+        renderPage();
       });
       const addTaskForm = taskForm.querySelector("#addTaskForm");
       addTaskForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        app.innerHTML = "";
-        loaderWrapper.style.display = "flex";
 
         const formData = new FormData(addTaskForm);
         console.log(formData.get("expiry-date"));
@@ -76,11 +81,29 @@ export function kidTasks() {
           category: formData.get("category"),
         };
 
-        axios.post("/api/kids/task", data).then((response) => {
-          console.log(response);
-          // location.reload();
-          renderPage();
-        });
+        const errorHandling = errorHandlingFunc(data);
+        const errorMessage = document.getElementById("message-box");
+
+        if (errorHandling !== true) {
+          errorMessage.textContent = errorHandling;
+          errorMessage.style.display = "block";
+        } else {
+          axios.post("/api/kids/task", data).then((response) => {
+            app.innerHTML = "";
+            loaderWrapper.style.display = "flex";
+            console.log(response);
+
+            renderPage();
+          });
+        }
+
+        function errorHandlingFunc(data) {
+          if (!data.expiry) {
+            return "Fill in all of the fields";
+          } else {
+            return true;
+          }
+        }
       });
 
       app.innerHTML = "";
@@ -139,12 +162,12 @@ export function kidTasks() {
           className: "task item",
           textContent: `${task.description}  ${task.points} pts`,
           innerHTML: `
-          <p>${task.description}<p>
-		  <div class="amount-and-buttons">
-          <p>${task.points} pts</p>
-			<i class="fa-solid fa-circle-check green complete-task"></i>
-			<i class="fa-solid fa-circle-xmark red delete-task"></i>
-		  </div>
+            <p>${task.description}<p>
+            <div class="amount-and-buttons">
+                <p>${task.points} pts</p>
+              <i class="fa-solid fa-circle-check green complete-task"></i>
+              <i class="fa-solid fa-circle-xmark red delete-task"></i>
+            </div>
           `,
         });
 

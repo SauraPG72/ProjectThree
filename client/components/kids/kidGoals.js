@@ -34,18 +34,20 @@ export function kidGoals() {
               <input type="number" name="all-cents" placeholder="Allocate money/points">
               <div class="buttonsWrapper">
                 <button type="submit" class="formBtn confirmBtn">Submit</button>
-                <button class="formBtn">Cancel</button>
+                <button class="formBtn" id="backBtn">Cancel</button>
               </div>
             </form>
+            <div id="message-box" class="errors"></div>
             `,
+      });
+      const backBtn = addGoals.querySelector("#backBtn");
+      backBtn.addEventListener("click", () => {
+        renderPage();
       });
       const addGoalsForm = addGoals.querySelector("#addGoalsForm");
       addGoalsForm.addEventListener("submit", (event) => {
         console.log(event);
         event.preventDefault();
-        app.innerHTML = "";
-
-        loaderWrapper.style.display = "flex";
 
         const formData = new FormData(addGoalsForm);
         const data = {
@@ -54,11 +56,29 @@ export function kidGoals() {
           currency: formData.get("currency"),
           allCents: formData.get("all-cents"),
         };
-        axios.post("/api/kids/goals", data).then((response) => {
-          console.log(response);
-          // location.reload();
-          renderPage();
-        });
+
+        const errorHandling = errorHandlingFunc(data);
+        const errorMessage = document.getElementById("message-box");
+
+        if (errorHandling !== true) {
+          errorMessage.textContent = errorHandling;
+          errorMessage.style.display = "block";
+        } else {
+          axios.post("/api/kids/goals", data).then((response) => {
+            console.log(response);
+            app.innerHTML = "";
+            loaderWrapper.style.display = "flex";
+            // location.reload();
+            renderPage();
+          });
+        }
+        function errorHandlingFunc(data) {
+          if (!data.description || !data.cents) {
+            return "Fill in all of the fields";
+          } else {
+            return true;
+          }
+        }
       });
       app.innerHTML = "";
       app.appendChild(addGoals);
@@ -71,11 +91,9 @@ export function kidGoals() {
     const xMark = `<i class="fa-solid fa-circle-xmark red delete"></i>`;
 
     for (const goal of kidGoals) {
-      
-      
       if (goal.cents) {
-        const amountAchieved = (goal.allocated_cents / goal.cents).toFixed(2) * 100
-        
+        const amountAchieved =
+          (goal.allocated_cents / goal.cents).toFixed(2) * 100;
 
         const newGoal = createAnElement("div", {
           className: "goal item",
@@ -97,17 +115,16 @@ export function kidGoals() {
                 </div>
                 `,
         });
-// code for showing progress on allocated goals button
-        const progress = newGoal.querySelector('.progress-done');
-        progress.style.width = progress.getAttribute('data-done') + '%';
+        // code for showing progress on allocated goals button
+        const progress = newGoal.querySelector(".progress-done");
+        progress.style.width = progress.getAttribute("data-done") + "%";
         progress.style.opacity = 1;
-// code for the deleting goals button 
+        // code for the deleting goals button
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("click", event => {
-          event.preventDefault()
-          completeDeleteGoal("delete", goal)
-
-        })
+        deleteButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
+        });
 
         const allocate = newGoal.querySelector("#allocate");
 
@@ -126,21 +143,19 @@ export function kidGoals() {
             renderPage();
           });
         });
-// code for redeeming points 
+        // code for redeeming points
         if (goal.cents == goal.allocated_cents) {
-          const redeemButton = newGoal.querySelector('.redeem-goal');
+          const redeemButton = newGoal.querySelector(".redeem-goal");
           redeemButton.addEventListener("click", (event) => {
-            event.preventDefault()
-            completeDeleteGoal("redeem", goal)
-          })
+            event.preventDefault();
+            completeDeleteGoal("redeem", goal);
+          });
         }
 
         goalsListContainer.appendChild(newGoal);
-      } 
-      
-      else if (goal.points && goal.status == "approved") {
-        
-        const amountAchieved = (goal.allocated_points / goal.points).toFixed(2) * 100;
+      } else if (goal.points && goal.status == "approved") {
+        const amountAchieved =
+          (goal.allocated_points / goal.points).toFixed(2) * 100;
         const newGoal = createAnElement("div", {
           className: "goal item",
           id: "goal-container",
@@ -155,21 +170,20 @@ export function kidGoals() {
             <i class="fa-solid fa-circle-xmark red delete-task delete-goal"></i>
             <div class="progress">
               <div class="progress-done" data-done="${amountAchieved}">
-               ${(goal.allocated_points)}pts 
+               ${goal.allocated_points}pts 
               </div>
             </div>
                 `,
         });
-        const progress = newGoal.querySelector('.progress-done');
-        progress.style.width = progress.getAttribute('data-done') + '%';
+        const progress = newGoal.querySelector(".progress-done");
+        progress.style.width = progress.getAttribute("data-done") + "%";
         progress.style.opacity = 1;
 
         const deleteButton = newGoal.querySelector(".delete-goal");
-        deleteButton.addEventListener("click", event => {
-          event.preventDefault()
-          completeDeleteGoal("delete", goal)
-
-        })
+        deleteButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          completeDeleteGoal("delete", goal);
+        });
 
         const allocate = newGoal.querySelector("#allocate");
         allocate.addEventListener("submit", (e) => {
@@ -182,32 +196,31 @@ export function kidGoals() {
 
           axios.post("/api/kids/all-points", allocateObj).then((res) => {
             console.log(res);
-            
+
             renderPage();
           });
         });
         // code for redeeming a points based task
         if (goal.points == goal.allocated_points) {
-          const redeemButton = newGoal.querySelector('.redeem-goal');
+          const redeemButton = newGoal.querySelector(".redeem-goal");
           redeemButton.addEventListener("click", (event) => {
-            event.preventDefault()
-            completeDeleteGoal("redeem", goal)
-          })
+            event.preventDefault();
+            completeDeleteGoal("redeem", goal);
+          });
         }
         goalsListContainer.appendChild(newGoal);
-      }
-    else {
-      const newGoal = createAnElement("div", {
-        className: "item pending goal",
-        
-        innerHTML: `
+      } else {
+        const newGoal = createAnElement("div", {
+          className: "item pending goal",
+
+          innerHTML: `
           <p id="goal-d">${goal.description}</p>
           <p id="goal-c">${goal.points} pts</p>
           
               `,
-      });
-      goalsListContainer.appendChild(newGoal)
-    }
+        });
+        goalsListContainer.appendChild(newGoal);
+      }
     }
     goalsBoxFinal.append(goalsListContainer);
 
