@@ -40,7 +40,7 @@ export function postTask(form) {
   // if so, pops up an error message on the screen
   const errorHandling = errorHandlingForCreatingTask(jsonForm);
   const errorMessage = document.getElementById("error-message");
-  if (errorHandling !== true) {
+  if (errorHandling != true) {
     errorMessage.textContent = errorHandling;
     errorMessage.style.display = "block";
   } else {
@@ -75,9 +75,9 @@ function errorHandlingForCreatingTask(form) {
     return "Input correct Reward.";
   } else if (form.category == "Select a category") {
     return "Select a category";
-  } else if (!inputs.expiry_date) {
+  } else if (!inputs[5]) {
     return "Fill in all the blanks.";
-  } else if (filteredInputs.length !== 5) {
+  } else if (filteredInputs.length < 5) {
     return "Fill in all the blanks.";
   } else {
     return true;
